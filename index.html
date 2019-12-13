@@ -224,6 +224,77 @@
 
 
   
+    <article id="post-Centos7安装pig" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85pig/">Centos7安装pig</a>
+    </h1>
+  
+
+        
+        <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85pig/" class="archive-article-date">
+  	<time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>pig的部署<br>选一台机器，本部署选master<br>1.上传pig包<br>本次安装上传到 /opt下<br>2. 解压<br>#cd  /opt<br>#tar  -zxvf  pig….</p>
+<ol start="3">
+<li><p>迁移<br>迁移的目的是为了简化目录名<br>#cd  /opt<br>#mkdir  pig<br>#mv   /opt/pig…/*     /opt/pig/</p>
+</li>
+<li><p>配置环境变量<br>#vi  /etc/profile<br>增加<br>export  PIG_HOME=/opt/pig<br>PATH=$PATH:…:$PIG_HOME/bin<br>PIG_CLASSPATH=/opt/hadoop/etc/hadoop<br>#source  /etc/profile    （别忘了）</p>
+</li>
+<li><p>启动pig<br>#pig</p>
+</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85pig/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Centos7安装hbase" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -302,168 +373,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85hbase/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Centos7安装pig" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85pig/">Centos7安装pig</a>
-    </h1>
-  
-
-        
-        <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85pig/" class="archive-article-date">
-  	<time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>pig的部署<br>选一台机器，本部署选master<br>1.上传pig包<br>本次安装上传到 /opt下<br>2. 解压<br>#cd  /opt<br>#tar  -zxvf  pig….</p>
-<ol start="3">
-<li><p>迁移<br>迁移的目的是为了简化目录名<br>#cd  /opt<br>#mkdir  pig<br>#mv   /opt/pig…/*     /opt/pig/</p>
-</li>
-<li><p>配置环境变量<br>#vi  /etc/profile<br>增加<br>export  PIG_HOME=/opt/pig<br>PATH=$PATH:…:$PIG_HOME/bin<br>PIG_CLASSPATH=/opt/hadoop/etc/hadoop<br>#source  /etc/profile    （别忘了）</p>
-</li>
-<li><p>启动pig<br>#pig</p>
-</li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85pig/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Centos7安装spark" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85spark/">Centos7安装spark</a>
-    </h1>
-  
-
-        
-        <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85spark/" class="archive-article-date">
-  	<time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在hadoop+zookeeper安装之后的安装<br>（继hadoop安装之后，hadoop的3台机器的HOSTS如下：）<br>192.169.200.101  master<br>192.169.200.102  slaver1<br>192.169.200.103  slaver2</p>
-<p>1.上传包文件<br>本次安装上传到/opt<br>2.解压：<br>    tar -zxvf  /opt/ spark…..<br>3. 迁移<br>   迁移的目的是为了简化目录名<br>#cd  /opt<br>#mkdir  spark<br>#mv   /opt/spark…/*     /opt/spark/</p>
-<ol start="4">
-<li>配置</li>
-</ol>
-<p>(1)spark-env.sh<br>#vi  /opt/spark/conf/spark-env.sh<br>export JAVA_HOME=/opt/jdk1.8.0_77</p>
-<p>export HADOOP_HOME=/opt/hadoop<br>export HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop</p>
-<p>export SPARK_HOME=/opt/spark<br>export SPARK_LIBRARY_PATH=${SPARK_HOME}/lib<br>export SCALA_LIBRARY_PATH=${SPARK_HOME}/lib</p>
-<p>export SPARK_LOCAL_IP=192.169.200.101</p>
-<p>export SPARK_MASTER_HOST=192.169.200.101<br>export SPARK_MASTER_IP=192.169.200.101<br>export SPARK_MASTER_PORT=7077<br>export SPARK_MASTER_WEBUI_PORT=8080</p>
-<p>export SPARK_WORKER_CORES=2<br>export SPARK_WORKER_MEMORY=2G<br>export SPARK_WORKER_PORT=7078<br>export SPARK_WORKER_WEBUI_PORT=8081<br>export SPARK_WORKER_INSTANCES=1<br>export SPARK_WORKER_MEMORY=1G<br>export SPARK_HISTORY_OPTS=”-Dspark.history.fs.logDirectory=hdfs://master:9000/spark/job/history”</p>
-<p>#source  /etc/profile    （别忘了）</p>
-<p>(2)配置spark-defaults.conf<br>#vi  /opt/spark/conf/spark-defaults.conf<br>spark.eventLog.enabled           true<br>spark.eventLog.dir               hdfs://master:9000/spark/job/history</p>
-<p>(3)配置slaves<br>#vi  /opt/spark/conf/slaves<br>master<br>slaver1<br>slaver2<br>(该文件中只有这三行)</p>
-<ol start="5">
-<li>在hdfs系统中创建目录<br>##在master机上操作<br>#hdfs   dfs  -mkdir  /spark<br>#hdfs   dfs  -mkdir  /spark/job<br>#hdfs   dfs  -mkdir  /spark/job/history<br>#hdfs   dfs  -chmod  -R  755  /spark</li>
-</ol>
-<ol start="6">
-<li><p>节点分发<br>##从master节点向slaver1和slaver2分发<br>#scp  -r  /opt/ spark/   slaver1:/opt/<br>#scp  -r  /opt/ spark/   slaver2:/opt/</p>
-</li>
-<li><p>配置环境变量<br>需要在三台机器上都要做<br>#vi  /etc/profile<br>export JAVA_HOME=/opt/jdk1.8.0_77<br>export  HADOOP_HOME=/opt/hadoop<br>export  HBASE_HOME=/opt/hbase<br>export  SPARK_HOME=/opt/spark<br>export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$HBASE_HOME/bin:$SPARK_HOME/bin:$SPARK_HOME/sbin</p>
-</li>
-</ol>
-<p>#source  /etc/profile</p>
-<ol start="8">
-<li>修改slaver1和slaver2上的spark-env.sh<br>（1）##slaver1<br>export SPARK_LOCAL_IP=192.169.200.102<br>（2）##slaver2<br>export SPARK_LOCAL_IP=192.169.200.103</li>
-<li>启动<br>都是master机上执行<br>#cd /opt/spark/sbin<br>#start-master.sh<br>#start-slave.sh  spark://192.168.200.102:7077<br>#start-slave.sh  spark://192.168.200.103:7077<br>#spark-shell</li>
-</ol>
-<p>查看web页面;<a href="http://192.169.200.101:8080/" target="_blank" rel="noopener">http://192.169.200.101:8080/</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85spark/">展开全文 >></a>
         </p>
       
 
@@ -659,6 +568,97 @@ select host,user from user;</code></pre><p>退出数据库<br>进入 master<br>�
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/12/13/Centos7%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E5%87%86%E5%A4%87/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Centos7安装spark" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85spark/">Centos7安装spark</a>
+    </h1>
+  
+
+        
+        <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85spark/" class="archive-article-date">
+  	<time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在hadoop+zookeeper安装之后的安装<br>（继hadoop安装之后，hadoop的3台机器的HOSTS如下：）<br>192.169.200.101  master<br>192.169.200.102  slaver1<br>192.169.200.103  slaver2</p>
+<p>1.上传包文件<br>本次安装上传到/opt<br>2.解压：<br>    tar -zxvf  /opt/ spark…..<br>3. 迁移<br>   迁移的目的是为了简化目录名<br>#cd  /opt<br>#mkdir  spark<br>#mv   /opt/spark…/*     /opt/spark/</p>
+<ol start="4">
+<li>配置</li>
+</ol>
+<p>(1)spark-env.sh<br>#vi  /opt/spark/conf/spark-env.sh<br>export JAVA_HOME=/opt/jdk1.8.0_77</p>
+<p>export HADOOP_HOME=/opt/hadoop<br>export HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop</p>
+<p>export SPARK_HOME=/opt/spark<br>export SPARK_LIBRARY_PATH=${SPARK_HOME}/lib<br>export SCALA_LIBRARY_PATH=${SPARK_HOME}/lib</p>
+<p>export SPARK_LOCAL_IP=192.169.200.101</p>
+<p>export SPARK_MASTER_HOST=192.169.200.101<br>export SPARK_MASTER_IP=192.169.200.101<br>export SPARK_MASTER_PORT=7077<br>export SPARK_MASTER_WEBUI_PORT=8080</p>
+<p>export SPARK_WORKER_CORES=2<br>export SPARK_WORKER_MEMORY=2G<br>export SPARK_WORKER_PORT=7078<br>export SPARK_WORKER_WEBUI_PORT=8081<br>export SPARK_WORKER_INSTANCES=1<br>export SPARK_WORKER_MEMORY=1G<br>export SPARK_HISTORY_OPTS=”-Dspark.history.fs.logDirectory=hdfs://master:9000/spark/job/history”</p>
+<p>#source  /etc/profile    （别忘了）</p>
+<p>(2)配置spark-defaults.conf<br>#vi  /opt/spark/conf/spark-defaults.conf<br>spark.eventLog.enabled           true<br>spark.eventLog.dir               hdfs://master:9000/spark/job/history</p>
+<p>(3)配置slaves<br>#vi  /opt/spark/conf/slaves<br>master<br>slaver1<br>slaver2<br>(该文件中只有这三行)</p>
+<ol start="5">
+<li>在hdfs系统中创建目录<br>##在master机上操作<br>#hdfs   dfs  -mkdir  /spark<br>#hdfs   dfs  -mkdir  /spark/job<br>#hdfs   dfs  -mkdir  /spark/job/history<br>#hdfs   dfs  -chmod  -R  755  /spark</li>
+</ol>
+<ol start="6">
+<li><p>节点分发<br>##从master节点向slaver1和slaver2分发<br>#scp  -r  /opt/ spark/   slaver1:/opt/<br>#scp  -r  /opt/ spark/   slaver2:/opt/</p>
+</li>
+<li><p>配置环境变量<br>需要在三台机器上都要做<br>#vi  /etc/profile<br>export JAVA_HOME=/opt/jdk1.8.0_77<br>export  HADOOP_HOME=/opt/hadoop<br>export  HBASE_HOME=/opt/hbase<br>export  SPARK_HOME=/opt/spark<br>export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$HBASE_HOME/bin:$SPARK_HOME/bin:$SPARK_HOME/sbin</p>
+</li>
+</ol>
+<p>#source  /etc/profile</p>
+<ol start="8">
+<li>修改slaver1和slaver2上的spark-env.sh<br>（1）##slaver1<br>export SPARK_LOCAL_IP=192.169.200.102<br>（2）##slaver2<br>export SPARK_LOCAL_IP=192.169.200.103</li>
+<li>启动<br>都是master机上执行<br>#cd /opt/spark/sbin<br>#start-master.sh<br>#start-slave.sh  spark://192.168.200.102:7077<br>#start-slave.sh  spark://192.168.200.103:7077<br>#spark-shell</li>
+</ol>
+<p>查看web页面;<a href="http://192.169.200.101:8080/" target="_blank" rel="noopener">http://192.169.200.101:8080/</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85spark/">展开全文 >></a>
         </p>
       
 
