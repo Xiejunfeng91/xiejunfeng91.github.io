@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="土豆工程师！">
 <meta property="og:description" content="安装haodoop集群 需要用到的安装包有        jdk1.8.0_77        hadoop-2.7.7.tar.gz        zookeeper-3.4.14        mysql-5.7.28-el7-x86_64.tar    （装在slaver2）        apache-hive-3.1.2-bin.tar.gz        mysql-connector">
 <meta property="article:published_time" content="2019-12-13T07:45:47.000Z">
-<meta property="article:modified_time" content="2019-12-13T09:35:19.058Z">
+<meta property="article:modified_time" content="2019-12-13T11:28:36.559Z">
 <meta property="article:author" content="Xiejunfeng">
 <meta name="twitter:card" content="summary">
   
@@ -162,7 +162,7 @@
         <p>安装haodoop集群 需要用到的安装包有<br>        jdk1.8.0_77<br>        hadoop-2.7.7.tar.gz<br>        zookeeper-3.4.14<br>        mysql-5.7.28-el7-x86_64.tar    （装在slaver2）<br>        apache-hive-3.1.2-bin.tar.gz<br>        mysql-connector-java-5.1.48.tar (mysql驱动 装在master)<br>        spark-2.4.4-bin-hadoop2.7.tar.tgz<br>        pig-0.16.0.tar.gz</p>
 <p>安装顺序<br>1: hadoop<br>2: zookeeper<br>3: habse<br>4: spark<br>5: hive<br>6：pig</p>
 <p>文件集合包下载地址：</p>
-<p><a href="http://xa.xyggaka.cn:10108/api/raw/soft/SSR/hadoop%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E9%9B%86%E5%90%88.zip?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo2LCJsb2NhbGUiOiJ6aC1jbiIsInZpZXdNb2RlIjoibW9zYWljIiwic2hvd0hpZGRlbiI6ZmFsc2UsInBlcm0iOnsiYWRtaW4iOmZhbHNlLCJleGVjdXRlIjpmYWxzZSwiY3JlYXRlIjp0cnVlLCJyZW5hbWUiOnRydWUsIm1vZGlmeSI6dHJ1ZSwiZGVsZXRlIjpmYWxzZSwic2hhcmUiOmZhbHNlLCJkb3dubG9hZCI6dHJ1ZX0sImNvbW1hbmRzIjpbXSwibG9ja1Bhc3N3b3JkIjp0cnVlLCJvdHAiOmZhbHNlLCJvdHBLZXkiOiIifSwiZXhwIjoxNTc2MjUyNTEzLCJpYXQiOjE1NzYyMjczMTMsImlzcyI6IkZpbGUgQnJvd3NlciAgdjIuOC43L2NiNjg5ZTgzXG5CdWlsdCBGb3IgICA6IGxpbnV4L2FybTY0XG5HbyBWZXJzaW9uICA6IGdvMS4xMy40XG5SZWxlYXNlIERhdGU6IDIwMTkxMTA2LTEyNTAifQ.LhE1RzlwfyzYgTj4vulHUWHIyK6qUTarbDDHAxRc8H8&amp;inline=true" target="_blank" rel="noopener">http://xa.xyggaka.cn:10108/api/raw/soft/SSR/hadoop%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E9%9B%86%E5%90%88.zip?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo2LCJsb2NhbGUiOiJ6aC1jbiIsInZpZXdNb2RlIjoibW9zYWljIiwic2hvd0hpZGRlbiI6ZmFsc2UsInBlcm0iOnsiYWRtaW4iOmZhbHNlLCJleGVjdXRlIjpmYWxzZSwiY3JlYXRlIjp0cnVlLCJyZW5hbWUiOnRydWUsIm1vZGlmeSI6dHJ1ZSwiZGVsZXRlIjpmYWxzZSwic2hhcmUiOmZhbHNlLCJkb3dubG9hZCI6dHJ1ZX0sImNvbW1hbmRzIjpbXSwibG9ja1Bhc3N3b3JkIjp0cnVlLCJvdHAiOmZhbHNlLCJvdHBLZXkiOiIifSwiZXhwIjoxNTc2MjUyNTEzLCJpYXQiOjE1NzYyMjczMTMsImlzcyI6IkZpbGUgQnJvd3NlciAgdjIuOC43L2NiNjg5ZTgzXG5CdWlsdCBGb3IgICA6IGxpbnV4L2FybTY0XG5HbyBWZXJzaW9uICA6IGdvMS4xMy40XG5SZWxlYXNlIERhdGU6IDIwMTkxMTA2LTEyNTAifQ.LhE1RzlwfyzYgTj4vulHUWHIyK6qUTarbDDHAxRc8H8&amp;inline=true</a></p>
+<p><a href="http://47.240.47.160:18082/api/raw/test/hadoop%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E9%9B%86%E5%90%88.zip?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJsb2NhbGUiOiJ6aC1jbiIsInZpZXdNb2RlIjoibW9zYWljIiwic2hvd0hpZGRlbiI6ZmFsc2UsInBlcm0iOnsiYWRtaW4iOnRydWUsImV4ZWN1dGUiOnRydWUsImNyZWF0ZSI6dHJ1ZSwicmVuYW1lIjp0cnVlLCJtb2RpZnkiOnRydWUsImRlbGV0ZSI6dHJ1ZSwic2hhcmUiOnRydWUsImRvd25sb2FkIjp0cnVlfSwiY29tbWFuZHMiOltdLCJsb2NrUGFzc3dvcmQiOmZhbHNlLCJvdHAiOmZhbHNlLCJvdHBLZXkiOiJIVFpCRkNIQ1JWWVoyVTY3Q01IWU9EQ1JKQUhLRFVDUSJ9LCJleHAiOjE1NzYyNjEyNjYsImlhdCI6MTU3NjIzNjA2NiwiaXNzIjoiRmlsZSBCcm93c2VyICB2Mi44LjcvMjAxMzk4NThcbkJ1aWx0IEZvciAgIDogbGludXgvYW1kNjRcbkdvIFZlcnNpb24gIDogZ28xLjEzLjRcblJlbGVhc2UgRGF0ZTogMjAxOTExMTEtMDI0NyJ9.IWK5mXjWMtfdMhl_Wx92pk1Q5sAIpQHYZ97CI-mb61M&amp;inline=true" target="_blank" rel="noopener">http://47.240.47.160:18082/api/raw/test/hadoop%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E9%9B%86%E5%90%88.zip?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJsb2NhbGUiOiJ6aC1jbiIsInZpZXdNb2RlIjoibW9zYWljIiwic2hvd0hpZGRlbiI6ZmFsc2UsInBlcm0iOnsiYWRtaW4iOnRydWUsImV4ZWN1dGUiOnRydWUsImNyZWF0ZSI6dHJ1ZSwicmVuYW1lIjp0cnVlLCJtb2RpZnkiOnRydWUsImRlbGV0ZSI6dHJ1ZSwic2hhcmUiOnRydWUsImRvd25sb2FkIjp0cnVlfSwiY29tbWFuZHMiOltdLCJsb2NrUGFzc3dvcmQiOmZhbHNlLCJvdHAiOmZhbHNlLCJvdHBLZXkiOiJIVFpCRkNIQ1JWWVoyVTY3Q01IWU9EQ1JKQUhLRFVDUSJ9LCJleHAiOjE1NzYyNjEyNjYsImlhdCI6MTU3NjIzNjA2NiwiaXNzIjoiRmlsZSBCcm93c2VyICB2Mi44LjcvMjAxMzk4NThcbkJ1aWx0IEZvciAgIDogbGludXgvYW1kNjRcbkdvIFZlcnNpb24gIDogZ28xLjEzLjRcblJlbGVhc2UgRGF0ZTogMjAxOTExMTEtMDI0NyJ9.IWK5mXjWMtfdMhl_Wx92pk1Q5sAIpQHYZ97CI-mb61M&amp;inline=true</a></p>
 <p>整段复制到浏览器打开</p>
 
       
@@ -267,18 +267,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85hive/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85spark/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Centos7安装hive
+          Centos7安装spark
         
       </div>
     </a>
   
   
-    <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85spark/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Centos7安装spark</div>
+    <a href="/2019/12/13/Centos7%E6%90%AD%E5%BB%BAHadoop%E9%9B%86%E7%BE%A4/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Centos搭建Hadoop集群</div>
       <i class="icon-circle-right"></i>
     </a>
   
