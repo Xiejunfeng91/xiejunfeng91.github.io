@@ -143,7 +143,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/12/13/Centos7%E5%AE%89%E8%A3%85hbase/" data-id="ck43ye35j0000nxevdr15djhc"
+      <a data-url="http://yoursite.com/2019/12/13/Centos7%E5%AE%89%E8%A3%85hbase/" data-id="ck43yhes20000tvev42ob28to"
         class="article-share-link">分享</a>
       
     </footer>
@@ -226,7 +226,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/12/13/Centos7%E5%AE%89%E8%A3%85mysql%205.7/" data-id="ck43ye35q0001nxev8zue1s1r"
+      <a data-url="http://yoursite.com/2019/12/13/Centos7%E5%AE%89%E8%A3%85mysql%205.7/" data-id="ck43yhes90001tvevfgqd9jo4"
         class="article-share-link">分享</a>
       
     </footer>
@@ -313,7 +313,137 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/12/13/Centos7%E5%AE%89%E8%A3%85spark/" data-id="ck43ye35s0002nxev46w5394i"
+      <a data-url="http://yoursite.com/2019/12/13/Centos7%E5%AE%89%E8%A3%85spark/" data-id="ck43yhesa0002tvev2ut7c8a5"
+        class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-Centos7安装pig" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85pig/"
+    >Centos7安装pig</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85pig/" class="article-date">
+  <time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished">2019-12-13</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>pig的部署<br>选一台机器，本部署选master<br>1.上传pig包<br>本次安装上传到 /opt下<br>2. 解压<br>#cd  /opt<br>#tar  -zxvf  pig….</p>
+<ol start="3">
+<li><p>迁移<br>迁移的目的是为了简化目录名<br>#cd  /opt<br>#mkdir  pig<br>#mv   /opt/pig…/*     /opt/pig/</p>
+</li>
+<li><p>配置环境变量<br>#vi  /etc/profile<br>增加<br>export  PIG_HOME=/opt/pig<br>PATH=$PATH:…:$PIG_HOME/bin<br>PIG_CLASSPATH=/opt/hadoop/etc/hadoop<br>#source  /etc/profile    （别忘了）</p>
+</li>
+<li><p>启动pig<br>#pig</p>
+</li>
+</ol>
+
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/12/13/Centos7%E5%AE%89%E8%A3%85pig/" data-id="ck43yhesb0003tvev1bnk272n"
+        class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-Centos7搭建hadoop集群准备" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/12/13/Centos7%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E5%87%86%E5%A4%87/"
+    >Centos7搭建hadoop集群前准备</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/12/13/Centos7%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E5%87%86%E5%A4%87/" class="article-date">
+  <time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished">2019-12-13</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>安装haodoop集群 需要用到的安装包有<br>        jdk1.8.0_77<br>        hadoop-2.7.7.tar.gz<br>        zookeeper-3.4.14<br>        mysql-5.7.28-el7-x86_64.tar    （装在slaver2）<br>        apache-hive-3.1.2-bin.tar.gz<br>        mysql-connector-java-5.1.48.tar (mysql驱动 装在master)<br>        spark-2.4.4-bin-hadoop2.7.tar.tgz<br>        pig-0.16.0.tar.gz</p>
+<p>安装顺序<br>1: hadoop<br>2: zookeeper<br>3: habse<br>4: spark<br>5: hive<br>6：pig</p>
+<p>文件集合包下载地址：</p>
+<p><a href="http://xa.xyggaka.cn:10108/api/raw/soft/SSR/hadoop%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E9%9B%86%E5%90%88.zip?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo2LCJsb2NhbGUiOiJ6aC1jbiIsInZpZXdNb2RlIjoibW9zYWljIiwic2hvd0hpZGRlbiI6ZmFsc2UsInBlcm0iOnsiYWRtaW4iOmZhbHNlLCJleGVjdXRlIjpmYWxzZSwiY3JlYXRlIjp0cnVlLCJyZW5hbWUiOnRydWUsIm1vZGlmeSI6dHJ1ZSwiZGVsZXRlIjpmYWxzZSwic2hhcmUiOmZhbHNlLCJkb3dubG9hZCI6dHJ1ZX0sImNvbW1hbmRzIjpbXSwibG9ja1Bhc3N3b3JkIjp0cnVlLCJvdHAiOmZhbHNlLCJvdHBLZXkiOiIifSwiZXhwIjoxNTc2MjUyNTEzLCJpYXQiOjE1NzYyMjczMTMsImlzcyI6IkZpbGUgQnJvd3NlciAgdjIuOC43L2NiNjg5ZTgzXG5CdWlsdCBGb3IgICA6IGxpbnV4L2FybTY0XG5HbyBWZXJzaW9uICA6IGdvMS4xMy40XG5SZWxlYXNlIERhdGU6IDIwMTkxMTA2LTEyNTAifQ.LhE1RzlwfyzYgTj4vulHUWHIyK6qUTarbDDHAxRc8H8&amp;inline=true" target="_blank" rel="noopener">http://xa.xyggaka.cn:10108/api/raw/soft/SSR/hadoop%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E9%9B%86%E5%90%88.zip?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo2LCJsb2NhbGUiOiJ6aC1jbiIsInZpZXdNb2RlIjoibW9zYWljIiwic2hvd0hpZGRlbiI6ZmFsc2UsInBlcm0iOnsiYWRtaW4iOmZhbHNlLCJleGVjdXRlIjpmYWxzZSwiY3JlYXRlIjp0cnVlLCJyZW5hbWUiOnRydWUsIm1vZGlmeSI6dHJ1ZSwiZGVsZXRlIjpmYWxzZSwic2hhcmUiOmZhbHNlLCJkb3dubG9hZCI6dHJ1ZX0sImNvbW1hbmRzIjpbXSwibG9ja1Bhc3N3b3JkIjp0cnVlLCJvdHAiOmZhbHNlLCJvdHBLZXkiOiIifSwiZXhwIjoxNTc2MjUyNTEzLCJpYXQiOjE1NzYyMjczMTMsImlzcyI6IkZpbGUgQnJvd3NlciAgdjIuOC43L2NiNjg5ZTgzXG5CdWlsdCBGb3IgICA6IGxpbnV4L2FybTY0XG5HbyBWZXJzaW9uICA6IGdvMS4xMy40XG5SZWxlYXNlIERhdGU6IDIwMTkxMTA2LTEyNTAifQ.LhE1RzlwfyzYgTj4vulHUWHIyK6qUTarbDDHAxRc8H8&amp;inline=true</a></p>
+<p>整段复制到浏览器打开</p>
+
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/12/13/Centos7%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E5%87%86%E5%A4%87/" data-id="ck43yhesd0005tvevakmv53em"
         class="article-share-link">分享</a>
       
     </footer>
@@ -437,137 +567,7 @@ select host,user from user;</code></pre><p>退出数据库<br>进入 master<br>�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/12/13/Centos7%E5%AE%89%E8%A3%85hive/" data-id="ck43ye35t0003nxev88f24pku"
-        class="article-share-link">分享</a>
-      
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Centos7安装pig" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85pig/"
-    >Centos7安装pig</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85pig/" class="article-date">
-  <time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished">2019-12-13</time>
-</a>
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>pig的部署<br>选一台机器，本部署选master<br>1.上传pig包<br>本次安装上传到 /opt下<br>2. 解压<br>#cd  /opt<br>#tar  -zxvf  pig….</p>
-<ol start="3">
-<li><p>迁移<br>迁移的目的是为了简化目录名<br>#cd  /opt<br>#mkdir  pig<br>#mv   /opt/pig…/*     /opt/pig/</p>
-</li>
-<li><p>配置环境变量<br>#vi  /etc/profile<br>增加<br>export  PIG_HOME=/opt/pig<br>PATH=$PATH:…:$PIG_HOME/bin<br>PIG_CLASSPATH=/opt/hadoop/etc/hadoop<br>#source  /etc/profile    （别忘了）</p>
-</li>
-<li><p>启动pig<br>#pig</p>
-</li>
-</ol>
-
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/12/13/Centos7%E5%AE%89%E8%A3%85pig/" data-id="ck43ye35u0004nxev7kvgg2zz"
-        class="article-share-link">分享</a>
-      
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Centos7搭建hadoop集群准备" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2019/12/13/Centos7%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E5%87%86%E5%A4%87/"
-    >Centos7安装hbase</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2019/12/13/Centos7%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E5%87%86%E5%A4%87/" class="article-date">
-  <time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished">2019-12-13</time>
-</a>
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>安装haodoop集群 需要用到的安装包有<br>        jdk1.8.0_77<br>        hadoop-2.7.7.tar.gz<br>        zookeeper-3.4.14<br>        mysql-5.7.28-el7-x86_64.tar    （装在slaver2）<br>        apache-hive-3.1.2-bin.tar.gz<br>        mysql-connector-java-5.1.48.tar (mysql驱动 装在master)<br>        spark-2.4.4-bin-hadoop2.7.tar.tgz<br>        pig-0.16.0.tar.gz</p>
-<p>安装顺序<br>1: hadoop<br>2: zookeeper<br>3: habse<br>4: spark<br>5: hive<br>6：pig</p>
-<p>文件集合包下载地址：</p>
-<p><a href="http://xa.xyggaka.cn:10108/api/raw/soft/SSR/hadoop%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E9%9B%86%E5%90%88.zip?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo2LCJsb2NhbGUiOiJ6aC1jbiIsInZpZXdNb2RlIjoibW9zYWljIiwic2hvd0hpZGRlbiI6ZmFsc2UsInBlcm0iOnsiYWRtaW4iOmZhbHNlLCJleGVjdXRlIjpmYWxzZSwiY3JlYXRlIjp0cnVlLCJyZW5hbWUiOnRydWUsIm1vZGlmeSI6dHJ1ZSwiZGVsZXRlIjpmYWxzZSwic2hhcmUiOmZhbHNlLCJkb3dubG9hZCI6dHJ1ZX0sImNvbW1hbmRzIjpbXSwibG9ja1Bhc3N3b3JkIjp0cnVlLCJvdHAiOmZhbHNlLCJvdHBLZXkiOiIifSwiZXhwIjoxNTc2MjUyNTEzLCJpYXQiOjE1NzYyMjczMTMsImlzcyI6IkZpbGUgQnJvd3NlciAgdjIuOC43L2NiNjg5ZTgzXG5CdWlsdCBGb3IgICA6IGxpbnV4L2FybTY0XG5HbyBWZXJzaW9uICA6IGdvMS4xMy40XG5SZWxlYXNlIERhdGU6IDIwMTkxMTA2LTEyNTAifQ.LhE1RzlwfyzYgTj4vulHUWHIyK6qUTarbDDHAxRc8H8&amp;inline=true" target="_blank" rel="noopener">http://xa.xyggaka.cn:10108/api/raw/soft/SSR/hadoop%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E9%9B%86%E5%90%88.zip?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo2LCJsb2NhbGUiOiJ6aC1jbiIsInZpZXdNb2RlIjoibW9zYWljIiwic2hvd0hpZGRlbiI6ZmFsc2UsInBlcm0iOnsiYWRtaW4iOmZhbHNlLCJleGVjdXRlIjpmYWxzZSwiY3JlYXRlIjp0cnVlLCJyZW5hbWUiOnRydWUsIm1vZGlmeSI6dHJ1ZSwiZGVsZXRlIjpmYWxzZSwic2hhcmUiOmZhbHNlLCJkb3dubG9hZCI6dHJ1ZX0sImNvbW1hbmRzIjpbXSwibG9ja1Bhc3N3b3JkIjp0cnVlLCJvdHAiOmZhbHNlLCJvdHBLZXkiOiIifSwiZXhwIjoxNTc2MjUyNTEzLCJpYXQiOjE1NzYyMjczMTMsImlzcyI6IkZpbGUgQnJvd3NlciAgdjIuOC43L2NiNjg5ZTgzXG5CdWlsdCBGb3IgICA6IGxpbnV4L2FybTY0XG5HbyBWZXJzaW9uICA6IGdvMS4xMy40XG5SZWxlYXNlIERhdGU6IDIwMTkxMTA2LTEyNTAifQ.LhE1RzlwfyzYgTj4vulHUWHIyK6qUTarbDDHAxRc8H8&amp;inline=true</a></p>
-<p>整段复制到浏览器打开</p>
-
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/12/13/Centos7%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E5%87%86%E5%A4%87/" data-id="ck43ye36h0006nxev0xh914h9"
+      <a data-url="http://yoursite.com/2019/12/13/Centos7%E5%AE%89%E8%A3%85hive/" data-id="ck43yhese0006tvevdff687th"
         class="article-share-link">分享</a>
       
     </footer>
@@ -747,7 +747,7 @@ select host,user from user;</code></pre><p>退出数据库<br>进入 master<br>�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/12/13/Centos7%E6%90%AD%E5%BB%BAHadoop%E9%9B%86%E7%BE%A4/" data-id="ck43ye36u0007nxev1x149xk4"
+      <a data-url="http://yoursite.com/2019/12/13/Centos7%E6%90%AD%E5%BB%BAHadoop%E9%9B%86%E7%BE%A4/" data-id="ck43yhesv0007tvevatdfb8va"
         class="article-share-link">分享</a>
       
     </footer>
@@ -764,7 +764,7 @@ select host,user from user;</code></pre><p>退出数据库<br>进入 master<br>�
 
 </article>
     
-    <article id="post-Centos7安装zookee" class="article article-type-post" itemscope
+    <article id="post-Centos7安装zookeeper" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -772,8 +772,8 @@ select host,user from user;</code></pre><p>退出数据库<br>进入 master<br>�
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85zookee/"
-    >我的第一篇博客文章</a
+  <a class="article-title" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85zookeeper/"
+    >Centos7安装zooke</a
   >
 </h2>
   
@@ -783,7 +783,7 @@ select host,user from user;</code></pre><p>退出数据库<br>进入 master<br>�
 
     
     <div class="article-meta">
-      <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85zookee/" class="article-date">
+      <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85zookeeper/" class="article-date">
   <time datetime="2019-12-13T05:56:49.000Z" itemprop="datePublished">2019-12-13</time>
 </a>
       
@@ -828,7 +828,7 @@ select host,user from user;</code></pre><p>退出数据库<br>进入 master<br>�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/12/13/Centos7%E5%AE%89%E8%A3%85zookee/" data-id="ck43ye35v0005nxev4tg8c8a4"
+      <a data-url="http://yoursite.com/2019/12/13/Centos7%E5%AE%89%E8%A3%85zookeeper/" data-id="ck43yhesc0004tvev4hebhlac"
         class="article-share-link">分享</a>
       
     </footer>
