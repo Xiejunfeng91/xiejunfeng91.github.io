@@ -42,7 +42,7 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="" class="js-avatar">
+			<img src="/img/timg.jpg" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/">Xiejunfeng</a></h1>
@@ -54,22 +54,12 @@
 			
 				<li><a href="/">主页</a></li>
 	        
-				<li><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
-	        
 			</ul>
 		</nav>
 		<nav class="header-smart-menu">
     		
     			
     			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
-    			
-            
-    			
-    			<a q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">友链</a>
-    			
-            
-    			
-    			<a q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">关于我</a>
     			
             
 		</nav>
@@ -80,9 +70,9 @@
 		        
 					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
 		        
-					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+					<a class="weixin" target="_blank" href="/15369599764" title="weixin"><i class="icon-weixin"></i></a>
 		        
-					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+					<a class="mail" target="_blank" href="/1606166976@qq.com" title="mail"><i class="icon-mail"></i></a>
 		        
 			</div>
 		</nav>
@@ -100,15 +90,13 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="" class="js-avatar">
+				<img src="/img/timg.jpg" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">Xiejunfeng</h1>
 			</hgroup>
 			
 			
-			
-				
 			
 				
 			
@@ -121,9 +109,9 @@
 			        
 						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
 			        
-						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+						<a class="weixin" target="_blank" href="/15369599764" title="weixin"><i class="icon-weixin"></i></a>
 			        
-						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+						<a class="mail" target="_blank" href="/1606166976@qq.com" title="mail"><i class="icon-mail"></i></a>
 			        
 				</div>
 			</nav>
@@ -132,9 +120,7 @@
 				<ul style="width: 50%">
 				
 				
-					<li style="width: 50%"><a href="/">主页</a></li>
-		        
-					<li style="width: 50%"><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
+					<li style="width: 100%"><a href="/">主页</a></li>
 		        
 				</ul>
 			</nav>
@@ -209,6 +195,113 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85mysql%205.7/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Centos7安装hbase" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85hbase/">Centos7安装hbase</a>
+    </h1>
+  
+
+        
+        <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85hbase/" class="archive-article-date">
+  	<time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在hadoop+zookeeper安装之后的安装<br>（继hadoop安装之后，hadoop的3台机器的HOSTS如下：）<br>192.168.200.101  master<br>192.168.200.102  slaver1<br>192.168.200.103  slaver2</p>
+<p>1.上传包文件<br>本次安装上传到/opt<br>2.解压：<br>    tar -zxvf  /opt/ hbase…..<br>3. 迁移<br>   迁移的目的是为了简化目录名<br>#cd  /opt<br>#mkdir  hbase<br>#mv   /opt/hbase…/*     /opt/hbase/</p>
+<ol start="4">
+<li>配置</li>
+</ol>
+<p>(1)    配置环境变量<br> #vi  /etc/profile<br>   确定内容为：<br>export JAVA_HOME=/opt/jdk1.8.0_77<br>export  HADOOP_HOME=/opt/hadoop<br>export  HBASE_HOME=/opt/hbase<br>PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$HBASE_HOME/bin</p>
+<p>#source  /etc/profile    （别忘了）</p>
+<p>(2)配置hbase-env.sh<br>#cd  /opt/hbase/conf<br>#vi   hbase-env.sh   (开启JAVA_HOME配置, 关闭HBase自带的zookeeper，使用zookeeper集群)<br>    export JAVA_HOME=/opt/jdk1.8.0_77<br>    export HBASE_MANAGES_ZK=false</p>
+<p>(3)配置hbase-site.xml<br>mkdir  /opt/hbase/tmp<br>mkdir  /opt/hbase/tmp/zookeeper<br>cd  /opt/hbase/conf<br>vi   hbase-site.xml<br><configuration><br><property><br>   <name>hbase.zookeeper.quorum</name><br>   <value>master,slaver1,slaver2</value><br></property><br><property><br>  <name>hbase.zookeeper.property.dataDir</name><br>  <value>opt/zookeeper-3.4.14/data</value><br></property></p>
+<property>
+  <name>hbase.zookeeper.property.clientPort</name>
+  <value>2181</value>
+</property>
+<property>
+  <name>hbase.rootdir</name>
+  <value>hdfs://master:9000/hbase</value>
+</property>
+<property>
+  <name>hbase.cluster.distributed</name>
+  <value>true</value>
+</property>
+<property>
+  <name>hbase.temp.dir</name>
+  <value>/opt/hbase/tmp</value>
+</property>
+<property>
+  <name>hbase.zookeeper.property.dataDir</name>
+  <value>/opt/hbase/tmp/zookeeper</value>
+</property>
+<property>
+  <name>hbase.master.info.port</name>
+  <value>16010</value>
+</property>
+</configuration>
+
+<p>(4)配置regionservers<br>#vi  /opt/hbase/conf/regionservers<br>    slaver1<br>slaver2</p>
+<p>(5)配置backup-masters<br>#cd  /opt/hbase/conf<br>#vi   backup-masters<br>    slaver1</p>
+<p>(6)复制Hadoop配置文件hdfs-site.xml到HBase的conf目录<br>#cp /opt/hadoop/etc/hadoop/hdfs-site.xml   /opt/hbase/conf/</p>
+<ol start="5">
+<li><p>复制到slaver1和slaver2<br> scp  -r  /opt/hbase/    slaver1:/opt/<br> scp  -r  /opt/hbase/    slaver2:/opt/</p>
+</li>
+<li><p>启动命令<br>##master<br>#cd  /opt/hbase/bin<br>#start-hbase.sh</p>
+</li>
+</ol>
+<p>查看web页面：<a href="http://192.168.200.101:16010/" target="_blank" rel="noopener">http://192.168.200.101:16010/</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85hbase/">展开全文 >></a>
         </p>
       
 
@@ -400,180 +493,6 @@
 
 
   
-    <article id="post-Centos7安装hbase" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85hbase/">Centos7安装hbase</a>
-    </h1>
-  
-
-        
-        <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85hbase/" class="archive-article-date">
-  	<time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在hadoop+zookeeper安装之后的安装<br>（继hadoop安装之后，hadoop的3台机器的HOSTS如下：）<br>192.168.200.101  master<br>192.168.200.102  slaver1<br>192.168.200.103  slaver2</p>
-<p>1.上传包文件<br>本次安装上传到/opt<br>2.解压：<br>    tar -zxvf  /opt/ hbase…..<br>3. 迁移<br>   迁移的目的是为了简化目录名<br>#cd  /opt<br>#mkdir  hbase<br>#mv   /opt/hbase…/*     /opt/hbase/</p>
-<ol start="4">
-<li>配置</li>
-</ol>
-<p>(1)    配置环境变量<br> #vi  /etc/profile<br>   确定内容为：<br>export JAVA_HOME=/opt/jdk1.8.0_77<br>export  HADOOP_HOME=/opt/hadoop<br>export  HBASE_HOME=/opt/hbase<br>PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$HBASE_HOME/bin</p>
-<p>#source  /etc/profile    （别忘了）</p>
-<p>(2)配置hbase-env.sh<br>#cd  /opt/hbase/conf<br>#vi   hbase-env.sh   (开启JAVA_HOME配置, 关闭HBase自带的zookeeper，使用zookeeper集群)<br>    export JAVA_HOME=/opt/jdk1.8.0_77<br>    export HBASE_MANAGES_ZK=false</p>
-<p>(3)配置hbase-site.xml<br>mkdir  /opt/hbase/tmp<br>mkdir  /opt/hbase/tmp/zookeeper<br>cd  /opt/hbase/conf<br>vi   hbase-site.xml<br><configuration><br><property><br>   <name>hbase.zookeeper.quorum</name><br>   <value>master,slaver1,slaver2</value><br></property><br><property><br>  <name>hbase.zookeeper.property.dataDir</name><br>  <value>opt/zookeeper-3.4.14/data</value><br></property></p>
-<property>
-  <name>hbase.zookeeper.property.clientPort</name>
-  <value>2181</value>
-</property>
-<property>
-  <name>hbase.rootdir</name>
-  <value>hdfs://master:9000/hbase</value>
-</property>
-<property>
-  <name>hbase.cluster.distributed</name>
-  <value>true</value>
-</property>
-<property>
-  <name>hbase.temp.dir</name>
-  <value>/opt/hbase/tmp</value>
-</property>
-<property>
-  <name>hbase.zookeeper.property.dataDir</name>
-  <value>/opt/hbase/tmp/zookeeper</value>
-</property>
-<property>
-  <name>hbase.master.info.port</name>
-  <value>16010</value>
-</property>
-</configuration>
-
-<p>(4)配置regionservers<br>#vi  /opt/hbase/conf/regionservers<br>    slaver1<br>slaver2</p>
-<p>(5)配置backup-masters<br>#cd  /opt/hbase/conf<br>#vi   backup-masters<br>    slaver1</p>
-<p>(6)复制Hadoop配置文件hdfs-site.xml到HBase的conf目录<br>#cp /opt/hadoop/etc/hadoop/hdfs-site.xml   /opt/hbase/conf/</p>
-<ol start="5">
-<li><p>复制到slaver1和slaver2<br> scp  -r  /opt/hbase/    slaver1:/opt/<br> scp  -r  /opt/hbase/    slaver2:/opt/</p>
-</li>
-<li><p>启动命令<br>##master<br>#cd  /opt/hbase/bin<br>#start-hbase.sh</p>
-</li>
-</ol>
-<p>查看web页面：<a href="http://192.168.200.101:16010/" target="_blank" rel="noopener">http://192.168.200.101:16010/</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85hbase/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Centos7搭建hadoop集群准备" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/13/Centos7%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E5%87%86%E5%A4%87/">Centos7搭建hadoop集群前准备</a>
-    </h1>
-  
-
-        
-        <a href="/2019/12/13/Centos7%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E5%87%86%E5%A4%87/" class="archive-article-date">
-  	<time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>安装haodoop集群 需要用到的安装包有<br>        jdk1.8.0_77<br>        hadoop-2.7.7.tar.gz<br>        zookeeper-3.4.14<br>        mysql-5.7.28-el7-x86_64.tar    （装在slaver2）<br>        apache-hive-3.1.2-bin.tar.gz<br>        mysql-connector-java-5.1.48.tar (mysql驱动 装在master)<br>        spark-2.4.4-bin-hadoop2.7.tar.tgz<br>        pig-0.16.0.tar.gz</p>
-<p>安装顺序<br>1: hadoop<br>2: zookeeper<br>3: habse<br>4: spark<br>5: hive<br>6：pig</p>
-<p>文件集合包下载地址：</p>
-<p><a href="http://xa.xyggaka.cn:10108/api/raw/soft/SSR/hadoop%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E9%9B%86%E5%90%88.zip?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo2LCJsb2NhbGUiOiJ6aC1jbiIsInZpZXdNb2RlIjoibW9zYWljIiwic2hvd0hpZGRlbiI6ZmFsc2UsInBlcm0iOnsiYWRtaW4iOmZhbHNlLCJleGVjdXRlIjpmYWxzZSwiY3JlYXRlIjp0cnVlLCJyZW5hbWUiOnRydWUsIm1vZGlmeSI6dHJ1ZSwiZGVsZXRlIjpmYWxzZSwic2hhcmUiOmZhbHNlLCJkb3dubG9hZCI6dHJ1ZX0sImNvbW1hbmRzIjpbXSwibG9ja1Bhc3N3b3JkIjp0cnVlLCJvdHAiOmZhbHNlLCJvdHBLZXkiOiIifSwiZXhwIjoxNTc2MjUyNTEzLCJpYXQiOjE1NzYyMjczMTMsImlzcyI6IkZpbGUgQnJvd3NlciAgdjIuOC43L2NiNjg5ZTgzXG5CdWlsdCBGb3IgICA6IGxpbnV4L2FybTY0XG5HbyBWZXJzaW9uICA6IGdvMS4xMy40XG5SZWxlYXNlIERhdGU6IDIwMTkxMTA2LTEyNTAifQ.LhE1RzlwfyzYgTj4vulHUWHIyK6qUTarbDDHAxRc8H8&amp;inline=true" target="_blank" rel="noopener">http://xa.xyggaka.cn:10108/api/raw/soft/SSR/hadoop%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E9%9B%86%E5%90%88.zip?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo2LCJsb2NhbGUiOiJ6aC1jbiIsInZpZXdNb2RlIjoibW9zYWljIiwic2hvd0hpZGRlbiI6ZmFsc2UsInBlcm0iOnsiYWRtaW4iOmZhbHNlLCJleGVjdXRlIjpmYWxzZSwiY3JlYXRlIjp0cnVlLCJyZW5hbWUiOnRydWUsIm1vZGlmeSI6dHJ1ZSwiZGVsZXRlIjpmYWxzZSwic2hhcmUiOmZhbHNlLCJkb3dubG9hZCI6dHJ1ZX0sImNvbW1hbmRzIjpbXSwibG9ja1Bhc3N3b3JkIjp0cnVlLCJvdHAiOmZhbHNlLCJvdHBLZXkiOiIifSwiZXhwIjoxNTc2MjUyNTEzLCJpYXQiOjE1NzYyMjczMTMsImlzcyI6IkZpbGUgQnJvd3NlciAgdjIuOC43L2NiNjg5ZTgzXG5CdWlsdCBGb3IgICA6IGxpbnV4L2FybTY0XG5HbyBWZXJzaW9uICA6IGdvMS4xMy40XG5SZWxlYXNlIERhdGU6IDIwMTkxMTA2LTEyNTAifQ.LhE1RzlwfyzYgTj4vulHUWHIyK6qUTarbDDHAxRc8H8&amp;inline=true</a></p>
-<p>整段复制到浏览器打开</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/12/13/Centos7%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E5%87%86%E5%A4%87/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-Centos7安装hive" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -673,6 +592,73 @@ select host,user from user;</code></pre><p>退出数据库<br>进入 master<br>�
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85hive/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Centos7搭建hadoop集群准备" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/13/Centos7%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E5%87%86%E5%A4%87/">Centos7搭建hadoop集群前准备</a>
+    </h1>
+  
+
+        
+        <a href="/2019/12/13/Centos7%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E5%87%86%E5%A4%87/" class="archive-article-date">
+  	<time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>安装haodoop集群 需要用到的安装包有<br>        jdk1.8.0_77<br>        hadoop-2.7.7.tar.gz<br>        zookeeper-3.4.14<br>        mysql-5.7.28-el7-x86_64.tar    （装在slaver2）<br>        apache-hive-3.1.2-bin.tar.gz<br>        mysql-connector-java-5.1.48.tar (mysql驱动 装在master)<br>        spark-2.4.4-bin-hadoop2.7.tar.tgz<br>        pig-0.16.0.tar.gz</p>
+<p>安装顺序<br>1: hadoop<br>2: zookeeper<br>3: habse<br>4: spark<br>5: hive<br>6：pig</p>
+<p>文件集合包下载地址：</p>
+<p><a href="http://xa.xyggaka.cn:10108/api/raw/soft/SSR/hadoop%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E9%9B%86%E5%90%88.zip?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo2LCJsb2NhbGUiOiJ6aC1jbiIsInZpZXdNb2RlIjoibW9zYWljIiwic2hvd0hpZGRlbiI6ZmFsc2UsInBlcm0iOnsiYWRtaW4iOmZhbHNlLCJleGVjdXRlIjpmYWxzZSwiY3JlYXRlIjp0cnVlLCJyZW5hbWUiOnRydWUsIm1vZGlmeSI6dHJ1ZSwiZGVsZXRlIjpmYWxzZSwic2hhcmUiOmZhbHNlLCJkb3dubG9hZCI6dHJ1ZX0sImNvbW1hbmRzIjpbXSwibG9ja1Bhc3N3b3JkIjp0cnVlLCJvdHAiOmZhbHNlLCJvdHBLZXkiOiIifSwiZXhwIjoxNTc2MjUyNTEzLCJpYXQiOjE1NzYyMjczMTMsImlzcyI6IkZpbGUgQnJvd3NlciAgdjIuOC43L2NiNjg5ZTgzXG5CdWlsdCBGb3IgICA6IGxpbnV4L2FybTY0XG5HbyBWZXJzaW9uICA6IGdvMS4xMy40XG5SZWxlYXNlIERhdGU6IDIwMTkxMTA2LTEyNTAifQ.LhE1RzlwfyzYgTj4vulHUWHIyK6qUTarbDDHAxRc8H8&amp;inline=true" target="_blank" rel="noopener">http://xa.xyggaka.cn:10108/api/raw/soft/SSR/hadoop%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E9%9B%86%E5%90%88.zip?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo2LCJsb2NhbGUiOiJ6aC1jbiIsInZpZXdNb2RlIjoibW9zYWljIiwic2hvd0hpZGRlbiI6ZmFsc2UsInBlcm0iOnsiYWRtaW4iOmZhbHNlLCJleGVjdXRlIjpmYWxzZSwiY3JlYXRlIjp0cnVlLCJyZW5hbWUiOnRydWUsIm1vZGlmeSI6dHJ1ZSwiZGVsZXRlIjpmYWxzZSwic2hhcmUiOmZhbHNlLCJkb3dubG9hZCI6dHJ1ZX0sImNvbW1hbmRzIjpbXSwibG9ja1Bhc3N3b3JkIjp0cnVlLCJvdHAiOmZhbHNlLCJvdHBLZXkiOiIifSwiZXhwIjoxNTc2MjUyNTEzLCJpYXQiOjE1NzYyMjczMTMsImlzcyI6IkZpbGUgQnJvd3NlciAgdjIuOC43L2NiNjg5ZTgzXG5CdWlsdCBGb3IgICA6IGxpbnV4L2FybTY0XG5HbyBWZXJzaW9uICA6IGdvMS4xMy40XG5SZWxlYXNlIERhdGU6IDIwMTkxMTA2LTEyNTAifQ.LhE1RzlwfyzYgTj4vulHUWHIyK6qUTarbDDHAxRc8H8&amp;inline=true</a></p>
+<p>整段复制到浏览器打开</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/12/13/Centos7%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E5%87%86%E5%A4%87/">展开全文 >></a>
         </p>
       
 
@@ -1021,29 +1007,13 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
       
       
     
-      
-      
-      
-    
-      
-      
-      
-    
     
 
     <ul style="width: 70%">
     
     
       
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">所有文章</a></li>
-      
-        
-      
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'friends')"><a href="javascript:void(0)" q-class="active:friends">友链</a></li>
-      
-        
-      
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'aboutme')"><a href="javascript:void(0)" q-class="active:aboutme">关于我</a></li>
+      <li style="width: 100%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">所有文章</a></li>
       
         
     </ul>
@@ -1107,45 +1077,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
 
     
-    	<section class="tools-section tools-section-friends" q-show="friends">
-  		
-        <ul class="search-ul">
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接2</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接3</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接4</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接5</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接6</a>
-            </li>
-          
-        </ul>
-  		
-    	</section>
-    
 
-    
-    	<section class="tools-section tools-section-me" q-show="aboutme">
-  	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
-  	  	
-    	</section>
     
   </div>
   
