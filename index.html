@@ -57,6 +57,279 @@
 
     
     
+    <article id="post-Centos7安装hbase" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85hbase/"
+    >Centos7安装hbase</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85hbase/" class="article-date">
+  <time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished">2019-12-13</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>在hadoop+zookeeper安装之后的安装<br>（继hadoop安装之后，hadoop的3台机器的HOSTS如下：）<br>192.168.200.101  master<br>192.168.200.102  slaver1<br>192.168.200.103  slaver2</p>
+<p>1.上传包文件<br>本次安装上传到/opt<br>2.解压：<br>    tar -zxvf  /opt/ hbase…..<br>3. 迁移<br>   迁移的目的是为了简化目录名<br>#cd  /opt<br>#mkdir  hbase<br>#mv   /opt/hbase…/*     /opt/hbase/</p>
+<ol start="4">
+<li>配置</li>
+</ol>
+<p>(1)    配置环境变量<br> #vi  /etc/profile<br>   确定内容为：<br>export JAVA_HOME=/opt/jdk1.8.0_77<br>export  HADOOP_HOME=/opt/hadoop<br>export  HBASE_HOME=/opt/hbase<br>PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$HBASE_HOME/bin</p>
+<p>#source  /etc/profile    （别忘了）</p>
+<p>(2)配置hbase-env.sh<br>#cd  /opt/hbase/conf<br>#vi   hbase-env.sh   (开启JAVA_HOME配置, 关闭HBase自带的zookeeper，使用zookeeper集群)<br>    export JAVA_HOME=/opt/jdk1.8.0_77<br>    export HBASE_MANAGES_ZK=false</p>
+<p>(3)配置hbase-site.xml<br>mkdir  /opt/hbase/tmp<br>mkdir  /opt/hbase/tmp/zookeeper<br>cd  /opt/hbase/conf<br>vi   hbase-site.xml<br><configuration><br><property><br>   <name>hbase.zookeeper.quorum</name><br>   <value>master,slaver1,slaver2</value><br></property><br><property><br>  <name>hbase.zookeeper.property.dataDir</name><br>  <value>opt/zookeeper-3.4.14/data</value><br></property></p>
+<property>
+  <name>hbase.zookeeper.property.clientPort</name>
+  <value>2181</value>
+</property>
+<property>
+  <name>hbase.rootdir</name>
+  <value>hdfs://master:9000/hbase</value>
+</property>
+<property>
+  <name>hbase.cluster.distributed</name>
+  <value>true</value>
+</property>
+<property>
+  <name>hbase.temp.dir</name>
+  <value>/opt/hbase/tmp</value>
+</property>
+<property>
+  <name>hbase.zookeeper.property.dataDir</name>
+  <value>/opt/hbase/tmp/zookeeper</value>
+</property>
+<property>
+  <name>hbase.master.info.port</name>
+  <value>16010</value>
+</property>
+</configuration>
+
+<p>(4)配置regionservers<br>#vi  /opt/hbase/conf/regionservers<br>    slaver1<br>slaver2</p>
+<p>(5)配置backup-masters<br>#cd  /opt/hbase/conf<br>#vi   backup-masters<br>    slaver1</p>
+<p>(6)复制Hadoop配置文件hdfs-site.xml到HBase的conf目录<br>#cp /opt/hadoop/etc/hadoop/hdfs-site.xml   /opt/hbase/conf/</p>
+<ol start="5">
+<li><p>复制到slaver1和slaver2<br> scp  -r  /opt/hbase/    slaver1:/opt/<br> scp  -r  /opt/hbase/    slaver2:/opt/</p>
+</li>
+<li><p>启动命令<br>##master<br>#cd  /opt/hbase/bin<br>#start-hbase.sh</p>
+</li>
+</ol>
+<p>查看web页面：<a href="http://192.168.200.101:16010/" target="_blank" rel="noopener">http://192.168.200.101:16010/</a></p>
+
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/12/13/Centos7%E5%AE%89%E8%A3%85hbase/" data-id="ck43ye35j0000nxevdr15djhc"
+        class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-Centos7安装mysql 5.7" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85mysql%205.7/"
+    >Centos7安装mysql 5.7</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85mysql%205.7/" class="article-date">
+  <time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished">2019-12-13</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>Centos7    Mysql5.7.28 tar包解压安装</p>
+<p>一、卸载系统自带的Mariadb</p>
+<h1 id="rpm-qa-grep-mariadb"><a href="#rpm-qa-grep-mariadb" class="headerlink" title="rpm -qa|grep mariadb"></a>rpm -qa|grep mariadb</h1><p>mariadb-libs-5.5.60-1.el7_5.x86_64    （如此没有不会显示左边的信息）</p>
+<h1 id="rpm-e-–nodeps-mariadb-libs-5-5-60-1-el7-5-x86-64"><a href="#rpm-e-–nodeps-mariadb-libs-5-5-60-1-el7-5-x86-64" class="headerlink" title="rpm -e –nodeps  mariadb-libs-5.5.60-1.el7_5.x86_64"></a>rpm -e –nodeps  mariadb-libs-5.5.60-1.el7_5.x86_64</h1><pre><code>（如果没有，就可不需要执行上行操作）</code></pre><p>二、删除/etc下my.cnf配置文件（如果存在的话）、检查mysql是否存在</p>
+<h1 id="rm-rf-etc-my-cnf"><a href="#rm-rf-etc-my-cnf" class="headerlink" title="rm -rf /etc/my.cnf"></a>rm -rf /etc/my.cnf</h1><h1 id="rpm-qa-grep-mysql"><a href="#rpm-qa-grep-mysql" class="headerlink" title="rpm -qa | grep mysql"></a>rpm -qa | grep mysql</h1><p>三、创建mysql用户组和用户</p>
+<h1 id="groupadd-mysql"><a href="#groupadd-mysql" class="headerlink" title="groupadd mysql"></a>groupadd mysql</h1><h1 id="useradd-g-mysql-mysql"><a href="#useradd-g-mysql-mysql" class="headerlink" title="useradd -g mysql mysql"></a>useradd -g mysql mysql</h1><p>四、解压mysql-5.7.28-el7-x86_64.tar.gz，移动到/usr/local/mysql5.7下，更改文件归属为mysql<br>上传mysql-5.7.28-el7-x86_64.tar.gz并解压</p>
+<h1 id="tar-zxvf-mysql-5-7-25-el7-x86-64-tar-gz"><a href="#tar-zxvf-mysql-5-7-25-el7-x86-64-tar-gz" class="headerlink" title="tar -zxvf mysql-5.7.25-el7-x86_64.tar.gz"></a>tar -zxvf mysql-5.7.25-el7-x86_64.tar.gz</h1><h1 id="mkdir-p-usr-local-mysql"><a href="#mkdir-p-usr-local-mysql" class="headerlink" title="mkdir -p /usr/local/mysql"></a>mkdir -p /usr/local/mysql</h1><h1 id="mv-usr-local-src-mysql-5-7-28-el7-x86-64-usr-local-mysql"><a href="#mv-usr-local-src-mysql-5-7-28-el7-x86-64-usr-local-mysql" class="headerlink" title="mv /usr/local/src/mysql-5.7.28-el7-x86_64/*  /usr/local/mysql/"></a>mv /usr/local/src/mysql-5.7.28-el7-x86_64/*  /usr/local/mysql/</h1><h1 id="mkdir-usr-local-mysql-data"><a href="#mkdir-usr-local-mysql-data" class="headerlink" title="mkdir /usr/local/mysql/data"></a>mkdir /usr/local/mysql/data</h1><h1 id="mkdir-usr-local-mysql-log"><a href="#mkdir-usr-local-mysql-log" class="headerlink" title="mkdir /usr/local/mysql/log"></a>mkdir /usr/local/mysql/log</h1><h1 id="touch-usr-local-mysql-log-mysqld-log"><a href="#touch-usr-local-mysql-log-mysqld-log" class="headerlink" title="touch /usr/local/mysql/log/mysqld.log"></a>touch /usr/local/mysql/log/mysqld.log</h1><h1 id="chown-R-mysql-usr-local-mysql"><a href="#chown-R-mysql-usr-local-mysql" class="headerlink" title="chown -R mysql /usr/local/mysql/"></a>chown -R mysql /usr/local/mysql/</h1><h1 id="chgrp-R-mysql-usr-local-mysql"><a href="#chgrp-R-mysql-usr-local-mysql" class="headerlink" title="chgrp -R mysql /usr/local/mysql/"></a>chgrp -R mysql /usr/local/mysql/</h1><p>五、安装</p>
+<h1 id="cd-usr-local-mysql"><a href="#cd-usr-local-mysql" class="headerlink" title="cd   /usr/local/mysql"></a>cd   /usr/local/mysql</h1><p>#/usr/local/mysql/bin/mysql_install_db –user=mysql –basedir=/usr/local/mysql/ –datadir=/usr/local/mysql/data/</p>
+<p>六、新建配置文件my.cnf，启动</p>
+<h1 id="vi-etc-my-cnf"><a href="#vi-etc-my-cnf" class="headerlink" title="vi /etc/my.cnf"></a>vi /etc/my.cnf</h1><p>[mysqld]<br>basedir=/usr/local/mysql/<br>datadir=/usr/local/mysql/data<br>socket=/tmp/mysql.sock<br>user=mysql<br>symbolic-links=0<br>lower_case_table_names=1<br>max_connections=200<br>character-set-server=utf8<br>default-storage-engine=INNODB<br>max_allowed_packet=16M</p>
+<p>[client]<br>port=3306</p>
+<p>[mysqld_safe]<br>log-error=/usr/local/mysql/log/mysqld.log</p>
+<h1 id="chown-777-etc-my-cnf"><a href="#chown-777-etc-my-cnf" class="headerlink" title="chown 777 /etc/my.cnf"></a>chown 777 /etc/my.cnf</h1><p>启动</p>
+<h1 id="cp-usr-local-mysql-support-files-mysql-server-etc-init-d-mysqld"><a href="#cp-usr-local-mysql-support-files-mysql-server-etc-init-d-mysqld" class="headerlink" title="cp /usr/local/mysql/support-files/mysql.server   /etc/init.d/mysqld"></a>cp /usr/local/mysql/support-files/mysql.server   /etc/init.d/mysqld</h1><h1 id="chmod-x-etc-init-d-mysqld"><a href="#chmod-x-etc-init-d-mysqld" class="headerlink" title="chmod +x /etc/init.d/mysqld"></a>chmod +x /etc/init.d/mysqld</h1><h1 id="service-mysqld-start"><a href="#service-mysqld-start" class="headerlink" title="service mysqld start"></a>service mysqld start</h1><p>七、添加环境变量</p>
+<h1 id="vi-etc-profile"><a href="#vi-etc-profile" class="headerlink" title="vi /etc/profile"></a>vi /etc/profile</h1><p>export MYSQL_HOME=”/usr/local/mysql/“<br>export PATH=”$PATH:$MYSQL_HOME/bin”</p>
+<p>使环境变量生效<br>#source  /etc/profile</p>
+<p>八、获取初始密码，连接mysql，更改默认密码，允许远程访问<br>从/root/.mysql_secret文件中获取初始密码</p>
+<h1 id="cat-root-mysql-secret"><a href="#cat-root-mysql-secret" class="headerlink" title="cat /root/.mysql_secret"></a>cat /root/.mysql_secret</h1><h1 id="Password-set-for-user-‘root-localhost’-at-2019-03-02-09-09-05"><a href="#Password-set-for-user-‘root-localhost’-at-2019-03-02-09-09-05" class="headerlink" title="Password set for user ‘root@localhost’ at 2019-03-02 09:09:05"></a>Password set for user ‘root@localhost’ at 2019-03-02 09:09:05</h1><p>zffNQ&gt;e(l/U;</p>
+<p>修改密码</p>
+<p>[root@centos7 ~]# mysql -uroot -p<br>Enter password:<br>Welcome to the MySQL monitor.  Commands end with ; or \g.<br>Your MySQL connection id is 2<br>Server version: 5.7.25</p>
+<p>Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.</p>
+<p>Oracle is a registered trademark of Oracle Corporation and/or its<br>affiliates. Other names may be trademarks of their respective<br>owners.</p>
+<p>Type ‘help;’ or ‘\h’ for help. Type ‘\c’ to clear the current input statement.</p>
+<p>mysql&gt; set PASSWORD = PASSWORD(‘123456’);<br>Query OK, 0 rows affected, 1 warning (0.00 sec)</p>
+<p>mysql&gt; flush privileges;<br>Query OK, 0 rows affected (0.00 sec)</p>
+
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/12/13/Centos7%E5%AE%89%E8%A3%85mysql%205.7/" data-id="ck43ye35q0001nxev8zue1s1r"
+        class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-Centos7安装spark" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85spark/"
+    >Centos7安装spark</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85spark/" class="article-date">
+  <time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished">2019-12-13</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>在hadoop+zookeeper安装之后的安装<br>（继hadoop安装之后，hadoop的3台机器的HOSTS如下：）<br>192.169.200.101  master<br>192.169.200.102  slaver1<br>192.169.200.103  slaver2</p>
+<p>1.上传包文件<br>本次安装上传到/opt<br>2.解压：<br>    tar -zxvf  /opt/ spark…..<br>3. 迁移<br>   迁移的目的是为了简化目录名<br>#cd  /opt<br>#mkdir  spark<br>#mv   /opt/spark…/*     /opt/spark/</p>
+<ol start="4">
+<li>配置</li>
+</ol>
+<p>(1)spark-env.sh<br>#vi  /opt/spark/conf/spark-env.sh<br>export JAVA_HOME=/opt/jdk1.8.0_77</p>
+<p>export HADOOP_HOME=/opt/hadoop<br>export HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop</p>
+<p>export SPARK_HOME=/opt/spark<br>export SPARK_LIBRARY_PATH=${SPARK_HOME}/lib<br>export SCALA_LIBRARY_PATH=${SPARK_HOME}/lib</p>
+<p>export SPARK_LOCAL_IP=192.169.200.101</p>
+<p>export SPARK_MASTER_HOST=192.169.200.101<br>export SPARK_MASTER_IP=192.169.200.101<br>export SPARK_MASTER_PORT=7077<br>export SPARK_MASTER_WEBUI_PORT=8080</p>
+<p>export SPARK_WORKER_CORES=2<br>export SPARK_WORKER_MEMORY=2G<br>export SPARK_WORKER_PORT=7078<br>export SPARK_WORKER_WEBUI_PORT=8081<br>export SPARK_WORKER_INSTANCES=1<br>export SPARK_WORKER_MEMORY=1G<br>export SPARK_HISTORY_OPTS=”-Dspark.history.fs.logDirectory=hdfs://master:9000/spark/job/history”</p>
+<p>#source  /etc/profile    （别忘了）</p>
+<p>(2)配置spark-defaults.conf<br>#vi  /opt/spark/conf/spark-defaults.conf<br>spark.eventLog.enabled           true<br>spark.eventLog.dir               hdfs://master:9000/spark/job/history</p>
+<p>(3)配置slaves<br>#vi  /opt/spark/conf/slaves<br>master<br>slaver1<br>slaver2<br>(该文件中只有这三行)</p>
+<ol start="5">
+<li>在hdfs系统中创建目录<br>##在master机上操作<br>#hdfs   dfs  -mkdir  /spark<br>#hdfs   dfs  -mkdir  /spark/job<br>#hdfs   dfs  -mkdir  /spark/job/history<br>#hdfs   dfs  -chmod  -R  755  /spark</li>
+</ol>
+<ol start="6">
+<li><p>节点分发<br>##从master节点向slaver1和slaver2分发<br>#scp  -r  /opt/ spark/   slaver1:/opt/<br>#scp  -r  /opt/ spark/   slaver2:/opt/</p>
+</li>
+<li><p>配置环境变量<br>需要在三台机器上都要做<br>#vi  /etc/profile<br>export JAVA_HOME=/opt/jdk1.8.0_77<br>export  HADOOP_HOME=/opt/hadoop<br>export  HBASE_HOME=/opt/hbase<br>export  SPARK_HOME=/opt/spark<br>export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$HBASE_HOME/bin:$SPARK_HOME/bin:$SPARK_HOME/sbin</p>
+</li>
+</ol>
+<p>#source  /etc/profile</p>
+<ol start="8">
+<li>修改slaver1和slaver2上的spark-env.sh<br>（1）##slaver1<br>export SPARK_LOCAL_IP=192.169.200.102<br>（2）##slaver2<br>export SPARK_LOCAL_IP=192.169.200.103</li>
+<li>启动<br>都是master机上执行<br>#cd /opt/spark/sbin<br>#start-master.sh<br>#start-slave.sh  spark://192.168.200.102:7077<br>#start-slave.sh  spark://192.168.200.103:7077<br>#spark-shell</li>
+</ol>
+<p>查看web页面;<a href="http://192.169.200.101:8080/" target="_blank" rel="noopener">http://192.169.200.101:8080/</a></p>
+
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/12/13/Centos7%E5%AE%89%E8%A3%85spark/" data-id="ck43ye35s0002nxev46w5394i"
+        class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-Centos7安装hive" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -164,7 +437,7 @@ select host,user from user;</code></pre><p>退出数据库<br>进入 master<br>�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/12/13/Centos7%E5%AE%89%E8%A3%85hive/" data-id="ck43vxsg80000hyevcj4o15jw"
+      <a data-url="http://yoursite.com/2019/12/13/Centos7%E5%AE%89%E8%A3%85hive/" data-id="ck43ye35t0003nxev88f24pku"
         class="article-share-link">分享</a>
       
     </footer>
@@ -181,7 +454,7 @@ select host,user from user;</code></pre><p>退出数据库<br>进入 master<br>�
 
 </article>
     
-    <article id="post-Centos7安装hbase" class="article article-type-post" itemscope
+    <article id="post-Centos7安装pig" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -189,7 +462,74 @@ select host,user from user;</code></pre><p>退出数据库<br>进入 master<br>�
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85hbase/"
+  <a class="article-title" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85pig/"
+    >Centos7安装pig</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85pig/" class="article-date">
+  <time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished">2019-12-13</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>pig的部署<br>选一台机器，本部署选master<br>1.上传pig包<br>本次安装上传到 /opt下<br>2. 解压<br>#cd  /opt<br>#tar  -zxvf  pig….</p>
+<ol start="3">
+<li><p>迁移<br>迁移的目的是为了简化目录名<br>#cd  /opt<br>#mkdir  pig<br>#mv   /opt/pig…/*     /opt/pig/</p>
+</li>
+<li><p>配置环境变量<br>#vi  /etc/profile<br>增加<br>export  PIG_HOME=/opt/pig<br>PATH=$PATH:…:$PIG_HOME/bin<br>PIG_CLASSPATH=/opt/hadoop/etc/hadoop<br>#source  /etc/profile    （别忘了）</p>
+</li>
+<li><p>启动pig<br>#pig</p>
+</li>
+</ol>
+
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/12/13/Centos7%E5%AE%89%E8%A3%85pig/" data-id="ck43ye35u0004nxev7kvgg2zz"
+        class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-Centos7搭建hadoop集群准备" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/12/13/Centos7%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E5%87%86%E5%A4%87/"
     >Centos7安装hbase</a
   >
 </h2>
@@ -200,7 +540,7 @@ select host,user from user;</code></pre><p>退出数据库<br>进入 master<br>�
 
     
     <div class="article-meta">
-      <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85hbase/" class="article-date">
+      <a href="/2019/12/13/Centos7%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E5%87%86%E5%A4%87/" class="article-date">
   <time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished">2019-12-13</time>
 </a>
       
@@ -216,228 +556,18 @@ select host,user from user;</code></pre><p>退出数据库<br>进入 master<br>�
       
 
       
-      <p>在hadoop+zookeeper安装之后的安装<br>（继hadoop安装之后，hadoop的3台机器的HOSTS如下：）<br>192.168.200.101  master<br>192.168.200.102  slaver1<br>192.168.200.103  slaver2</p>
-<p>1.上传包文件<br>本次安装上传到/opt<br>2.解压：<br>    tar -zxvf  /opt/ hbase…..<br>3. 迁移<br>   迁移的目的是为了简化目录名<br>#cd  /opt<br>#mkdir  hbase<br>#mv   /opt/hbase…/*     /opt/hbase/</p>
-<ol start="4">
-<li>配置</li>
-</ol>
-<p>(1)    配置环境变量<br> #vi  /etc/profile<br>   确定内容为：<br>export JAVA_HOME=/opt/jdk1.8.0_77<br>export  HADOOP_HOME=/opt/hadoop<br>export  HBASE_HOME=/opt/hbase<br>PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$HBASE_HOME/bin</p>
-<p>#source  /etc/profile    （别忘了）</p>
-<p>(2)配置hbase-env.sh<br>#cd  /opt/hbase/conf<br>#vi   hbase-env.sh   (开启JAVA_HOME配置, 关闭HBase自带的zookeeper，使用zookeeper集群)<br>    export JAVA_HOME=/opt/jdk1.8.0_77<br>    export HBASE_MANAGES_ZK=false</p>
-<p>(3)配置hbase-site.xml<br>mkdir  /opt/hbase/tmp<br>mkdir  /opt/hbase/tmp/zookeeper<br>cd  /opt/hbase/conf<br>vi   hbase-site.xml<br><configuration><br><property><br>   <name>hbase.zookeeper.quorum</name><br>   <value>master,slaver1,slaver2</value><br></property><br><property><br>  <name>hbase.zookeeper.property.dataDir</name><br>  <value>opt/zookeeper-3.4.14/data</value><br></property></p>
-<property>
-  <name>hbase.zookeeper.property.clientPort</name>
-  <value>2181</value>
-</property>
-<property>
-  <name>hbase.rootdir</name>
-  <value>hdfs://master:9000/hbase</value>
-</property>
-<property>
-  <name>hbase.cluster.distributed</name>
-  <value>true</value>
-</property>
-<property>
-  <name>hbase.temp.dir</name>
-  <value>/opt/hbase/tmp</value>
-</property>
-<property>
-  <name>hbase.zookeeper.property.dataDir</name>
-  <value>/opt/hbase/tmp/zookeeper</value>
-</property>
-<property>
-  <name>hbase.master.info.port</name>
-  <value>16010</value>
-</property>
-</configuration>
-
-<p>(4)配置regionservers<br>#vi  /opt/hbase/conf/regionservers<br>    slaver1<br>slaver2</p>
-<p>(5)配置backup-masters<br>#cd  /opt/hbase/conf<br>#vi   backup-masters<br>    slaver1</p>
-<p>(6)复制Hadoop配置文件hdfs-site.xml到HBase的conf目录<br>#cp /opt/hadoop/etc/hadoop/hdfs-site.xml   /opt/hbase/conf/</p>
-<ol start="5">
-<li><p>复制到slaver1和slaver2<br> scp  -r  /opt/hbase/    slaver1:/opt/<br> scp  -r  /opt/hbase/    slaver2:/opt/</p>
-</li>
-<li><p>启动命令<br>##master<br>#cd  /opt/hbase/bin<br>#start-hbase.sh</p>
-</li>
-</ol>
-<p>查看web页面：<a href="http://192.168.200.101:16010/" target="_blank" rel="noopener">http://192.168.200.101:16010/</a></p>
+      <p>安装haodoop集群 需要用到的安装包有<br>        jdk1.8.0_77<br>        hadoop-2.7.7.tar.gz<br>        zookeeper-3.4.14<br>        mysql-5.7.28-el7-x86_64.tar    （装在slaver2）<br>        apache-hive-3.1.2-bin.tar.gz<br>        mysql-connector-java-5.1.48.tar (mysql驱动 装在master)<br>        spark-2.4.4-bin-hadoop2.7.tar.tgz<br>        pig-0.16.0.tar.gz</p>
+<p>安装顺序<br>1: hadoop<br>2: zookeeper<br>3: habse<br>4: spark<br>5: hive<br>6：pig</p>
+<p>文件集合包下载地址：</p>
+<p><a href="http://xa.xyggaka.cn:10108/api/raw/soft/SSR/hadoop%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E9%9B%86%E5%90%88.zip?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo2LCJsb2NhbGUiOiJ6aC1jbiIsInZpZXdNb2RlIjoibW9zYWljIiwic2hvd0hpZGRlbiI6ZmFsc2UsInBlcm0iOnsiYWRtaW4iOmZhbHNlLCJleGVjdXRlIjpmYWxzZSwiY3JlYXRlIjp0cnVlLCJyZW5hbWUiOnRydWUsIm1vZGlmeSI6dHJ1ZSwiZGVsZXRlIjpmYWxzZSwic2hhcmUiOmZhbHNlLCJkb3dubG9hZCI6dHJ1ZX0sImNvbW1hbmRzIjpbXSwibG9ja1Bhc3N3b3JkIjp0cnVlLCJvdHAiOmZhbHNlLCJvdHBLZXkiOiIifSwiZXhwIjoxNTc2MjUyNTEzLCJpYXQiOjE1NzYyMjczMTMsImlzcyI6IkZpbGUgQnJvd3NlciAgdjIuOC43L2NiNjg5ZTgzXG5CdWlsdCBGb3IgICA6IGxpbnV4L2FybTY0XG5HbyBWZXJzaW9uICA6IGdvMS4xMy40XG5SZWxlYXNlIERhdGU6IDIwMTkxMTA2LTEyNTAifQ.LhE1RzlwfyzYgTj4vulHUWHIyK6qUTarbDDHAxRc8H8&amp;inline=true" target="_blank" rel="noopener">http://xa.xyggaka.cn:10108/api/raw/soft/SSR/hadoop%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E9%9B%86%E5%90%88.zip?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo2LCJsb2NhbGUiOiJ6aC1jbiIsInZpZXdNb2RlIjoibW9zYWljIiwic2hvd0hpZGRlbiI6ZmFsc2UsInBlcm0iOnsiYWRtaW4iOmZhbHNlLCJleGVjdXRlIjpmYWxzZSwiY3JlYXRlIjp0cnVlLCJyZW5hbWUiOnRydWUsIm1vZGlmeSI6dHJ1ZSwiZGVsZXRlIjpmYWxzZSwic2hhcmUiOmZhbHNlLCJkb3dubG9hZCI6dHJ1ZX0sImNvbW1hbmRzIjpbXSwibG9ja1Bhc3N3b3JkIjp0cnVlLCJvdHAiOmZhbHNlLCJvdHBLZXkiOiIifSwiZXhwIjoxNTc2MjUyNTEzLCJpYXQiOjE1NzYyMjczMTMsImlzcyI6IkZpbGUgQnJvd3NlciAgdjIuOC43L2NiNjg5ZTgzXG5CdWlsdCBGb3IgICA6IGxpbnV4L2FybTY0XG5HbyBWZXJzaW9uICA6IGdvMS4xMy40XG5SZWxlYXNlIERhdGU6IDIwMTkxMTA2LTEyNTAifQ.LhE1RzlwfyzYgTj4vulHUWHIyK6qUTarbDDHAxRc8H8&amp;inline=true</a></p>
+<p>整段复制到浏览器打开</p>
 
       
       <!-- 打赏 -->
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/12/13/Centos7%E5%AE%89%E8%A3%85hbase/" data-id="ck43vxsgg0001hyev6bla9fgo"
-        class="article-share-link">分享</a>
-      
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Centos7安装spark" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85spark/"
-    >Centos7安装spark</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85spark/" class="article-date">
-  <time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished">2019-12-13</time>
-</a>
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>在hadoop+zookeeper安装之后的安装<br>（继hadoop安装之后，hadoop的3台机器的HOSTS如下：）<br>192.169.200.101  master<br>192.169.200.102  slaver1<br>192.169.200.103  slaver2</p>
-<p>1.上传包文件<br>本次安装上传到/opt<br>2.解压：<br>    tar -zxvf  /opt/ spark…..<br>3. 迁移<br>   迁移的目的是为了简化目录名<br>#cd  /opt<br>#mkdir  spark<br>#mv   /opt/spark…/*     /opt/spark/</p>
-<ol start="4">
-<li>配置</li>
-</ol>
-<p>(1)spark-env.sh<br>#vi  /opt/spark/conf/spark-env.sh<br>export JAVA_HOME=/opt/jdk1.8.0_77</p>
-<p>export HADOOP_HOME=/opt/hadoop<br>export HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop</p>
-<p>export SPARK_HOME=/opt/spark<br>export SPARK_LIBRARY_PATH=${SPARK_HOME}/lib<br>export SCALA_LIBRARY_PATH=${SPARK_HOME}/lib</p>
-<p>export SPARK_LOCAL_IP=192.169.200.101</p>
-<p>export SPARK_MASTER_HOST=192.169.200.101<br>export SPARK_MASTER_IP=192.169.200.101<br>export SPARK_MASTER_PORT=7077<br>export SPARK_MASTER_WEBUI_PORT=8080</p>
-<p>export SPARK_WORKER_CORES=2<br>export SPARK_WORKER_MEMORY=2G<br>export SPARK_WORKER_PORT=7078<br>export SPARK_WORKER_WEBUI_PORT=8081<br>export SPARK_WORKER_INSTANCES=1<br>export SPARK_WORKER_MEMORY=1G<br>export SPARK_HISTORY_OPTS=”-Dspark.history.fs.logDirectory=hdfs://master:9000/spark/job/history”</p>
-<p>#source  /etc/profile    （别忘了）</p>
-<p>(2)配置spark-defaults.conf<br>#vi  /opt/spark/conf/spark-defaults.conf<br>spark.eventLog.enabled           true<br>spark.eventLog.dir               hdfs://master:9000/spark/job/history</p>
-<p>(3)配置slaves<br>#vi  /opt/spark/conf/slaves<br>master<br>slaver1<br>slaver2<br>(该文件中只有这三行)</p>
-<ol start="5">
-<li>在hdfs系统中创建目录<br>##在master机上操作<br>#hdfs   dfs  -mkdir  /spark<br>#hdfs   dfs  -mkdir  /spark/job<br>#hdfs   dfs  -mkdir  /spark/job/history<br>#hdfs   dfs  -chmod  -R  755  /spark</li>
-</ol>
-<ol start="6">
-<li><p>节点分发<br>##从master节点向slaver1和slaver2分发<br>#scp  -r  /opt/ spark/   slaver1:/opt/<br>#scp  -r  /opt/ spark/   slaver2:/opt/</p>
-</li>
-<li><p>配置环境变量<br>需要在三台机器上都要做<br>#vi  /etc/profile<br>export JAVA_HOME=/opt/jdk1.8.0_77<br>export  HADOOP_HOME=/opt/hadoop<br>export  HBASE_HOME=/opt/hbase<br>export  SPARK_HOME=/opt/spark<br>export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$HBASE_HOME/bin:$SPARK_HOME/bin:$SPARK_HOME/sbin</p>
-</li>
-</ol>
-<p>#source  /etc/profile</p>
-<ol start="8">
-<li>修改slaver1和slaver2上的spark-env.sh<br>（1）##slaver1<br>export SPARK_LOCAL_IP=192.169.200.102<br>（2）##slaver2<br>export SPARK_LOCAL_IP=192.169.200.103</li>
-<li>启动<br>都是master机上执行<br>#cd /opt/spark/sbin<br>#start-master.sh<br>#start-slave.sh  spark://192.168.200.102:7077<br>#start-slave.sh  spark://192.168.200.103:7077<br>#spark-shell</li>
-</ol>
-<p>查看web页面;<a href="http://192.169.200.101:8080/" target="_blank" rel="noopener">http://192.169.200.101:8080/</a></p>
-
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/12/13/Centos7%E5%AE%89%E8%A3%85spark/" data-id="ck43vxsgh0002hyevbwu36g6s"
-        class="article-share-link">分享</a>
-      
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Centos7安装mysql 5.7" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85mysql%205.7/"
-    >Centos7安装mysql 5.7</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85mysql%205.7/" class="article-date">
-  <time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished">2019-12-13</time>
-</a>
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>Centos7    Mysql5.7.28 tar包解压安装</p>
-<p>一、卸载系统自带的Mariadb</p>
-<h1 id="rpm-qa-grep-mariadb"><a href="#rpm-qa-grep-mariadb" class="headerlink" title="rpm -qa|grep mariadb"></a>rpm -qa|grep mariadb</h1><p>mariadb-libs-5.5.60-1.el7_5.x86_64    （如此没有不会显示左边的信息）</p>
-<h1 id="rpm-e-–nodeps-mariadb-libs-5-5-60-1-el7-5-x86-64"><a href="#rpm-e-–nodeps-mariadb-libs-5-5-60-1-el7-5-x86-64" class="headerlink" title="rpm -e –nodeps  mariadb-libs-5.5.60-1.el7_5.x86_64"></a>rpm -e –nodeps  mariadb-libs-5.5.60-1.el7_5.x86_64</h1><pre><code>（如果没有，就可不需要执行上行操作）</code></pre><p>二、删除/etc下my.cnf配置文件（如果存在的话）、检查mysql是否存在</p>
-<h1 id="rm-rf-etc-my-cnf"><a href="#rm-rf-etc-my-cnf" class="headerlink" title="rm -rf /etc/my.cnf"></a>rm -rf /etc/my.cnf</h1><h1 id="rpm-qa-grep-mysql"><a href="#rpm-qa-grep-mysql" class="headerlink" title="rpm -qa | grep mysql"></a>rpm -qa | grep mysql</h1><p>三、创建mysql用户组和用户</p>
-<h1 id="groupadd-mysql"><a href="#groupadd-mysql" class="headerlink" title="groupadd mysql"></a>groupadd mysql</h1><h1 id="useradd-g-mysql-mysql"><a href="#useradd-g-mysql-mysql" class="headerlink" title="useradd -g mysql mysql"></a>useradd -g mysql mysql</h1><p>四、解压mysql-5.7.28-el7-x86_64.tar.gz，移动到/usr/local/mysql5.7下，更改文件归属为mysql<br>上传mysql-5.7.28-el7-x86_64.tar.gz并解压</p>
-<h1 id="tar-zxvf-mysql-5-7-25-el7-x86-64-tar-gz"><a href="#tar-zxvf-mysql-5-7-25-el7-x86-64-tar-gz" class="headerlink" title="tar -zxvf mysql-5.7.25-el7-x86_64.tar.gz"></a>tar -zxvf mysql-5.7.25-el7-x86_64.tar.gz</h1><h1 id="mkdir-p-usr-local-mysql"><a href="#mkdir-p-usr-local-mysql" class="headerlink" title="mkdir -p /usr/local/mysql"></a>mkdir -p /usr/local/mysql</h1><h1 id="mv-usr-local-src-mysql-5-7-28-el7-x86-64-usr-local-mysql"><a href="#mv-usr-local-src-mysql-5-7-28-el7-x86-64-usr-local-mysql" class="headerlink" title="mv /usr/local/src/mysql-5.7.28-el7-x86_64/*  /usr/local/mysql/"></a>mv /usr/local/src/mysql-5.7.28-el7-x86_64/*  /usr/local/mysql/</h1><h1 id="mkdir-usr-local-mysql-data"><a href="#mkdir-usr-local-mysql-data" class="headerlink" title="mkdir /usr/local/mysql/data"></a>mkdir /usr/local/mysql/data</h1><h1 id="mkdir-usr-local-mysql-log"><a href="#mkdir-usr-local-mysql-log" class="headerlink" title="mkdir /usr/local/mysql/log"></a>mkdir /usr/local/mysql/log</h1><h1 id="touch-usr-local-mysql-log-mysqld-log"><a href="#touch-usr-local-mysql-log-mysqld-log" class="headerlink" title="touch /usr/local/mysql/log/mysqld.log"></a>touch /usr/local/mysql/log/mysqld.log</h1><h1 id="chown-R-mysql-usr-local-mysql"><a href="#chown-R-mysql-usr-local-mysql" class="headerlink" title="chown -R mysql /usr/local/mysql/"></a>chown -R mysql /usr/local/mysql/</h1><h1 id="chgrp-R-mysql-usr-local-mysql"><a href="#chgrp-R-mysql-usr-local-mysql" class="headerlink" title="chgrp -R mysql /usr/local/mysql/"></a>chgrp -R mysql /usr/local/mysql/</h1><p>五、安装</p>
-<h1 id="cd-usr-local-mysql"><a href="#cd-usr-local-mysql" class="headerlink" title="cd   /usr/local/mysql"></a>cd   /usr/local/mysql</h1><p>#/usr/local/mysql/bin/mysql_install_db –user=mysql –basedir=/usr/local/mysql/ –datadir=/usr/local/mysql/data/</p>
-<p>六、新建配置文件my.cnf，启动</p>
-<h1 id="vi-etc-my-cnf"><a href="#vi-etc-my-cnf" class="headerlink" title="vi /etc/my.cnf"></a>vi /etc/my.cnf</h1><p>[mysqld]<br>basedir=/usr/local/mysql/<br>datadir=/usr/local/mysql/data<br>socket=/tmp/mysql.sock<br>user=mysql<br>symbolic-links=0<br>lower_case_table_names=1<br>max_connections=200<br>character-set-server=utf8<br>default-storage-engine=INNODB<br>max_allowed_packet=16M</p>
-<p>[client]<br>port=3306</p>
-<p>[mysqld_safe]<br>log-error=/usr/local/mysql/log/mysqld.log</p>
-<h1 id="chown-777-etc-my-cnf"><a href="#chown-777-etc-my-cnf" class="headerlink" title="chown 777 /etc/my.cnf"></a>chown 777 /etc/my.cnf</h1><p>启动</p>
-<h1 id="cp-usr-local-mysql-support-files-mysql-server-etc-init-d-mysqld"><a href="#cp-usr-local-mysql-support-files-mysql-server-etc-init-d-mysqld" class="headerlink" title="cp /usr/local/mysql/support-files/mysql.server   /etc/init.d/mysqld"></a>cp /usr/local/mysql/support-files/mysql.server   /etc/init.d/mysqld</h1><h1 id="chmod-x-etc-init-d-mysqld"><a href="#chmod-x-etc-init-d-mysqld" class="headerlink" title="chmod +x /etc/init.d/mysqld"></a>chmod +x /etc/init.d/mysqld</h1><h1 id="service-mysqld-start"><a href="#service-mysqld-start" class="headerlink" title="service mysqld start"></a>service mysqld start</h1><p>七、添加环境变量</p>
-<h1 id="vi-etc-profile"><a href="#vi-etc-profile" class="headerlink" title="vi /etc/profile"></a>vi /etc/profile</h1><p>export MYSQL_HOME=”/usr/local/mysql/“<br>export PATH=”$PATH:$MYSQL_HOME/bin”</p>
-<p>使环境变量生效<br>#source  /etc/profile</p>
-<p>八、获取初始密码，连接mysql，更改默认密码，允许远程访问<br>从/root/.mysql_secret文件中获取初始密码</p>
-<h1 id="cat-root-mysql-secret"><a href="#cat-root-mysql-secret" class="headerlink" title="cat /root/.mysql_secret"></a>cat /root/.mysql_secret</h1><h1 id="Password-set-for-user-‘root-localhost’-at-2019-03-02-09-09-05"><a href="#Password-set-for-user-‘root-localhost’-at-2019-03-02-09-09-05" class="headerlink" title="Password set for user ‘root@localhost’ at 2019-03-02 09:09:05"></a>Password set for user ‘root@localhost’ at 2019-03-02 09:09:05</h1><p>zffNQ&gt;e(l/U;</p>
-<p>修改密码</p>
-<p>[root@centos7 ~]# mysql -uroot -p<br>Enter password:<br>Welcome to the MySQL monitor.  Commands end with ; or \g.<br>Your MySQL connection id is 2<br>Server version: 5.7.25</p>
-<p>Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.</p>
-<p>Oracle is a registered trademark of Oracle Corporation and/or its<br>affiliates. Other names may be trademarks of their respective<br>owners.</p>
-<p>Type ‘help;’ or ‘\h’ for help. Type ‘\c’ to clear the current input statement.</p>
-<p>mysql&gt; set PASSWORD = PASSWORD(‘123456’);<br>Query OK, 0 rows affected, 1 warning (0.00 sec)</p>
-<p>mysql&gt; flush privileges;<br>Query OK, 0 rows affected (0.00 sec)</p>
-
-      
-      <!-- 打赏 -->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/12/13/Centos7%E5%AE%89%E8%A3%85mysql%205.7/" data-id="ck43vxsgj0003hyev5ebghowa"
+      <a data-url="http://yoursite.com/2019/12/13/Centos7%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E5%87%86%E5%A4%87/" data-id="ck43ye36h0006nxev0xh914h9"
         class="article-share-link">分享</a>
       
     </footer>
@@ -489,24 +619,39 @@ select host,user from user;</code></pre><p>退出数据库<br>进入 master<br>�
       
 
       
-      <p>一、配置机器</p>
+      <p>创建三台虚拟机编辑主机名为<br>修改主机名</p>
+<h1 id="hostnamectl-set-hostname-master"><a href="#hostnamectl-set-hostname-master" class="headerlink" title="hostnamectl set-hostname  master"></a>hostnamectl set-hostname  master</h1><p>master<br>slaver1<br>slaver2</p>
+<p>一、配置机器</p>
 <ol>
-<li>配置IP<br>#vi  /etc/sysconfig/network-scripts/ifcfg-eno16777736<br>BOOTPROTO=static<br>…..<br>删除UUID<br>ONBOOT=yes<br>IPADDR=192.168.200.101<br>GATEWAY=192.168.200.1<br>PREFIX=24</li>
+<li>配置master IP<br>#vi  /etc/sysconfig/network-scripts/ifcfg-eno16777736<br>BOOTPROTO=static<br>…..<br>ONBOOT=yes<br>IPADDR=192.168.200.101<br>GATEWAY=192.168.200.1<br>PREFIX=24</li>
 </ol>
-<p>2.重启网络<br>#systemctl  restart  network</p>
-<p>3.关闭防火墙及安全策略<br>#systemctl stop firewalld</p>
+<p>配置slaver1 IP<br>#vi  /etc/sysconfig/network-scripts/ifcfg-eno16777736<br>BOOTPROTO=static<br>…..<br>ONBOOT=yes<br>IPADDR=192.168.200.102<br>GATEWAY=192.168.200.1<br>PREFIX=24</p>
+<p>配置slaver2 IP<br>#vi  /etc/sysconfig/network-scripts/ifcfg-eno16777736<br>BOOTPROTO=static<br>…..<br>ONBOOT=yes<br>IPADDR=192.168.200.103<br>GATEWAY=192.168.200.1<br>PREFIX=24</p>
+<p>2.重启网络（每台主机都要执行）<br>#systemctl  restart  network</p>
+<p>3.关闭防火墙及安全策略（每台主机都要执行）<br>#systemctl stop firewalld</p>
 <h1 id="systemctl-disable-firewalld"><a href="#systemctl-disable-firewalld" class="headerlink" title="systemctl disable firewalld"></a>systemctl disable firewalld</h1><p>setenforce 0</p>
 <h1 id="systemctl-disable-enforce"><a href="#systemctl-disable-enforce" class="headerlink" title="systemctl disable enforce"></a>systemctl disable enforce</h1><h1 id="vi-etc-selinux-config"><a href="#vi-etc-selinux-config" class="headerlink" title="vi /etc/selinux/config"></a>vi /etc/selinux/config</h1><p>SELINUX=disabled</p>
-<p>4.修改主机名</p>
-<h1 id="hostnamectl-set-hostname-master"><a href="#hostnamectl-set-hostname-master" class="headerlink" title="hostnamectl set-hostname  master"></a>hostnamectl set-hostname  master</h1><ol start="5">
-<li>配置主机映射<br>#vi   /etc/hosts</li>
-<li>0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4<br>::1         localhost localhost.localdomain localhost6 localhost6.localdomain6</li>
-<li>168.200.101  master</li>
-<li>168.200.102  slaver1</li>
-<li>168.200.103  slaver2<br>二安装jdk</li>
-<li>上传jdk包到 /opt下；</li>
-<li>解压</li>
-<li>配置环境变量<br>#vi /etc/profile<br>export JAVA_HOME=/opt/jdk1.8.0_77<br>export PATH=$PATH:$JAVA_HOME/bin<br>重启profile<h1 id="source-etc-profile"><a href="#source-etc-profile" class="headerlink" title="source /etc/profile"></a>source /etc/profile</h1>检查<h1 id="java-–version"><a href="#java-–version" class="headerlink" title="java –version"></a>java –version</h1>检查结果为：<br>java version “1.8.0_77”<br>Java(TM) SE Runtime Environment (build 1.8.0_77-b03)<br>Java HotSpot(TM) 64-Bit Server VM (build 25.77-b03, mixed mode)</li>
+<ol start="4">
+<li><p>配置主机映射<br>#vi   /etc/hosts</p>
+</li>
+<li><p>0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4<br>::1         localhost localhost.localdomain localhost6 localhost6.localdomain6</p>
+</li>
+<li><p>168.200.101  master</p>
+</li>
+<li><p>168.200.102  slaver1</p>
+</li>
+<li><p>168.200.103  slaver2</p>
+</li>
+<li><p>将主机映射发送到其他两台电脑<br>scp -r /etc/hosts slaver1:/etc<br>输入密码<br>scp -r /etc/hosts slaver2:/etc<br>输入密码<br>二安装jdk</p>
+</li>
+<li><p>上传jdk包到 /opt下；</p>
+</li>
+<li><p>解压</p>
+</li>
+<li><p>配置环境变量<br>#vi /etc/profile<br>export JAVA_HOME=/opt/jdk1.8.0_77<br>export PATH=$PATH:$JAVA_HOME/bin<br>重启profile</p>
+<h1 id="source-etc-profile"><a href="#source-etc-profile" class="headerlink" title="source /etc/profile"></a>source /etc/profile</h1><p>检查</p>
+<h1 id="java-–version"><a href="#java-–version" class="headerlink" title="java –version"></a>java –version</h1><p>检查结果为：<br>java version “1.8.0_77”<br>Java(TM) SE Runtime Environment (build 1.8.0_77-b03)<br>Java HotSpot(TM) 64-Bit Server VM (build 25.77-b03, mixed mode)</p>
+</li>
 </ol>
 <p>三、在master机上部署hadoop<br>1.上传压缩包<br>hadoop-2.7.7.tar.gz<br>2.解压</p>
 <h1 id="cd-opt"><a href="#cd-opt" class="headerlink" title="cd /opt"></a>cd /opt</h1><p>#tar -zxvf hadoop-2.7.7.tar.gz</p>
@@ -584,7 +729,6 @@ select host,user from user;</code></pre><p>退出数据库<br>进入 master<br>�
 <h1 id="hadoop-version"><a href="#hadoop-version" class="headerlink" title="hadoop version"></a>hadoop version</h1><p>检查结果为：<br>Hadoop 2.7.7<br>Subversion Unknown -r c1aad84bd27cd79c3d1a7dd58202a8c3ee1ed3ac<br>Compiled by stevel on 2018-07-18T22:47Z<br>Compiled with protoc 2.5.0<br>From source with checksum 792e15d20b12c74bd6f19a1fb886490<br>This command was run using /opt/hadoop/share/hadoop/common/hadoop-common-2.7.7.jar</p>
 </li>
 </ol>
-<p>四、克隆虚拟机<br>     克隆时，先关闭那台机器，然后克隆出2台机器，分别起名为slaver1和slaver2<br>启动slaver1后，修改ip地址为192.168.200.102（要重启网络），并修改主机名为slaver1;<br>然后：<br>启动slaver2后，修改ip地址为192.168.200.103（要重启网络），并修改主机名为slaver2;<br>最后启动master机</p>
 <p>五、配置免密码登录<br>##master<br>#cd<br>#cd .ssh<br>#ssh-keygen<br>  一路回车<br>#ssh-copy-id  master<br>#ssh-copy-id  slaver1<br>#ssh-copy-id  slaver2<br>检查：<br>#ssh master<br>#exit<br>#ssh slaver1<br>#exit<br>#ssh slaver2<br>#exit</p>
 <p>六、安装时间同步服务器</p>
 <p>##master机上</p>
@@ -603,7 +747,7 @@ select host,user from user;</code></pre><p>退出数据库<br>进入 master<br>�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/12/13/Centos7%E6%90%AD%E5%BB%BAHadoop%E9%9B%86%E7%BE%A4/" data-id="ck43vxsgt0005hyev81x32fz7"
+      <a data-url="http://yoursite.com/2019/12/13/Centos7%E6%90%AD%E5%BB%BAHadoop%E9%9B%86%E7%BE%A4/" data-id="ck43ye36u0007nxev1x149xk4"
         class="article-share-link">分享</a>
       
     </footer>
@@ -684,7 +828,7 @@ select host,user from user;</code></pre><p>退出数据库<br>进入 master<br>�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/12/13/Centos7%E5%AE%89%E8%A3%85zookee/" data-id="ck43vxsgk0004hyev515vcvd2"
+      <a data-url="http://yoursite.com/2019/12/13/Centos7%E5%AE%89%E8%A3%85zookee/" data-id="ck43ye35v0005nxev4tg8c8a4"
         class="article-share-link">分享</a>
       
     </footer>

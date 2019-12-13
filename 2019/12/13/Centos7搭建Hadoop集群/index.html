@@ -72,24 +72,39 @@
       
 
       
-      <p>一、配置机器</p>
+      <p>创建三台虚拟机编辑主机名为<br>修改主机名</p>
+<h1 id="hostnamectl-set-hostname-master"><a href="#hostnamectl-set-hostname-master" class="headerlink" title="hostnamectl set-hostname  master"></a>hostnamectl set-hostname  master</h1><p>master<br>slaver1<br>slaver2</p>
+<p>一、配置机器</p>
 <ol>
-<li>配置IP<br>#vi  /etc/sysconfig/network-scripts/ifcfg-eno16777736<br>BOOTPROTO=static<br>…..<br>删除UUID<br>ONBOOT=yes<br>IPADDR=192.168.200.101<br>GATEWAY=192.168.200.1<br>PREFIX=24</li>
+<li>配置master IP<br>#vi  /etc/sysconfig/network-scripts/ifcfg-eno16777736<br>BOOTPROTO=static<br>…..<br>ONBOOT=yes<br>IPADDR=192.168.200.101<br>GATEWAY=192.168.200.1<br>PREFIX=24</li>
 </ol>
-<p>2.重启网络<br>#systemctl  restart  network</p>
-<p>3.关闭防火墙及安全策略<br>#systemctl stop firewalld</p>
+<p>配置slaver1 IP<br>#vi  /etc/sysconfig/network-scripts/ifcfg-eno16777736<br>BOOTPROTO=static<br>…..<br>ONBOOT=yes<br>IPADDR=192.168.200.102<br>GATEWAY=192.168.200.1<br>PREFIX=24</p>
+<p>配置slaver2 IP<br>#vi  /etc/sysconfig/network-scripts/ifcfg-eno16777736<br>BOOTPROTO=static<br>…..<br>ONBOOT=yes<br>IPADDR=192.168.200.103<br>GATEWAY=192.168.200.1<br>PREFIX=24</p>
+<p>2.重启网络（每台主机都要执行）<br>#systemctl  restart  network</p>
+<p>3.关闭防火墙及安全策略（每台主机都要执行）<br>#systemctl stop firewalld</p>
 <h1 id="systemctl-disable-firewalld"><a href="#systemctl-disable-firewalld" class="headerlink" title="systemctl disable firewalld"></a>systemctl disable firewalld</h1><p>setenforce 0</p>
 <h1 id="systemctl-disable-enforce"><a href="#systemctl-disable-enforce" class="headerlink" title="systemctl disable enforce"></a>systemctl disable enforce</h1><h1 id="vi-etc-selinux-config"><a href="#vi-etc-selinux-config" class="headerlink" title="vi /etc/selinux/config"></a>vi /etc/selinux/config</h1><p>SELINUX=disabled</p>
-<p>4.修改主机名</p>
-<h1 id="hostnamectl-set-hostname-master"><a href="#hostnamectl-set-hostname-master" class="headerlink" title="hostnamectl set-hostname  master"></a>hostnamectl set-hostname  master</h1><ol start="5">
-<li>配置主机映射<br>#vi   /etc/hosts</li>
-<li>0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4<br>::1         localhost localhost.localdomain localhost6 localhost6.localdomain6</li>
-<li>168.200.101  master</li>
-<li>168.200.102  slaver1</li>
-<li>168.200.103  slaver2<br>二安装jdk</li>
-<li>上传jdk包到 /opt下；</li>
-<li>解压</li>
-<li>配置环境变量<br>#vi /etc/profile<br>export JAVA_HOME=/opt/jdk1.8.0_77<br>export PATH=$PATH:$JAVA_HOME/bin<br>重启profile<h1 id="source-etc-profile"><a href="#source-etc-profile" class="headerlink" title="source /etc/profile"></a>source /etc/profile</h1>检查<h1 id="java-–version"><a href="#java-–version" class="headerlink" title="java –version"></a>java –version</h1>检查结果为：<br>java version “1.8.0_77”<br>Java(TM) SE Runtime Environment (build 1.8.0_77-b03)<br>Java HotSpot(TM) 64-Bit Server VM (build 25.77-b03, mixed mode)</li>
+<ol start="4">
+<li><p>配置主机映射<br>#vi   /etc/hosts</p>
+</li>
+<li><p>0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4<br>::1         localhost localhost.localdomain localhost6 localhost6.localdomain6</p>
+</li>
+<li><p>168.200.101  master</p>
+</li>
+<li><p>168.200.102  slaver1</p>
+</li>
+<li><p>168.200.103  slaver2</p>
+</li>
+<li><p>将主机映射发送到其他两台电脑<br>scp -r /etc/hosts slaver1:/etc<br>输入密码<br>scp -r /etc/hosts slaver2:/etc<br>输入密码<br>二安装jdk</p>
+</li>
+<li><p>上传jdk包到 /opt下；</p>
+</li>
+<li><p>解压</p>
+</li>
+<li><p>配置环境变量<br>#vi /etc/profile<br>export JAVA_HOME=/opt/jdk1.8.0_77<br>export PATH=$PATH:$JAVA_HOME/bin<br>重启profile</p>
+<h1 id="source-etc-profile"><a href="#source-etc-profile" class="headerlink" title="source /etc/profile"></a>source /etc/profile</h1><p>检查</p>
+<h1 id="java-–version"><a href="#java-–version" class="headerlink" title="java –version"></a>java –version</h1><p>检查结果为：<br>java version “1.8.0_77”<br>Java(TM) SE Runtime Environment (build 1.8.0_77-b03)<br>Java HotSpot(TM) 64-Bit Server VM (build 25.77-b03, mixed mode)</p>
+</li>
 </ol>
 <p>三、在master机上部署hadoop<br>1.上传压缩包<br>hadoop-2.7.7.tar.gz<br>2.解压</p>
 <h1 id="cd-opt"><a href="#cd-opt" class="headerlink" title="cd /opt"></a>cd /opt</h1><p>#tar -zxvf hadoop-2.7.7.tar.gz</p>
@@ -167,7 +182,6 @@
 <h1 id="hadoop-version"><a href="#hadoop-version" class="headerlink" title="hadoop version"></a>hadoop version</h1><p>检查结果为：<br>Hadoop 2.7.7<br>Subversion Unknown -r c1aad84bd27cd79c3d1a7dd58202a8c3ee1ed3ac<br>Compiled by stevel on 2018-07-18T22:47Z<br>Compiled with protoc 2.5.0<br>From source with checksum 792e15d20b12c74bd6f19a1fb886490<br>This command was run using /opt/hadoop/share/hadoop/common/hadoop-common-2.7.7.jar</p>
 </li>
 </ol>
-<p>四、克隆虚拟机<br>     克隆时，先关闭那台机器，然后克隆出2台机器，分别起名为slaver1和slaver2<br>启动slaver1后，修改ip地址为192.168.200.102（要重启网络），并修改主机名为slaver1;<br>然后：<br>启动slaver2后，修改ip地址为192.168.200.103（要重启网络），并修改主机名为slaver2;<br>最后启动master机</p>
 <p>五、配置免密码登录<br>##master<br>#cd<br>#cd .ssh<br>#ssh-keygen<br>  一路回车<br>#ssh-copy-id  master<br>#ssh-copy-id  slaver1<br>#ssh-copy-id  slaver2<br>检查：<br>#ssh master<br>#exit<br>#ssh slaver1<br>#exit<br>#ssh slaver2<br>#exit</p>
 <p>六、安装时间同步服务器</p>
 <p>##master机上</p>
@@ -218,7 +232,7 @@
         
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/12/13/Centos7%E6%90%AD%E5%BB%BAHadoop%E9%9B%86%E7%BE%A4/" data-id="ck43vxsgt0005hyev81x32fz7"
+      <a data-url="http://yoursite.com/2019/12/13/Centos7%E6%90%AD%E5%BB%BAHadoop%E9%9B%86%E7%BE%A4/" data-id="ck43ye36u0007nxev1x149xk4"
         class="article-share-link">分享</a>
       
     </footer>
@@ -229,11 +243,11 @@
   
   <nav class="article-nav">
     
-      <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85mysql%205.7/" class="article-nav-link">
+      <a href="/2019/12/13/Centos7%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E5%87%86%E5%A4%87/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            Centos7安装mysql 5.7
+            Centos7安装hbase
           
         </div>
       </a>
