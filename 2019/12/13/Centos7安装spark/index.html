@@ -6,7 +6,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    我的第一篇博客文章 |  🥔土豆工程师！
+    Centos7安装spark |  🥔土豆工程师！
   </title>
   
   <link rel="shortcut icon" href="/favicon.ico" />
@@ -31,7 +31,7 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-我的第一篇博客文章" class="article article-type-post" itemscope
+  <article id="post-Centos7安装spark" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -39,7 +39,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  我的第一篇博客文章
+  Centos7安装spark
 </h1>
   
 
@@ -48,8 +48,8 @@
 
     
     <div class="article-meta">
-      <a href="/2019/12/13/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/" class="article-date">
-  <time datetime="2019-12-13T05:56:49.000Z" itemprop="datePublished">2019-12-13</time>
+      <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85spark/" class="article-date">
+  <time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished">2019-12-13</time>
 </a>
       
     </div>
@@ -70,7 +70,35 @@
       
 
       
-      <p>xiejunfengh</p>
+      <p>在hadoop+zookeeper安装之后的安装<br>（继hadoop安装之后，hadoop的3台机器的HOSTS如下：）<br>192.169.200.101  master<br>192.169.200.102  slaver1<br>192.169.200.103  slaver2</p>
+<p>1.上传包文件<br>本次安装上传到/opt<br>2.解压：<br>    tar -zxvf  /opt/ spark…..<br>3. 迁移<br>   迁移的目的是为了简化目录名<br>#cd  /opt<br>#mkdir  spark<br>#mv   /opt/spark…/*     /opt/spark/</p>
+<ol start="4">
+<li>配置</li>
+</ol>
+<p>(1)spark-env.sh<br>#vi  /opt/spark/conf/spark-env.sh<br>export JAVA_HOME=/opt/jdk1.8.0_77</p>
+<p>export HADOOP_HOME=/opt/hadoop<br>export HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop</p>
+<p>export SPARK_HOME=/opt/spark<br>export SPARK_LIBRARY_PATH=${SPARK_HOME}/lib<br>export SCALA_LIBRARY_PATH=${SPARK_HOME}/lib</p>
+<p>export SPARK_LOCAL_IP=192.169.200.101</p>
+<p>export SPARK_MASTER_HOST=192.169.200.101<br>export SPARK_MASTER_IP=192.169.200.101<br>export SPARK_MASTER_PORT=7077<br>export SPARK_MASTER_WEBUI_PORT=8080</p>
+<p>export SPARK_WORKER_CORES=2<br>export SPARK_WORKER_MEMORY=2G<br>export SPARK_WORKER_PORT=7078<br>export SPARK_WORKER_WEBUI_PORT=8081<br>export SPARK_WORKER_INSTANCES=1<br>export SPARK_WORKER_MEMORY=1G<br>export SPARK_HISTORY_OPTS=”-Dspark.history.fs.logDirectory=hdfs://master:9000/spark/job/history”</p>
+<p>#source  /etc/profile    （别忘了）</p>
+<p>(2)配置spark-defaults.conf<br>#vi  /opt/spark/conf/spark-defaults.conf<br>spark.eventLog.enabled           true<br>spark.eventLog.dir               hdfs://master:9000/spark/job/history</p>
+<p>(3)配置slaves<br>#vi  /opt/spark/conf/slaves<br>master<br>slaver1<br>slaver2<br>(该文件中只有这三行)</p>
+<ol start="5">
+<li>在hdfs系统中创建目录<br>##在master机上操作<br>#hdfs   dfs  -mkdir  /spark<br>#hdfs   dfs  -mkdir  /spark/job<br>#hdfs   dfs  -mkdir  /spark/job/history<br>#hdfs   dfs  -chmod  -R  755  /spark</li>
+</ol>
+<ol start="6">
+<li><p>节点分发<br>##从master节点向slaver1和slaver2分发<br>#scp  -r  /opt/ spark/   slaver1:/opt/<br>#scp  -r  /opt/ spark/   slaver2:/opt/</p>
+</li>
+<li><p>配置环境变量<br>需要在三台机器上都要做<br>#vi  /etc/profile<br>export JAVA_HOME=/opt/jdk1.8.0_77<br>export  HADOOP_HOME=/opt/hadoop<br>export  HBASE_HOME=/opt/hbase<br>export  SPARK_HOME=/opt/spark<br>export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$HBASE_HOME/bin:$SPARK_HOME/bin:$SPARK_HOME/sbin</p>
+</li>
+</ol>
+<p>#source  /etc/profile</p>
+<ol start="8">
+<li>修改slaver1和slaver2上的spark-env.sh<br>（1）##slaver1<br>export SPARK_LOCAL_IP=192.169.200.102<br>（2）##slaver2<br>export SPARK_LOCAL_IP=192.169.200.103</li>
+<li>启动<br>都是master机上执行<br>#cd /opt/spark/sbin<br>#start-master.sh<br>#start-slave.sh  spark://192.168.200.102:7077<br>#start-slave.sh  spark://192.168.200.103:7077<br>#spark-shell</li>
+</ol>
+<p>查看web页面;<a href="http://192.169.200.101:8080/" target="_blank" rel="noopener">http://192.169.200.101:8080/</a></p>
 
       
       <!-- 打赏 -->
@@ -109,7 +137,7 @@
         
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/12/13/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/" data-id="ck43tp74b0000vfev6m806ejg"
+      <a data-url="http://yoursite.com/2019/12/13/Centos7%E5%AE%89%E8%A3%85spark/" data-id="ck43vxsgh0002hyevbwu36g6s"
         class="article-share-link">分享</a>
       
     </footer>
@@ -120,10 +148,19 @@
   
   <nav class="article-nav">
     
+      <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85hbase/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Centos7安装hbase
+          
+        </div>
+      </a>
     
-      <a href="/2019/12/13/hello-world/" class="article-nav-link">
+    
+      <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85mysql%205.7/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Hello World</div>
+        <div class="article-nav-title">Centos7安装mysql 5.7</div>
       </a>
     
   </nav>

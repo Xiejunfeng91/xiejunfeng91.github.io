@@ -6,7 +6,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    Hello World |  🥔土豆工程师！
+    我的第一篇博客文章 |  🥔土豆工程师！
   </title>
   
   <link rel="shortcut icon" href="/favicon.ico" />
@@ -31,7 +31,7 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-hello-world" class="article article-type-post" itemscope
+  <article id="post-Centos7安装zookee" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -39,7 +39,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  Hello World
+  我的第一篇博客文章
 </h1>
   
 
@@ -48,8 +48,8 @@
 
     
     <div class="article-meta">
-      <a href="/2019/12/13/hello-world/" class="article-date">
-  <time datetime="2019-12-13T05:20:41.135Z" itemprop="datePublished">2019-12-13</time>
+      <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85zookee/" class="article-date">
+  <time datetime="2019-12-13T05:56:49.000Z" itemprop="datePublished">2019-12-13</time>
 </a>
       
     </div>
@@ -72,19 +72,29 @@
       
 
       
-      <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+      <p>Zookeeper的安装<br>（继hadoop安装之后，hadoop的3台机器的HOSTS如下：）<br>192.168.200.101  master<br>192.168.200.102  slaver1<br>192.168.200.103  slaver2</p>
+<p>1.master机上操作<br>（1）上传zookeeper包<br>本次安装上传到 /opt下<br>（2）解压<br>#cd  /opt<br>#tar  -zxvf  zookeeper….</p>
+<p>（3）修改配置文件<br>#cd  /opt/zookeeper-3.4.14<br>#mkdir  data<br>#cd  data<br>#echo  1  &gt;myid<br>#cd  ..<br>#cd  conf<br>#mv  zoo_sample.cfg   zoo.cfg<br>#vi  zoo.cfg<br>修改:<br>….<br>dataDir=/opt/zookeeper-3.4.14/data<br>….<br>最后增加：<br>server.1=192.168.200.101:2888:3888<br>server.2=192.168.200.102:2888:3888<br>server.3=192.168.200.103:2888:3888</p>
+<p>（3）复制到另二台机器</p>
+<h1 id="scp-r-opt-zookeeper-3-4-14-192-168-200-102-opt"><a href="#scp-r-opt-zookeeper-3-4-14-192-168-200-102-opt" class="headerlink" title="scp  -r  /opt/zookeeper-3.4.14/   192.168.200.102:/opt/"></a>scp  -r  /opt/zookeeper-3.4.14/   192.168.200.102:/opt/</h1><h1 id="scp-r-opt-zookeeper-3-4-14-192-168-200-103-opt"><a href="#scp-r-opt-zookeeper-3-4-14-192-168-200-103-opt" class="headerlink" title="scp  -r  /opt/zookeeper-3.4.14/   192.168.200.103:/opt/"></a>scp  -r  /opt/zookeeper-3.4.14/   192.168.200.103:/opt/</h1><ol start="2">
+<li>修改myid<br>(1) ##slaver1<br>#cd  /opt/zookeeper-3.4.14/data<br>#vi  myid<br>把1改为2</li>
+</ol>
+<p>(2) ##slaver2<br>#cd  /opt/zookeeper-3.4.14/data<br>#vi  myid<br>把1改为3</p>
+<ol start="3">
+<li><p>启动zookeeper<br>(1)##master</p>
+<h1 id="cd-opt-zookeeper-3-4-14-bin"><a href="#cd-opt-zookeeper-3-4-14-bin" class="headerlink" title="cd   /opt/zookeeper-3.4.14/bin"></a>cd   /opt/zookeeper-3.4.14/bin</h1><p>#./zkServer.sh   start<br>(2)##slaver1</p>
+<h1 id="cd-opt-zookeeper-3-4-14-bin-1"><a href="#cd-opt-zookeeper-3-4-14-bin-1" class="headerlink" title="cd   /opt/zookeeper-3.4.14/bin"></a>cd   /opt/zookeeper-3.4.14/bin</h1><p>#./zkServer.sh   start<br>(3)##slaver2</p>
+<h1 id="cd-opt-zookeeper-3-4-14-bin-2"><a href="#cd-opt-zookeeper-3-4-14-bin-2" class="headerlink" title="cd   /opt/zookeeper-3.4.14/bin"></a>cd   /opt/zookeeper-3.4.14/bin</h1><p>#./zkServer.sh   start</p>
+</li>
+<li><p>检查<br>（1）##master</p>
+<h1 id="cd-opt-zookeeper-3-4-14-bin-3"><a href="#cd-opt-zookeeper-3-4-14-bin-3" class="headerlink" title="cd   /opt/zookeeper-3.4.14/bin"></a>cd   /opt/zookeeper-3.4.14/bin</h1><p>#./zkServer.sh   status</p>
+</li>
+</ol>
+<p>（2）##slaver1</p>
+<h1 id="cd-opt-zookeeper-3-4-14-bin-4"><a href="#cd-opt-zookeeper-3-4-14-bin-4" class="headerlink" title="cd   /opt/zookeeper-3.4.14/bin"></a>cd   /opt/zookeeper-3.4.14/bin</h1><p>#./zkServer.sh   status</p>
+<p>（3）##slaver2</p>
+<h1 id="cd-opt-zookeeper-3-4-14-bin-5"><a href="#cd-opt-zookeeper-3-4-14-bin-5" class="headerlink" title="cd   /opt/zookeeper-3.4.14/bin"></a>cd   /opt/zookeeper-3.4.14/bin</h1><p>#./zkServer.sh   status</p>
+<p>其中有2台机器为： follower,1台机器为leader,这表示正常</p>
 
       
       <!-- 打赏 -->
@@ -123,7 +133,7 @@
         
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/12/13/hello-world/" data-id="ck43tp74l0001vfev7v2w2imz"
+      <a data-url="http://yoursite.com/2019/12/13/Centos7%E5%AE%89%E8%A3%85zookee/" data-id="ck43vxsgk0004hyev515vcvd2"
         class="article-share-link">分享</a>
       
     </footer>
@@ -134,11 +144,11 @@
   
   <nav class="article-nav">
     
-      <a href="/2019/12/13/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/" class="article-nav-link">
+      <a href="/2019/12/13/Centos7%E6%90%AD%E5%BB%BAHadoop%E9%9B%86%E7%BE%A4/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            我的第一篇博客文章
+            Centos搭建Hadoop集群
           
         </div>
       </a>

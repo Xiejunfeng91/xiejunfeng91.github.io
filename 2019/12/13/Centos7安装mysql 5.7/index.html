@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    Centos7安装mysql 5.7 |  🥔土豆工程师！
+  </title>
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+
+<meta name="generator" content="Hexo 4.1.1"></head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-Centos7安装mysql 5.7" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Centos7安装mysql 5.7
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85mysql%205.7/" class="article-date">
+  <time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished">2019-12-13</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>Centos7    Mysql5.7.28 tar包解压安装</p>
+<p>一、卸载系统自带的Mariadb</p>
+<h1 id="rpm-qa-grep-mariadb"><a href="#rpm-qa-grep-mariadb" class="headerlink" title="rpm -qa|grep mariadb"></a>rpm -qa|grep mariadb</h1><p>mariadb-libs-5.5.60-1.el7_5.x86_64    （如此没有不会显示左边的信息）</p>
+<h1 id="rpm-e-–nodeps-mariadb-libs-5-5-60-1-el7-5-x86-64"><a href="#rpm-e-–nodeps-mariadb-libs-5-5-60-1-el7-5-x86-64" class="headerlink" title="rpm -e –nodeps  mariadb-libs-5.5.60-1.el7_5.x86_64"></a>rpm -e –nodeps  mariadb-libs-5.5.60-1.el7_5.x86_64</h1><pre><code>（如果没有，就可不需要执行上行操作）</code></pre><p>二、删除/etc下my.cnf配置文件（如果存在的话）、检查mysql是否存在</p>
+<h1 id="rm-rf-etc-my-cnf"><a href="#rm-rf-etc-my-cnf" class="headerlink" title="rm -rf /etc/my.cnf"></a>rm -rf /etc/my.cnf</h1><h1 id="rpm-qa-grep-mysql"><a href="#rpm-qa-grep-mysql" class="headerlink" title="rpm -qa | grep mysql"></a>rpm -qa | grep mysql</h1><p>三、创建mysql用户组和用户</p>
+<h1 id="groupadd-mysql"><a href="#groupadd-mysql" class="headerlink" title="groupadd mysql"></a>groupadd mysql</h1><h1 id="useradd-g-mysql-mysql"><a href="#useradd-g-mysql-mysql" class="headerlink" title="useradd -g mysql mysql"></a>useradd -g mysql mysql</h1><p>四、解压mysql-5.7.28-el7-x86_64.tar.gz，移动到/usr/local/mysql5.7下，更改文件归属为mysql<br>上传mysql-5.7.28-el7-x86_64.tar.gz并解压</p>
+<h1 id="tar-zxvf-mysql-5-7-25-el7-x86-64-tar-gz"><a href="#tar-zxvf-mysql-5-7-25-el7-x86-64-tar-gz" class="headerlink" title="tar -zxvf mysql-5.7.25-el7-x86_64.tar.gz"></a>tar -zxvf mysql-5.7.25-el7-x86_64.tar.gz</h1><h1 id="mkdir-p-usr-local-mysql"><a href="#mkdir-p-usr-local-mysql" class="headerlink" title="mkdir -p /usr/local/mysql"></a>mkdir -p /usr/local/mysql</h1><h1 id="mv-usr-local-src-mysql-5-7-28-el7-x86-64-usr-local-mysql"><a href="#mv-usr-local-src-mysql-5-7-28-el7-x86-64-usr-local-mysql" class="headerlink" title="mv /usr/local/src/mysql-5.7.28-el7-x86_64/*  /usr/local/mysql/"></a>mv /usr/local/src/mysql-5.7.28-el7-x86_64/*  /usr/local/mysql/</h1><h1 id="mkdir-usr-local-mysql-data"><a href="#mkdir-usr-local-mysql-data" class="headerlink" title="mkdir /usr/local/mysql/data"></a>mkdir /usr/local/mysql/data</h1><h1 id="mkdir-usr-local-mysql-log"><a href="#mkdir-usr-local-mysql-log" class="headerlink" title="mkdir /usr/local/mysql/log"></a>mkdir /usr/local/mysql/log</h1><h1 id="touch-usr-local-mysql-log-mysqld-log"><a href="#touch-usr-local-mysql-log-mysqld-log" class="headerlink" title="touch /usr/local/mysql/log/mysqld.log"></a>touch /usr/local/mysql/log/mysqld.log</h1><h1 id="chown-R-mysql-usr-local-mysql"><a href="#chown-R-mysql-usr-local-mysql" class="headerlink" title="chown -R mysql /usr/local/mysql/"></a>chown -R mysql /usr/local/mysql/</h1><h1 id="chgrp-R-mysql-usr-local-mysql"><a href="#chgrp-R-mysql-usr-local-mysql" class="headerlink" title="chgrp -R mysql /usr/local/mysql/"></a>chgrp -R mysql /usr/local/mysql/</h1><p>五、安装</p>
+<h1 id="cd-usr-local-mysql"><a href="#cd-usr-local-mysql" class="headerlink" title="cd   /usr/local/mysql"></a>cd   /usr/local/mysql</h1><p>#/usr/local/mysql/bin/mysql_install_db –user=mysql –basedir=/usr/local/mysql/ –datadir=/usr/local/mysql/data/</p>
+<p>六、新建配置文件my.cnf，启动</p>
+<h1 id="vi-etc-my-cnf"><a href="#vi-etc-my-cnf" class="headerlink" title="vi /etc/my.cnf"></a>vi /etc/my.cnf</h1><p>[mysqld]<br>basedir=/usr/local/mysql/<br>datadir=/usr/local/mysql/data<br>socket=/tmp/mysql.sock<br>user=mysql<br>symbolic-links=0<br>lower_case_table_names=1<br>max_connections=200<br>character-set-server=utf8<br>default-storage-engine=INNODB<br>max_allowed_packet=16M</p>
+<p>[client]<br>port=3306</p>
+<p>[mysqld_safe]<br>log-error=/usr/local/mysql/log/mysqld.log</p>
+<h1 id="chown-777-etc-my-cnf"><a href="#chown-777-etc-my-cnf" class="headerlink" title="chown 777 /etc/my.cnf"></a>chown 777 /etc/my.cnf</h1><p>启动</p>
+<h1 id="cp-usr-local-mysql-support-files-mysql-server-etc-init-d-mysqld"><a href="#cp-usr-local-mysql-support-files-mysql-server-etc-init-d-mysqld" class="headerlink" title="cp /usr/local/mysql/support-files/mysql.server   /etc/init.d/mysqld"></a>cp /usr/local/mysql/support-files/mysql.server   /etc/init.d/mysqld</h1><h1 id="chmod-x-etc-init-d-mysqld"><a href="#chmod-x-etc-init-d-mysqld" class="headerlink" title="chmod +x /etc/init.d/mysqld"></a>chmod +x /etc/init.d/mysqld</h1><h1 id="service-mysqld-start"><a href="#service-mysqld-start" class="headerlink" title="service mysqld start"></a>service mysqld start</h1><p>七、添加环境变量</p>
+<h1 id="vi-etc-profile"><a href="#vi-etc-profile" class="headerlink" title="vi /etc/profile"></a>vi /etc/profile</h1><p>export MYSQL_HOME=”/usr/local/mysql/“<br>export PATH=”$PATH:$MYSQL_HOME/bin”</p>
+<p>使环境变量生效<br>#source  /etc/profile</p>
+<p>八、获取初始密码，连接mysql，更改默认密码，允许远程访问<br>从/root/.mysql_secret文件中获取初始密码</p>
+<h1 id="cat-root-mysql-secret"><a href="#cat-root-mysql-secret" class="headerlink" title="cat /root/.mysql_secret"></a>cat /root/.mysql_secret</h1><h1 id="Password-set-for-user-‘root-localhost’-at-2019-03-02-09-09-05"><a href="#Password-set-for-user-‘root-localhost’-at-2019-03-02-09-09-05" class="headerlink" title="Password set for user ‘root@localhost’ at 2019-03-02 09:09:05"></a>Password set for user ‘root@localhost’ at 2019-03-02 09:09:05</h1><p>zffNQ&gt;e(l/U;</p>
+<p>修改密码</p>
+<p>[root@centos7 ~]# mysql -uroot -p<br>Enter password:<br>Welcome to the MySQL monitor.  Commands end with ; or \g.<br>Your MySQL connection id is 2<br>Server version: 5.7.25</p>
+<p>Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.</p>
+<p>Oracle is a registered trademark of Oracle Corporation and/or its<br>affiliates. Other names may be trademarks of their respective<br>owners.</p>
+<p>Type ‘help;’ or ‘\h’ for help. Type ‘\c’ to clear the current input statement.</p>
+<p>mysql&gt; set PASSWORD = PASSWORD(‘123456’);<br>Query OK, 0 rows affected, 1 warning (0.00 sec)</p>
+<p>mysql&gt; flush privileges;<br>Query OK, 0 rows affected (0.00 sec)</p>
+
+      
+      <!-- 打赏 -->
+      
+        <div class="page-reward">
+          <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+            <div class="tooltip tooltip-east">
+              <span class="tooltip-item">
+                赏
+              </span>
+              <span class="tooltip-content">
+                <span class="tooltip-text">
+                  <span class="tooltip-inner">
+                    <p class="reward-p"><i class="icon icon-quo-left"></i>请我喝杯咖啡吧~<i
+                        class="icon icon-quo-right"></i></p>
+                    <div class="reward-box">
+                      
+                      <div class="reward-box-item">
+                        <img class="reward-img" src="/images/alipay.jpg">
+                        <span class="reward-type">支付宝</span>
+                      </div>
+                      
+                      
+                      <div class="reward-box-item">
+                        <img class="reward-img" src="/images/wechat.jpg">
+                        <span class="reward-type">微信</span>
+                      </div>
+                      
+                    </div>
+                  </span>
+                </span>
+              </span>
+            </div>
+          </a>
+        </div>
+        
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/12/13/Centos7%E5%AE%89%E8%A3%85mysql%205.7/" data-id="ck43vxsgj0003hyev5ebghowa"
+        class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85spark/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Centos7安装spark
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/12/13/Centos7%E6%90%AD%E5%BB%BAHadoop%E9%9B%86%E7%BE%A4/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Centos搭建Hadoop集群</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: 'kpgstqINgUof1Wzh80xT3JSc-gzGzoHsz',
+        app_key: 'sEgTtz2jBy33IqY6poc21obC',
+        path: window.location.pathname,
+        avatar: 'robohash',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2019
+        Xiejunfeng
+      </li>
+      <li>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+    
+    <aside class="sidebar">
+      
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="🥔土豆工程师！"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">目录</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  </div>
+</body>
+
+</html>

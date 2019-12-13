@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    Centos搭建Hadoop集群 |  🥔土豆工程师！
+  </title>
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+
+<meta name="generator" content="Hexo 4.1.1"></head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-Centos7搭建Hadoop集群" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Centos搭建Hadoop集群
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/12/13/Centos7%E6%90%AD%E5%BB%BAHadoop%E9%9B%86%E7%BE%A4/" class="article-date">
+  <time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished">2019-12-13</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>一、配置机器</p>
+<ol>
+<li>配置IP<br>#vi  /etc/sysconfig/network-scripts/ifcfg-eno16777736<br>BOOTPROTO=static<br>…..<br>删除UUID<br>ONBOOT=yes<br>IPADDR=192.168.200.101<br>GATEWAY=192.168.200.1<br>PREFIX=24</li>
+</ol>
+<p>2.重启网络<br>#systemctl  restart  network</p>
+<p>3.关闭防火墙及安全策略<br>#systemctl stop firewalld</p>
+<h1 id="systemctl-disable-firewalld"><a href="#systemctl-disable-firewalld" class="headerlink" title="systemctl disable firewalld"></a>systemctl disable firewalld</h1><p>setenforce 0</p>
+<h1 id="systemctl-disable-enforce"><a href="#systemctl-disable-enforce" class="headerlink" title="systemctl disable enforce"></a>systemctl disable enforce</h1><h1 id="vi-etc-selinux-config"><a href="#vi-etc-selinux-config" class="headerlink" title="vi /etc/selinux/config"></a>vi /etc/selinux/config</h1><p>SELINUX=disabled</p>
+<p>4.修改主机名</p>
+<h1 id="hostnamectl-set-hostname-master"><a href="#hostnamectl-set-hostname-master" class="headerlink" title="hostnamectl set-hostname  master"></a>hostnamectl set-hostname  master</h1><ol start="5">
+<li>配置主机映射<br>#vi   /etc/hosts</li>
+<li>0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4<br>::1         localhost localhost.localdomain localhost6 localhost6.localdomain6</li>
+<li>168.200.101  master</li>
+<li>168.200.102  slaver1</li>
+<li>168.200.103  slaver2<br>二安装jdk</li>
+<li>上传jdk包到 /opt下；</li>
+<li>解压</li>
+<li>配置环境变量<br>#vi /etc/profile<br>export JAVA_HOME=/opt/jdk1.8.0_77<br>export PATH=$PATH:$JAVA_HOME/bin<br>重启profile<h1 id="source-etc-profile"><a href="#source-etc-profile" class="headerlink" title="source /etc/profile"></a>source /etc/profile</h1>检查<h1 id="java-–version"><a href="#java-–version" class="headerlink" title="java –version"></a>java –version</h1>检查结果为：<br>java version “1.8.0_77”<br>Java(TM) SE Runtime Environment (build 1.8.0_77-b03)<br>Java HotSpot(TM) 64-Bit Server VM (build 25.77-b03, mixed mode)</li>
+</ol>
+<p>三、在master机上部署hadoop<br>1.上传压缩包<br>hadoop-2.7.7.tar.gz<br>2.解压</p>
+<h1 id="cd-opt"><a href="#cd-opt" class="headerlink" title="cd /opt"></a>cd /opt</h1><p>#tar -zxvf hadoop-2.7.7.tar.gz</p>
+<h1 id="mkdir-hadoop"><a href="#mkdir-hadoop" class="headerlink" title="mkdir hadoop"></a>mkdir hadoop</h1><p>#mv   hadoop-2.7.7/*   /opt/hadoop/</p>
+<ol start="3">
+<li>修改配置文件<h1 id="cd-opt-hadoop-etc-hadoop"><a href="#cd-opt-hadoop-etc-hadoop" class="headerlink" title="cd /opt/hadoop/etc/hadoop"></a>cd /opt/hadoop/etc/hadoop</h1>(1)hadoop-env.sh<h1 id="vi-hadoop-env-sh"><a href="#vi-hadoop-env-sh" class="headerlink" title="vi hadoop-env.sh"></a>vi hadoop-env.sh</h1>export JAVA_HOME=/opt/jdk1.8.0_77</li>
+</ol>
+<p>(2)core-site.xml</p>
+<h1 id="vi-core-site-xml"><a href="#vi-core-site-xml" class="headerlink" title="vi core-site.xml"></a>vi core-site.xml</h1><configuration>
+<property>
+<name>fs.defaultFS</name>
+<value>hdfs://master:9000</value>
+</property>
+<property>
+<name>hadoop.tmp.dir</name>
+<value>/opt/hadoopdata/hadoop</value>
+</property>
+</configuration>
+
+<p>(3)hdfs-site.xml<br>#vi hdfs-site.xml <configuration><br><property><br>   <name>dfs.replication</name><br>   <value>3</value><br></property></p>
+<property>
+  <name>dfs.name.dir</name>
+      <value>/opt/hadoopdata/hadoop/name</value>
+</property>
+
+<property>
+
+<p><name>dfs.data.dir</name><br><value>/opt/hadoopdata/hadoop/data</value></p>
+</property>
+<property>
+<name>dfs.namenode.secondary.http-address</name>
+<value>slaver1:50090</value>
+</property>
+
+<property>
+  <name>dfs.permissions.enabled</name>
+  <value>false</value>
+
+</property>
+
+
+</configuration>
+
+<p>(4)mapred-site.xml</p>
+<h1 id="mv-mapred-site-xml-template-mapred-site-xml"><a href="#mv-mapred-site-xml-template-mapred-site-xml" class="headerlink" title="mv mapred-site.xml.template  mapred-site.xml"></a>mv mapred-site.xml.template  mapred-site.xml</h1><h1 id="vi-mapred-site-xml"><a href="#vi-mapred-site-xml" class="headerlink" title="vi mapred-site.xml"></a>vi mapred-site.xml</h1><configuration>
+  <property>
+     <name>mapreduce.framework.name</name>
+     <value>yarn</value>
+    </property>
+</configuration>
+
+<p>(5)yarn-site.xml</p>
+<h1 id="vi-yarn-site-xml"><a href="#vi-yarn-site-xml" class="headerlink" title="vi yarn-site.xml"></a>vi yarn-site.xml</h1><configuration>
+
+<!-- Site specific YARN configuration properties -->
+
+<property>
+     <name>yarn.nodemanager.aux-services</name>
+     <value>mapreduce_shuffle</value>
+</property>
+<property>
+        <name>yarn.resourcemanager.hostname</name>
+        <value>slaver2</value>
+</property>
+</configuration>
+
+<p>(6)slaves</p>
+<h1 id="vi-slaves"><a href="#vi-slaves" class="headerlink" title="vi slaves"></a>vi slaves</h1><p>master<br>slaver1<br>slaver2</p>
+<ol start="4">
+<li><p>创建hadoop用到的目录</p>
+<h1 id="mkdir-opt-hadoopdata"><a href="#mkdir-opt-hadoopdata" class="headerlink" title="mkdir /opt/hadoopdata"></a>mkdir /opt/hadoopdata</h1><h1 id="mkdir-opt-hadoopdata-data"><a href="#mkdir-opt-hadoopdata-data" class="headerlink" title="mkdir /opt/hadoopdata/data"></a>mkdir /opt/hadoopdata/data</h1><h1 id="mkdir-opt-hadoopdata-name"><a href="#mkdir-opt-hadoopdata-name" class="headerlink" title="mkdir /opt/hadoopdata/name"></a>mkdir /opt/hadoopdata/name</h1></li>
+<li><p>配置profile</p>
+<h1 id="vi-etc-profile"><a href="#vi-etc-profile" class="headerlink" title="vi  /etc/profile"></a>vi  /etc/profile</h1><p>export JAVA_HOME=/opt/jdk1.8.0_77<br>export  HADOOP_HOME=/opt/hadoop<br>export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin</p>
+<h1 id="source-etc-profile-1"><a href="#source-etc-profile-1" class="headerlink" title="source /etc/profile"></a>source /etc/profile</h1><p>检查</p>
+<h1 id="hadoop-version"><a href="#hadoop-version" class="headerlink" title="hadoop version"></a>hadoop version</h1><p>检查结果为：<br>Hadoop 2.7.7<br>Subversion Unknown -r c1aad84bd27cd79c3d1a7dd58202a8c3ee1ed3ac<br>Compiled by stevel on 2018-07-18T22:47Z<br>Compiled with protoc 2.5.0<br>From source with checksum 792e15d20b12c74bd6f19a1fb886490<br>This command was run using /opt/hadoop/share/hadoop/common/hadoop-common-2.7.7.jar</p>
+</li>
+</ol>
+<p>四、克隆虚拟机<br>     克隆时，先关闭那台机器，然后克隆出2台机器，分别起名为slaver1和slaver2<br>启动slaver1后，修改ip地址为192.168.200.102（要重启网络），并修改主机名为slaver1;<br>然后：<br>启动slaver2后，修改ip地址为192.168.200.103（要重启网络），并修改主机名为slaver2;<br>最后启动master机</p>
+<p>五、配置免密码登录<br>##master<br>#cd<br>#cd .ssh<br>#ssh-keygen<br>  一路回车<br>#ssh-copy-id  master<br>#ssh-copy-id  slaver1<br>#ssh-copy-id  slaver2<br>检查：<br>#ssh master<br>#exit<br>#ssh slaver1<br>#exit<br>#ssh slaver2<br>#exit</p>
+<p>六、安装时间同步服务器</p>
+<p>##master机上</p>
+<h1 id="yum-y-install-ntp"><a href="#yum-y-install-ntp" class="headerlink" title="yum -y install ntp"></a>yum -y install ntp</h1><h1 id="vi-etc-ntp-conf"><a href="#vi-etc-ntp-conf" class="headerlink" title="vi /etc/ntp.conf"></a>vi /etc/ntp.conf</h1><p>注释或者删除以下四行<br>server 0.centos.pool.ntp.org iburst<br>server 1.centos.pool.ntp.org iburst<br>server 2.centos.pool.ntp.org iburst<br>server 3.centos.pool.ntp.org iburst<br>添加以下两行<br>server 127.127.1.0<br>fudge 127.127.1.0 stratum 10<br>#systemctl enable ntpd<br>#systemctl start  ntpd</p>
+<h2 id="slaver1机上"><a href="#slaver1机上" class="headerlink" title="slaver1机上"></a>slaver1机上</h2><h1 id="yum-y-install-ntpdate"><a href="#yum-y-install-ntpdate" class="headerlink" title="yum -y install ntpdate"></a>yum -y install ntpdate</h1><h1 id="ntpdate-master"><a href="#ntpdate-master" class="headerlink" title="ntpdate master"></a>ntpdate master</h1><h1 id="systemctl-enable-ntpdate"><a href="#systemctl-enable-ntpdate" class="headerlink" title="systemctl enable ntpdate"></a>systemctl enable ntpdate</h1><h2 id="slaver2机上"><a href="#slaver2机上" class="headerlink" title="slaver2机上"></a>slaver2机上</h2><h1 id="yum-y-install-ntpdate-1"><a href="#yum-y-install-ntpdate-1" class="headerlink" title="yum -y install ntpdate"></a>yum -y install ntpdate</h1><h1 id="ntpdate-master-1"><a href="#ntpdate-master-1" class="headerlink" title="ntpdate master"></a>ntpdate master</h1><h1 id="systemctl-enable-ntpdate-1"><a href="#systemctl-enable-ntpdate-1" class="headerlink" title="systemctl enable ntpdate"></a>systemctl enable ntpdate</h1><p>七、格式化hdfs<br>##master机上操作</p>
+<h1 id="hadoop-namenode-–format"><a href="#hadoop-namenode-–format" class="headerlink" title="hadoop  namenode   –format"></a>hadoop  namenode   –format</h1><p>出现如下信息，应该没有异常<br>DEPRECATED: Use of this script to execute hdfs command is deprecated.<br>Instead use the hdfs command for it.<br>19/12/03 04:40:00 INFO namenode.NameNode: STARTUP_MSG:<br>/<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>****</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><br>STARTUP_MSG: Starting NameNode<br>STARTUP_MSG:   host = master/192.168.1.121<br>STARTUP_MSG:   args = [-format]<br>STARTUP_MSG:   version = 2.7.7<br>STARTUP_MSG:   classpath = /opt/hadoop/etc/hadoop:/opt/hadoop/share/hadoop/common/lib/jaxb-impl-2.2.3-1.jar:/opt/ha<br>……<br>.7.7.jar:/opt/hadoop/contrib/capacity-scheduler/<em>.jar:/opt/hadoop/contrib/capacity-scheduler/</em>.jar<br>STARTUP_MSG:   build = Unknown -r c1aad84bd27cd79c3d1a7dd58202a8c3ee1ed3ac; compiled by ‘stevel’ on 2018-07-18T22:47Z<br>STARTUP_MSG:   java = 1.8.0_77<br><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>****</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>/<br>19/12/03 04:40:00 INFO namenode.NameNode: registered UNIX signal handlers for [TERM, HUP, INT]<br>19/12/03 04:40:00 INFO namenode.NameNode: createNameNode [-format]<br>19/12/03 04:40:01 WARN common.Util: Path /opt/hadoopdata/hadoop/name should be specified as a URI in configuration files. Please update hdfs configuration.<br>19/12/03 04:40:01 WARN common.Util: Path /opt/hadoopdata/hadoop/name should be specified as a URI in configuration files. Please update hdfs configuration.<br>Formatting using clusterid: CID-2527a1f2-15e8-4363-8f5d-829cacd85663<br>19/12/03 04:40:01 INFO namenode.FSNamesystem: No KeyProvider found.<br>19/12/03 04:40:01 INFO namenode.FSNamesystem: fsLock is fair: true<br>19/12/03 04:40:01 INFO namenode.FSNamesystem: Detailed lock hold time metrics enabled: false<br>19/12/03 04:40:01 INFO blockmanagement.DatanodeManager: dfs.block.invalidate.limit=1000<br>19/12/03 04:40:01 INFO blockmanagement.DatanodeManager: dfs.namenode.datanode.registration.ip-hostname-check=true<br>19/12/03 04:40:01 INFO blockmanagement.BlockManager: dfs.namenode.startup.delay.block.deletion.sec is set to 000:00:00:00.000<br>19/12/03 04:40:01 INFO blockmanagement.BlockManager: The block deletion will start around 2019 Dec 03 04:40:01<br>19/12/03 04:40:01 INFO util.GSet: Computing capacity for map BlocksMap<br>19/12/03 04:40:01 INFO util.GSet: VM type       = 64-bit<br>19/12/03 04:40:01 INFO util.GSet: 2.0% max memory 889 MB = 17.8 MB<br>19/12/03 04:40:01 INFO util.GSet: capacity      = 2^21 = 2097152 entries<br>19/12/03 04:40:01 INFO blockmanagement.BlockManager: dfs.block.access.token.enable=false<br>19/12/03 04:40:01 INFO blockmanagement.BlockManager: defaultReplication         = 3<br>19/12/03 04:40:01 INFO blockmanagement.BlockManager: maxReplication             = 512<br>19/12/03 04:40:01 INFO blockmanagement.BlockManager: minReplication             = 1<br>19/12/03 04:40:01 INFO blockmanagement.BlockManager: maxReplicationStreams      = 2<br>19/12/03 04:40:01 INFO blockmanagement.BlockManager: replicationRecheckInterval = 3000<br>19/12/03 04:40:01 INFO blockmanagement.BlockManager: encryptDataTransfer        = false<br>19/12/03 04:40:01 INFO blockmanagement.BlockManager: maxNumBlocksToLog          = 1000<br>19/12/03 04:40:01 INFO namenode.FSNamesystem: fsOwner             = root (auth:SIMPLE)<br>19/12/03 04:40:01 INFO namenode.FSNamesystem: supergroup          = supergroup<br>19/12/03 04:40:01 INFO namenode.FSNamesystem: isPermissionEnabled = false<br>19/12/03 04:40:01 INFO namenode.FSNamesystem: HA Enabled: false<br>19/12/03 04:40:01 INFO namenode.FSNamesystem: Append Enabled: true<br>19/12/03 04:40:02 INFO util.GSet: Computing capacity for map INodeMap<br>19/12/03 04:40:02 INFO util.GSet: VM type       = 64-bit<br>19/12/03 04:40:02 INFO util.GSet: 1.0% max memory 889 MB = 8.9 MB<br>19/12/03 04:40:02 INFO util.GSet: capacity      = 2^20 = 1048576 entries<br>19/12/03 04:40:02 INFO namenode.FSDirectory: ACLs enabled? false<br>19/12/03 04:40:02 INFO namenode.FSDirectory: XAttrs enabled? true<br>19/12/03 04:40:02 INFO namenode.FSDirectory: Maximum size of an xattr: 16384<br>19/12/03 04:40:02 INFO namenode.NameNode: Caching file names occuring more than 10 times<br>19/12/03 04:40:02 INFO util.GSet: Computing capacity for map cachedBlocks<br>19/12/03 04:40:02 INFO util.GSet: VM type       = 64-bit<br>19/12/03 04:40:02 INFO util.GSet: 0.25% max memory 889 MB = 2.2 MB<br>19/12/03 04:40:02 INFO util.GSet: capacity      = 2^18 = 262144 entries<br>19/12/03 04:40:02 INFO namenode.FSNamesystem: dfs.namenode.safemode.threshold-pct = 0.9990000128746033<br>19/12/03 04:40:02 INFO namenode.FSNamesystem: dfs.namenode.safemode.min.datanodes = 0<br>19/12/03 04:40:02 INFO namenode.FSNamesystem: dfs.namenode.safemode.extension     = 30000<br>19/12/03 04:40:02 INFO metrics.TopMetrics: NNTop conf: dfs.namenode.top.window.num.buckets = 10<br>19/12/03 04:40:02 INFO metrics.TopMetrics: NNTop conf: dfs.namenode.top.num.users = 10<br>19/12/03 04:40:02 INFO metrics.TopMetrics: NNTop conf: dfs.namenode.top.windows.minutes = 1,5,25<br>19/12/03 04:40:02 INFO namenode.FSNamesystem: Retry cache on namenode is enabled<br>19/12/03 04:40:02 INFO namenode.FSNamesystem: Retry cache will use 0.03 of total heap and retry cache entry expiry time is 600000 millis<br>19/12/03 04:40:02 INFO util.GSet: Computing capacity for map NameNodeRetryCache<br>19/12/03 04:40:02 INFO util.GSet: VM type       = 64-bit<br>19/12/03 04:40:02 INFO util.GSet: 0.029999999329447746% max memory 889 MB = 273.1 KB<br>19/12/03 04:40:02 INFO util.GSet: capacity      = 2^15 = 32768 entries<br>19/12/03 04:40:02 INFO namenode.FSImage: Allocated new BlockPoolId: BP-1177593203-192.168.1.121-1575319202157<br>19/12/03 04:40:02 INFO common.Storage: Storage directory /opt/hadoopdata/hadoop/name has been successfully formatted.<br>19/12/03 04:40:02 INFO namenode.FSImageFormatProtobuf: Saving image file /opt/hadoopdata/hadoop/name/current/fsimage.ckpt_0000000000000000000 using no compression<br>19/12/03 04:40:02 INFO namenode.FSImageFormatProtobuf: Image file /opt/hadoopdata/hadoop/name/current/fsimage.ckpt_0000000000000000000 of size 321 bytes saved in 0 seconds.<br>19/12/03 04:40:02 INFO namenode.NNStorageRetentionManager: Going to retain 1 images with txid &gt;= 0<br>19/12/03 04:40:02 INFO util.ExitUtil: Exiting with status 0<br>19/12/03 04:40:02 INFO namenode.NameNode: SHUTDOWN_MSG:<br>/<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>****</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><br>SHUTDOWN_MSG: Shutting down NameNode at master/192.168.1.121<br><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>****</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>/</p>
+<p>八．启动</p>
+<ol>
+<li>##在master机上<br>[root@master sbin]# start-all.sh<br>This script is Deprecated. Instead use start-dfs.sh and start-yarn.sh<br>Starting namenodes on [master]<br>master: starting namenode, logging to /opt/hadoop/logs/hadoop-root-namenode-master.out<br>master: starting datanode, logging to /opt/hadoop/logs/hadoop-root-datanode-master.out<br>slaver1: starting datanode, logging to /opt/hadoop/logs/hadoop-root-datanode-slaver1.out<br>slaver2: starting datanode, logging to /opt/hadoop/logs/hadoop-root-datanode-slaver2.out<br>Starting secondary namenodes [slaver1]<br>slaver1: starting secondarynamenode, logging to /opt/hadoop/logs/hadoop-root-secondarynamenode-slaver1.out<br>starting yarn daemons<br>starting resourcemanager, logging to /opt/hadoop/logs/yarn-root-resourcemanager-master.out<br>master: starting nodemanager, logging to /opt/hadoop/logs/yarn-root-nodemanager-master.out<br>slaver2: starting nodemanager, logging to /opt/hadoop/logs/yarn-root-nodemanager-slaver2.out<br>slaver1: starting nodemanager, logging to /opt/hadoop/logs/yarn-root-nodemanager-slaver1.out</li>
+<li>在slaver2机上<h1 id="start-yarn-sh"><a href="#start-yarn-sh" class="headerlink" title="start-yarn.sh"></a>start-yarn.sh</h1>starting yarn daemons<br>starting resourcemanager, logging to /opt/hadoop/logs/yarn-root-resourcemanager-slaver2.out<br>master: nodemanager running as process 3308. Stop it first.<br>slaver1: nodemanager running as process 3215. Stop it first.<br>slaver2: nodemanager running as process 3098. Stop it first.<br>检查<h1 id="jps"><a href="#jps" class="headerlink" title="jps"></a>jps</h1>2965 DataNode<br>2842 NameNode<br>3308 NodeManager<br>3470    </li>
+<li>在slaver1上检查<h1 id="jps-1"><a href="#jps-1" class="headerlink" title="jps"></a>jps</h1>3057 DataNode<br>3125 SecondaryNameNode<br>3356 Jps<br>3215 NodeManager</li>
+</ol>
+
+      
+      <!-- 打赏 -->
+      
+        <div class="page-reward">
+          <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+            <div class="tooltip tooltip-east">
+              <span class="tooltip-item">
+                赏
+              </span>
+              <span class="tooltip-content">
+                <span class="tooltip-text">
+                  <span class="tooltip-inner">
+                    <p class="reward-p"><i class="icon icon-quo-left"></i>请我喝杯咖啡吧~<i
+                        class="icon icon-quo-right"></i></p>
+                    <div class="reward-box">
+                      
+                      <div class="reward-box-item">
+                        <img class="reward-img" src="/images/alipay.jpg">
+                        <span class="reward-type">支付宝</span>
+                      </div>
+                      
+                      
+                      <div class="reward-box-item">
+                        <img class="reward-img" src="/images/wechat.jpg">
+                        <span class="reward-type">微信</span>
+                      </div>
+                      
+                    </div>
+                  </span>
+                </span>
+              </span>
+            </div>
+          </a>
+        </div>
+        
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/12/13/Centos7%E6%90%AD%E5%BB%BAHadoop%E9%9B%86%E7%BE%A4/" data-id="ck43vxsgt0005hyev81x32fz7"
+        class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85mysql%205.7/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Centos7安装mysql 5.7
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85zookee/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">我的第一篇博客文章</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: 'kpgstqINgUof1Wzh80xT3JSc-gzGzoHsz',
+        app_key: 'sEgTtz2jBy33IqY6poc21obC',
+        path: window.location.pathname,
+        avatar: 'robohash',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2019
+        Xiejunfeng
+      </li>
+      <li>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+    
+    <aside class="sidebar">
+      
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="🥔土豆工程师！"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">目录</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  </div>
+</body>
+
+</html>

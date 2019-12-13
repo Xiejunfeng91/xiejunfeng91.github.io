@@ -57,7 +57,7 @@
 
     
     
-    <article id="post-我的第一篇博客文章" class="article article-type-post" itemscope
+    <article id="post-Centos7安装hive" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -65,8 +65,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2019/12/13/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/"
-    >我的第一篇博客文章</a
+  <a class="article-title" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85hive/"
+    >Centos7安装hive</a
   >
 </h2>
   
@@ -76,8 +76,8 @@
 
     
     <div class="article-meta">
-      <a href="/2019/12/13/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/" class="article-date">
-  <time datetime="2019-12-13T05:56:49.000Z" itemprop="datePublished">2019-12-13</time>
+      <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85hive/" class="article-date">
+  <time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished">2019-12-13</time>
 </a>
       
     </div>
@@ -92,14 +92,79 @@
       
 
       
-      <p>xiejunfengh</p>
+      <p>上传hive文件到/opt目录</p>
+<p>解压文件</p>
+<pre><code>tar -zvxf apache-hive-3.1.2-bin.tar.gz</code></pre><p>创建一个文件夹 方便管理</p>
+<pre><code>mkdir hive</code></pre><p>将内容移动到新文件夹</p>
+<pre><code>mv /opt/apache-hive-3.1.2-bin/* /opt/hive/</code></pre><p> 删除旧文件</p>
+<pre><code>rm -rf apache-hive-3.1.2-bin*</code></pre><p>修改hive配置文件</p>
+<pre><code>cd /opt/hive/conf</code></pre><p>修改临时文件<br>             mv hive-env.sh.template hive-env.sh<br>编辑hive-env.sh<br>            vi hive-env.sh</p>
+<p>修改临时文件<br>            mv hive-default.xml.template hive-site.xml<br>编辑hive-site.xml<br>            vi hive-site.xml </p>
+<property>
+<name>javax.jdo.option.ConnectionURL</name>
+<value>jdbc:mysql://slaver2:3306/hive?createDatabaseIfNotExist=true&amp;useSSL=false</value>
+</property>
+
+<property>
+<name>javax.jdo.option.ConnectionDriverName</name>
+<value>com.mysql.jdbc.Driver</value>
+</property>
+<property>
+<name>javax.jdo.option.ConnectionUserName</name>
+<value>root</value>
+<description>Username to use against metastore database</description>
+</property>
+<property>
+<name>javax.jdo.option.ConnectionPassword</name>
+<value>123456</value>
+<description>password to use against metastore database</description>
+</property>
+
+
+<property>
+<name>Hive.exec.local.scratchdir</name>
+<value>/opt/hive/tmp${user.name}</value>
+<description>Local scratch space for Hive jobs</description>
+ </property>
+
+<property>
+<name>hive.downloaded.resources.dir</name>
+ <value>/opt/hive/tmp${hive.session.id}_resources</value>
+<description>Temporary local directory for added resources in the remote file system.</description>
+</property>
+
+<property>
+ <name>hive.server2.logging.operation.log.location</name>  <value>/opt/hive/tmp${system:user.name}/operation_logs</value>
+ <description>Top level directory where operation logs are stored if logging functionality is enabled</description>
+ </property>
+
+
+
+
+<p>修改临时文件<br>            mv hive-exec-log4j2.properties.template hive-exec-log4j2.properties<br>             mv hive-log4j2.properties.template hive-log4j2.properties</p>
+<p>将mysql驱动  上传到/opt目录</p>
+<pre><code>cd /opt
+tar -zvxf mysql-connector-java-5.1.48.tar.gz</code></pre><p>移动驱动到hive的lib文件夹<br>             mv mysql-connector-java-5.1.48/* /opt/hive/lib/</p>
+<p>进入hive目录  创建存放临时文件的目录<br>             cd /opt/hive<br>             mkdir tmp</p>
+<p>进入 slaver2</p>
+<pre><code>mysql -uroot -p
+输入密码
+
+use mysql;
+select host,user from user;
+grant all privileges  on *.* to root@&apos;%&apos; identified by &quot;123456&quot;;
+flush privileges;
+select host,user from user;</code></pre><p>退出数据库<br>进入 master<br>初始化hive<br>          cd /opt/hive/bin<br>            ./schematool -initSchema -dbType mysql</p>
+<p>启动hive<br>            ./hive</p>
+<pre><code>启动
+./hive --service hiveserver2</code></pre><p>出现 四个id之后 访问网页<br><a href="http://192.168.200.101:10002/" target="_blank" rel="noopener">http://192.168.200.101:10002/</a></p>
 
       
       <!-- 打赏 -->
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/12/13/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/" data-id="ck43tp74b0000vfev6m806ejg"
+      <a data-url="http://yoursite.com/2019/12/13/Centos7%E5%AE%89%E8%A3%85hive/" data-id="ck43vxsg80000hyevcj4o15jw"
         class="article-share-link">分享</a>
       
     </footer>
@@ -116,7 +181,7 @@
 
 </article>
     
-    <article id="post-hello-world" class="article article-type-post" itemscope
+    <article id="post-Centos7安装hbase" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -124,8 +189,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2019/12/13/hello-world/"
-    >Hello World</a
+  <a class="article-title" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85hbase/"
+    >Centos7安装hbase</a
   >
 </h2>
   
@@ -135,8 +200,8 @@
 
     
     <div class="article-meta">
-      <a href="/2019/12/13/hello-world/" class="article-date">
-  <time datetime="2019-12-13T05:20:41.135Z" itemprop="datePublished">2019-12-13</time>
+      <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85hbase/" class="article-date">
+  <time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished">2019-12-13</time>
 </a>
       
     </div>
@@ -151,26 +216,475 @@
       
 
       
-      <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+      <p>在hadoop+zookeeper安装之后的安装<br>（继hadoop安装之后，hadoop的3台机器的HOSTS如下：）<br>192.168.200.101  master<br>192.168.200.102  slaver1<br>192.168.200.103  slaver2</p>
+<p>1.上传包文件<br>本次安装上传到/opt<br>2.解压：<br>    tar -zxvf  /opt/ hbase…..<br>3. 迁移<br>   迁移的目的是为了简化目录名<br>#cd  /opt<br>#mkdir  hbase<br>#mv   /opt/hbase…/*     /opt/hbase/</p>
+<ol start="4">
+<li>配置</li>
+</ol>
+<p>(1)    配置环境变量<br> #vi  /etc/profile<br>   确定内容为：<br>export JAVA_HOME=/opt/jdk1.8.0_77<br>export  HADOOP_HOME=/opt/hadoop<br>export  HBASE_HOME=/opt/hbase<br>PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$HBASE_HOME/bin</p>
+<p>#source  /etc/profile    （别忘了）</p>
+<p>(2)配置hbase-env.sh<br>#cd  /opt/hbase/conf<br>#vi   hbase-env.sh   (开启JAVA_HOME配置, 关闭HBase自带的zookeeper，使用zookeeper集群)<br>    export JAVA_HOME=/opt/jdk1.8.0_77<br>    export HBASE_MANAGES_ZK=false</p>
+<p>(3)配置hbase-site.xml<br>mkdir  /opt/hbase/tmp<br>mkdir  /opt/hbase/tmp/zookeeper<br>cd  /opt/hbase/conf<br>vi   hbase-site.xml<br><configuration><br><property><br>   <name>hbase.zookeeper.quorum</name><br>   <value>master,slaver1,slaver2</value><br></property><br><property><br>  <name>hbase.zookeeper.property.dataDir</name><br>  <value>opt/zookeeper-3.4.14/data</value><br></property></p>
+<property>
+  <name>hbase.zookeeper.property.clientPort</name>
+  <value>2181</value>
+</property>
+<property>
+  <name>hbase.rootdir</name>
+  <value>hdfs://master:9000/hbase</value>
+</property>
+<property>
+  <name>hbase.cluster.distributed</name>
+  <value>true</value>
+</property>
+<property>
+  <name>hbase.temp.dir</name>
+  <value>/opt/hbase/tmp</value>
+</property>
+<property>
+  <name>hbase.zookeeper.property.dataDir</name>
+  <value>/opt/hbase/tmp/zookeeper</value>
+</property>
+<property>
+  <name>hbase.master.info.port</name>
+  <value>16010</value>
+</property>
+</configuration>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<p>(4)配置regionservers<br>#vi  /opt/hbase/conf/regionservers<br>    slaver1<br>slaver2</p>
+<p>(5)配置backup-masters<br>#cd  /opt/hbase/conf<br>#vi   backup-masters<br>    slaver1</p>
+<p>(6)复制Hadoop配置文件hdfs-site.xml到HBase的conf目录<br>#cp /opt/hadoop/etc/hadoop/hdfs-site.xml   /opt/hbase/conf/</p>
+<ol start="5">
+<li><p>复制到slaver1和slaver2<br> scp  -r  /opt/hbase/    slaver1:/opt/<br> scp  -r  /opt/hbase/    slaver2:/opt/</p>
+</li>
+<li><p>启动命令<br>##master<br>#cd  /opt/hbase/bin<br>#start-hbase.sh</p>
+</li>
+</ol>
+<p>查看web页面：<a href="http://192.168.200.101:16010/" target="_blank" rel="noopener">http://192.168.200.101:16010/</a></p>
 
       
       <!-- 打赏 -->
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/12/13/hello-world/" data-id="ck43tp74l0001vfev7v2w2imz"
+      <a data-url="http://yoursite.com/2019/12/13/Centos7%E5%AE%89%E8%A3%85hbase/" data-id="ck43vxsgg0001hyev6bla9fgo"
+        class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-Centos7安装spark" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85spark/"
+    >Centos7安装spark</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85spark/" class="article-date">
+  <time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished">2019-12-13</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>在hadoop+zookeeper安装之后的安装<br>（继hadoop安装之后，hadoop的3台机器的HOSTS如下：）<br>192.169.200.101  master<br>192.169.200.102  slaver1<br>192.169.200.103  slaver2</p>
+<p>1.上传包文件<br>本次安装上传到/opt<br>2.解压：<br>    tar -zxvf  /opt/ spark…..<br>3. 迁移<br>   迁移的目的是为了简化目录名<br>#cd  /opt<br>#mkdir  spark<br>#mv   /opt/spark…/*     /opt/spark/</p>
+<ol start="4">
+<li>配置</li>
+</ol>
+<p>(1)spark-env.sh<br>#vi  /opt/spark/conf/spark-env.sh<br>export JAVA_HOME=/opt/jdk1.8.0_77</p>
+<p>export HADOOP_HOME=/opt/hadoop<br>export HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop</p>
+<p>export SPARK_HOME=/opt/spark<br>export SPARK_LIBRARY_PATH=${SPARK_HOME}/lib<br>export SCALA_LIBRARY_PATH=${SPARK_HOME}/lib</p>
+<p>export SPARK_LOCAL_IP=192.169.200.101</p>
+<p>export SPARK_MASTER_HOST=192.169.200.101<br>export SPARK_MASTER_IP=192.169.200.101<br>export SPARK_MASTER_PORT=7077<br>export SPARK_MASTER_WEBUI_PORT=8080</p>
+<p>export SPARK_WORKER_CORES=2<br>export SPARK_WORKER_MEMORY=2G<br>export SPARK_WORKER_PORT=7078<br>export SPARK_WORKER_WEBUI_PORT=8081<br>export SPARK_WORKER_INSTANCES=1<br>export SPARK_WORKER_MEMORY=1G<br>export SPARK_HISTORY_OPTS=”-Dspark.history.fs.logDirectory=hdfs://master:9000/spark/job/history”</p>
+<p>#source  /etc/profile    （别忘了）</p>
+<p>(2)配置spark-defaults.conf<br>#vi  /opt/spark/conf/spark-defaults.conf<br>spark.eventLog.enabled           true<br>spark.eventLog.dir               hdfs://master:9000/spark/job/history</p>
+<p>(3)配置slaves<br>#vi  /opt/spark/conf/slaves<br>master<br>slaver1<br>slaver2<br>(该文件中只有这三行)</p>
+<ol start="5">
+<li>在hdfs系统中创建目录<br>##在master机上操作<br>#hdfs   dfs  -mkdir  /spark<br>#hdfs   dfs  -mkdir  /spark/job<br>#hdfs   dfs  -mkdir  /spark/job/history<br>#hdfs   dfs  -chmod  -R  755  /spark</li>
+</ol>
+<ol start="6">
+<li><p>节点分发<br>##从master节点向slaver1和slaver2分发<br>#scp  -r  /opt/ spark/   slaver1:/opt/<br>#scp  -r  /opt/ spark/   slaver2:/opt/</p>
+</li>
+<li><p>配置环境变量<br>需要在三台机器上都要做<br>#vi  /etc/profile<br>export JAVA_HOME=/opt/jdk1.8.0_77<br>export  HADOOP_HOME=/opt/hadoop<br>export  HBASE_HOME=/opt/hbase<br>export  SPARK_HOME=/opt/spark<br>export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$HBASE_HOME/bin:$SPARK_HOME/bin:$SPARK_HOME/sbin</p>
+</li>
+</ol>
+<p>#source  /etc/profile</p>
+<ol start="8">
+<li>修改slaver1和slaver2上的spark-env.sh<br>（1）##slaver1<br>export SPARK_LOCAL_IP=192.169.200.102<br>（2）##slaver2<br>export SPARK_LOCAL_IP=192.169.200.103</li>
+<li>启动<br>都是master机上执行<br>#cd /opt/spark/sbin<br>#start-master.sh<br>#start-slave.sh  spark://192.168.200.102:7077<br>#start-slave.sh  spark://192.168.200.103:7077<br>#spark-shell</li>
+</ol>
+<p>查看web页面;<a href="http://192.169.200.101:8080/" target="_blank" rel="noopener">http://192.169.200.101:8080/</a></p>
+
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/12/13/Centos7%E5%AE%89%E8%A3%85spark/" data-id="ck43vxsgh0002hyevbwu36g6s"
+        class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-Centos7安装mysql 5.7" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85mysql%205.7/"
+    >Centos7安装mysql 5.7</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85mysql%205.7/" class="article-date">
+  <time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished">2019-12-13</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>Centos7    Mysql5.7.28 tar包解压安装</p>
+<p>一、卸载系统自带的Mariadb</p>
+<h1 id="rpm-qa-grep-mariadb"><a href="#rpm-qa-grep-mariadb" class="headerlink" title="rpm -qa|grep mariadb"></a>rpm -qa|grep mariadb</h1><p>mariadb-libs-5.5.60-1.el7_5.x86_64    （如此没有不会显示左边的信息）</p>
+<h1 id="rpm-e-–nodeps-mariadb-libs-5-5-60-1-el7-5-x86-64"><a href="#rpm-e-–nodeps-mariadb-libs-5-5-60-1-el7-5-x86-64" class="headerlink" title="rpm -e –nodeps  mariadb-libs-5.5.60-1.el7_5.x86_64"></a>rpm -e –nodeps  mariadb-libs-5.5.60-1.el7_5.x86_64</h1><pre><code>（如果没有，就可不需要执行上行操作）</code></pre><p>二、删除/etc下my.cnf配置文件（如果存在的话）、检查mysql是否存在</p>
+<h1 id="rm-rf-etc-my-cnf"><a href="#rm-rf-etc-my-cnf" class="headerlink" title="rm -rf /etc/my.cnf"></a>rm -rf /etc/my.cnf</h1><h1 id="rpm-qa-grep-mysql"><a href="#rpm-qa-grep-mysql" class="headerlink" title="rpm -qa | grep mysql"></a>rpm -qa | grep mysql</h1><p>三、创建mysql用户组和用户</p>
+<h1 id="groupadd-mysql"><a href="#groupadd-mysql" class="headerlink" title="groupadd mysql"></a>groupadd mysql</h1><h1 id="useradd-g-mysql-mysql"><a href="#useradd-g-mysql-mysql" class="headerlink" title="useradd -g mysql mysql"></a>useradd -g mysql mysql</h1><p>四、解压mysql-5.7.28-el7-x86_64.tar.gz，移动到/usr/local/mysql5.7下，更改文件归属为mysql<br>上传mysql-5.7.28-el7-x86_64.tar.gz并解压</p>
+<h1 id="tar-zxvf-mysql-5-7-25-el7-x86-64-tar-gz"><a href="#tar-zxvf-mysql-5-7-25-el7-x86-64-tar-gz" class="headerlink" title="tar -zxvf mysql-5.7.25-el7-x86_64.tar.gz"></a>tar -zxvf mysql-5.7.25-el7-x86_64.tar.gz</h1><h1 id="mkdir-p-usr-local-mysql"><a href="#mkdir-p-usr-local-mysql" class="headerlink" title="mkdir -p /usr/local/mysql"></a>mkdir -p /usr/local/mysql</h1><h1 id="mv-usr-local-src-mysql-5-7-28-el7-x86-64-usr-local-mysql"><a href="#mv-usr-local-src-mysql-5-7-28-el7-x86-64-usr-local-mysql" class="headerlink" title="mv /usr/local/src/mysql-5.7.28-el7-x86_64/*  /usr/local/mysql/"></a>mv /usr/local/src/mysql-5.7.28-el7-x86_64/*  /usr/local/mysql/</h1><h1 id="mkdir-usr-local-mysql-data"><a href="#mkdir-usr-local-mysql-data" class="headerlink" title="mkdir /usr/local/mysql/data"></a>mkdir /usr/local/mysql/data</h1><h1 id="mkdir-usr-local-mysql-log"><a href="#mkdir-usr-local-mysql-log" class="headerlink" title="mkdir /usr/local/mysql/log"></a>mkdir /usr/local/mysql/log</h1><h1 id="touch-usr-local-mysql-log-mysqld-log"><a href="#touch-usr-local-mysql-log-mysqld-log" class="headerlink" title="touch /usr/local/mysql/log/mysqld.log"></a>touch /usr/local/mysql/log/mysqld.log</h1><h1 id="chown-R-mysql-usr-local-mysql"><a href="#chown-R-mysql-usr-local-mysql" class="headerlink" title="chown -R mysql /usr/local/mysql/"></a>chown -R mysql /usr/local/mysql/</h1><h1 id="chgrp-R-mysql-usr-local-mysql"><a href="#chgrp-R-mysql-usr-local-mysql" class="headerlink" title="chgrp -R mysql /usr/local/mysql/"></a>chgrp -R mysql /usr/local/mysql/</h1><p>五、安装</p>
+<h1 id="cd-usr-local-mysql"><a href="#cd-usr-local-mysql" class="headerlink" title="cd   /usr/local/mysql"></a>cd   /usr/local/mysql</h1><p>#/usr/local/mysql/bin/mysql_install_db –user=mysql –basedir=/usr/local/mysql/ –datadir=/usr/local/mysql/data/</p>
+<p>六、新建配置文件my.cnf，启动</p>
+<h1 id="vi-etc-my-cnf"><a href="#vi-etc-my-cnf" class="headerlink" title="vi /etc/my.cnf"></a>vi /etc/my.cnf</h1><p>[mysqld]<br>basedir=/usr/local/mysql/<br>datadir=/usr/local/mysql/data<br>socket=/tmp/mysql.sock<br>user=mysql<br>symbolic-links=0<br>lower_case_table_names=1<br>max_connections=200<br>character-set-server=utf8<br>default-storage-engine=INNODB<br>max_allowed_packet=16M</p>
+<p>[client]<br>port=3306</p>
+<p>[mysqld_safe]<br>log-error=/usr/local/mysql/log/mysqld.log</p>
+<h1 id="chown-777-etc-my-cnf"><a href="#chown-777-etc-my-cnf" class="headerlink" title="chown 777 /etc/my.cnf"></a>chown 777 /etc/my.cnf</h1><p>启动</p>
+<h1 id="cp-usr-local-mysql-support-files-mysql-server-etc-init-d-mysqld"><a href="#cp-usr-local-mysql-support-files-mysql-server-etc-init-d-mysqld" class="headerlink" title="cp /usr/local/mysql/support-files/mysql.server   /etc/init.d/mysqld"></a>cp /usr/local/mysql/support-files/mysql.server   /etc/init.d/mysqld</h1><h1 id="chmod-x-etc-init-d-mysqld"><a href="#chmod-x-etc-init-d-mysqld" class="headerlink" title="chmod +x /etc/init.d/mysqld"></a>chmod +x /etc/init.d/mysqld</h1><h1 id="service-mysqld-start"><a href="#service-mysqld-start" class="headerlink" title="service mysqld start"></a>service mysqld start</h1><p>七、添加环境变量</p>
+<h1 id="vi-etc-profile"><a href="#vi-etc-profile" class="headerlink" title="vi /etc/profile"></a>vi /etc/profile</h1><p>export MYSQL_HOME=”/usr/local/mysql/“<br>export PATH=”$PATH:$MYSQL_HOME/bin”</p>
+<p>使环境变量生效<br>#source  /etc/profile</p>
+<p>八、获取初始密码，连接mysql，更改默认密码，允许远程访问<br>从/root/.mysql_secret文件中获取初始密码</p>
+<h1 id="cat-root-mysql-secret"><a href="#cat-root-mysql-secret" class="headerlink" title="cat /root/.mysql_secret"></a>cat /root/.mysql_secret</h1><h1 id="Password-set-for-user-‘root-localhost’-at-2019-03-02-09-09-05"><a href="#Password-set-for-user-‘root-localhost’-at-2019-03-02-09-09-05" class="headerlink" title="Password set for user ‘root@localhost’ at 2019-03-02 09:09:05"></a>Password set for user ‘root@localhost’ at 2019-03-02 09:09:05</h1><p>zffNQ&gt;e(l/U;</p>
+<p>修改密码</p>
+<p>[root@centos7 ~]# mysql -uroot -p<br>Enter password:<br>Welcome to the MySQL monitor.  Commands end with ; or \g.<br>Your MySQL connection id is 2<br>Server version: 5.7.25</p>
+<p>Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.</p>
+<p>Oracle is a registered trademark of Oracle Corporation and/or its<br>affiliates. Other names may be trademarks of their respective<br>owners.</p>
+<p>Type ‘help;’ or ‘\h’ for help. Type ‘\c’ to clear the current input statement.</p>
+<p>mysql&gt; set PASSWORD = PASSWORD(‘123456’);<br>Query OK, 0 rows affected, 1 warning (0.00 sec)</p>
+<p>mysql&gt; flush privileges;<br>Query OK, 0 rows affected (0.00 sec)</p>
+
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/12/13/Centos7%E5%AE%89%E8%A3%85mysql%205.7/" data-id="ck43vxsgj0003hyev5ebghowa"
+        class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-Centos7搭建Hadoop集群" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/12/13/Centos7%E6%90%AD%E5%BB%BAHadoop%E9%9B%86%E7%BE%A4/"
+    >Centos搭建Hadoop集群</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/12/13/Centos7%E6%90%AD%E5%BB%BAHadoop%E9%9B%86%E7%BE%A4/" class="article-date">
+  <time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished">2019-12-13</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>一、配置机器</p>
+<ol>
+<li>配置IP<br>#vi  /etc/sysconfig/network-scripts/ifcfg-eno16777736<br>BOOTPROTO=static<br>…..<br>删除UUID<br>ONBOOT=yes<br>IPADDR=192.168.200.101<br>GATEWAY=192.168.200.1<br>PREFIX=24</li>
+</ol>
+<p>2.重启网络<br>#systemctl  restart  network</p>
+<p>3.关闭防火墙及安全策略<br>#systemctl stop firewalld</p>
+<h1 id="systemctl-disable-firewalld"><a href="#systemctl-disable-firewalld" class="headerlink" title="systemctl disable firewalld"></a>systemctl disable firewalld</h1><p>setenforce 0</p>
+<h1 id="systemctl-disable-enforce"><a href="#systemctl-disable-enforce" class="headerlink" title="systemctl disable enforce"></a>systemctl disable enforce</h1><h1 id="vi-etc-selinux-config"><a href="#vi-etc-selinux-config" class="headerlink" title="vi /etc/selinux/config"></a>vi /etc/selinux/config</h1><p>SELINUX=disabled</p>
+<p>4.修改主机名</p>
+<h1 id="hostnamectl-set-hostname-master"><a href="#hostnamectl-set-hostname-master" class="headerlink" title="hostnamectl set-hostname  master"></a>hostnamectl set-hostname  master</h1><ol start="5">
+<li>配置主机映射<br>#vi   /etc/hosts</li>
+<li>0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4<br>::1         localhost localhost.localdomain localhost6 localhost6.localdomain6</li>
+<li>168.200.101  master</li>
+<li>168.200.102  slaver1</li>
+<li>168.200.103  slaver2<br>二安装jdk</li>
+<li>上传jdk包到 /opt下；</li>
+<li>解压</li>
+<li>配置环境变量<br>#vi /etc/profile<br>export JAVA_HOME=/opt/jdk1.8.0_77<br>export PATH=$PATH:$JAVA_HOME/bin<br>重启profile<h1 id="source-etc-profile"><a href="#source-etc-profile" class="headerlink" title="source /etc/profile"></a>source /etc/profile</h1>检查<h1 id="java-–version"><a href="#java-–version" class="headerlink" title="java –version"></a>java –version</h1>检查结果为：<br>java version “1.8.0_77”<br>Java(TM) SE Runtime Environment (build 1.8.0_77-b03)<br>Java HotSpot(TM) 64-Bit Server VM (build 25.77-b03, mixed mode)</li>
+</ol>
+<p>三、在master机上部署hadoop<br>1.上传压缩包<br>hadoop-2.7.7.tar.gz<br>2.解压</p>
+<h1 id="cd-opt"><a href="#cd-opt" class="headerlink" title="cd /opt"></a>cd /opt</h1><p>#tar -zxvf hadoop-2.7.7.tar.gz</p>
+<h1 id="mkdir-hadoop"><a href="#mkdir-hadoop" class="headerlink" title="mkdir hadoop"></a>mkdir hadoop</h1><p>#mv   hadoop-2.7.7/*   /opt/hadoop/</p>
+<ol start="3">
+<li>修改配置文件<h1 id="cd-opt-hadoop-etc-hadoop"><a href="#cd-opt-hadoop-etc-hadoop" class="headerlink" title="cd /opt/hadoop/etc/hadoop"></a>cd /opt/hadoop/etc/hadoop</h1>(1)hadoop-env.sh<h1 id="vi-hadoop-env-sh"><a href="#vi-hadoop-env-sh" class="headerlink" title="vi hadoop-env.sh"></a>vi hadoop-env.sh</h1>export JAVA_HOME=/opt/jdk1.8.0_77</li>
+</ol>
+<p>(2)core-site.xml</p>
+<h1 id="vi-core-site-xml"><a href="#vi-core-site-xml" class="headerlink" title="vi core-site.xml"></a>vi core-site.xml</h1><configuration>
+<property>
+<name>fs.defaultFS</name>
+<value>hdfs://master:9000</value>
+</property>
+<property>
+<name>hadoop.tmp.dir</name>
+<value>/opt/hadoopdata/hadoop</value>
+</property>
+</configuration>
+
+<p>(3)hdfs-site.xml<br>#vi hdfs-site.xml <configuration><br><property><br>   <name>dfs.replication</name><br>   <value>3</value><br></property></p>
+<property>
+  <name>dfs.name.dir</name>
+      <value>/opt/hadoopdata/hadoop/name</value>
+</property>
+
+<property>
+
+<p><name>dfs.data.dir</name><br><value>/opt/hadoopdata/hadoop/data</value></p>
+</property>
+<property>
+<name>dfs.namenode.secondary.http-address</name>
+<value>slaver1:50090</value>
+</property>
+
+<property>
+  <name>dfs.permissions.enabled</name>
+  <value>false</value>
+
+</property>
+
+
+</configuration>
+
+<p>(4)mapred-site.xml</p>
+<h1 id="mv-mapred-site-xml-template-mapred-site-xml"><a href="#mv-mapred-site-xml-template-mapred-site-xml" class="headerlink" title="mv mapred-site.xml.template  mapred-site.xml"></a>mv mapred-site.xml.template  mapred-site.xml</h1><h1 id="vi-mapred-site-xml"><a href="#vi-mapred-site-xml" class="headerlink" title="vi mapred-site.xml"></a>vi mapred-site.xml</h1><configuration>
+  <property>
+     <name>mapreduce.framework.name</name>
+     <value>yarn</value>
+    </property>
+</configuration>
+
+<p>(5)yarn-site.xml</p>
+<h1 id="vi-yarn-site-xml"><a href="#vi-yarn-site-xml" class="headerlink" title="vi yarn-site.xml"></a>vi yarn-site.xml</h1><configuration>
+
+<!-- Site specific YARN configuration properties -->
+
+<property>
+     <name>yarn.nodemanager.aux-services</name>
+     <value>mapreduce_shuffle</value>
+</property>
+<property>
+        <name>yarn.resourcemanager.hostname</name>
+        <value>slaver2</value>
+</property>
+</configuration>
+
+<p>(6)slaves</p>
+<h1 id="vi-slaves"><a href="#vi-slaves" class="headerlink" title="vi slaves"></a>vi slaves</h1><p>master<br>slaver1<br>slaver2</p>
+<ol start="4">
+<li><p>创建hadoop用到的目录</p>
+<h1 id="mkdir-opt-hadoopdata"><a href="#mkdir-opt-hadoopdata" class="headerlink" title="mkdir /opt/hadoopdata"></a>mkdir /opt/hadoopdata</h1><h1 id="mkdir-opt-hadoopdata-data"><a href="#mkdir-opt-hadoopdata-data" class="headerlink" title="mkdir /opt/hadoopdata/data"></a>mkdir /opt/hadoopdata/data</h1><h1 id="mkdir-opt-hadoopdata-name"><a href="#mkdir-opt-hadoopdata-name" class="headerlink" title="mkdir /opt/hadoopdata/name"></a>mkdir /opt/hadoopdata/name</h1></li>
+<li><p>配置profile</p>
+<h1 id="vi-etc-profile"><a href="#vi-etc-profile" class="headerlink" title="vi  /etc/profile"></a>vi  /etc/profile</h1><p>export JAVA_HOME=/opt/jdk1.8.0_77<br>export  HADOOP_HOME=/opt/hadoop<br>export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin</p>
+<h1 id="source-etc-profile-1"><a href="#source-etc-profile-1" class="headerlink" title="source /etc/profile"></a>source /etc/profile</h1><p>检查</p>
+<h1 id="hadoop-version"><a href="#hadoop-version" class="headerlink" title="hadoop version"></a>hadoop version</h1><p>检查结果为：<br>Hadoop 2.7.7<br>Subversion Unknown -r c1aad84bd27cd79c3d1a7dd58202a8c3ee1ed3ac<br>Compiled by stevel on 2018-07-18T22:47Z<br>Compiled with protoc 2.5.0<br>From source with checksum 792e15d20b12c74bd6f19a1fb886490<br>This command was run using /opt/hadoop/share/hadoop/common/hadoop-common-2.7.7.jar</p>
+</li>
+</ol>
+<p>四、克隆虚拟机<br>     克隆时，先关闭那台机器，然后克隆出2台机器，分别起名为slaver1和slaver2<br>启动slaver1后，修改ip地址为192.168.200.102（要重启网络），并修改主机名为slaver1;<br>然后：<br>启动slaver2后，修改ip地址为192.168.200.103（要重启网络），并修改主机名为slaver2;<br>最后启动master机</p>
+<p>五、配置免密码登录<br>##master<br>#cd<br>#cd .ssh<br>#ssh-keygen<br>  一路回车<br>#ssh-copy-id  master<br>#ssh-copy-id  slaver1<br>#ssh-copy-id  slaver2<br>检查：<br>#ssh master<br>#exit<br>#ssh slaver1<br>#exit<br>#ssh slaver2<br>#exit</p>
+<p>六、安装时间同步服务器</p>
+<p>##master机上</p>
+<h1 id="yum-y-install-ntp"><a href="#yum-y-install-ntp" class="headerlink" title="yum -y install ntp"></a>yum -y install ntp</h1><h1 id="vi-etc-ntp-conf"><a href="#vi-etc-ntp-conf" class="headerlink" title="vi /etc/ntp.conf"></a>vi /etc/ntp.conf</h1><p>注释或者删除以下四行<br>server 0.centos.pool.ntp.org iburst<br>server 1.centos.pool.ntp.org iburst<br>server 2.centos.pool.ntp.org iburst<br>server 3.centos.pool.ntp.org iburst<br>添加以下两行<br>server 127.127.1.0<br>fudge 127.127.1.0 stratum 10<br>#systemctl enable ntpd<br>#systemctl start  ntpd</p>
+<h2 id="slaver1机上"><a href="#slaver1机上" class="headerlink" title="slaver1机上"></a>slaver1机上</h2><h1 id="yum-y-install-ntpdate"><a href="#yum-y-install-ntpdate" class="headerlink" title="yum -y install ntpdate"></a>yum -y install ntpdate</h1><h1 id="ntpdate-master"><a href="#ntpdate-master" class="headerlink" title="ntpdate master"></a>ntpdate master</h1><h1 id="systemctl-enable-ntpdate"><a href="#systemctl-enable-ntpdate" class="headerlink" title="systemctl enable ntpdate"></a>systemctl enable ntpdate</h1><h2 id="slaver2机上"><a href="#slaver2机上" class="headerlink" title="slaver2机上"></a>slaver2机上</h2><h1 id="yum-y-install-ntpdate-1"><a href="#yum-y-install-ntpdate-1" class="headerlink" title="yum -y install ntpdate"></a>yum -y install ntpdate</h1><h1 id="ntpdate-master-1"><a href="#ntpdate-master-1" class="headerlink" title="ntpdate master"></a>ntpdate master</h1><h1 id="systemctl-enable-ntpdate-1"><a href="#systemctl-enable-ntpdate-1" class="headerlink" title="systemctl enable ntpdate"></a>systemctl enable ntpdate</h1><p>七、格式化hdfs<br>##master机上操作</p>
+<h1 id="hadoop-namenode-–format"><a href="#hadoop-namenode-–format" class="headerlink" title="hadoop  namenode   –format"></a>hadoop  namenode   –format</h1><p>出现如下信息，应该没有异常<br>DEPRECATED: Use of this script to execute hdfs command is deprecated.<br>Instead use the hdfs command for it.<br>19/12/03 04:40:00 INFO namenode.NameNode: STARTUP_MSG:<br>/<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>****</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><br>STARTUP_MSG: Starting NameNode<br>STARTUP_MSG:   host = master/192.168.1.121<br>STARTUP_MSG:   args = [-format]<br>STARTUP_MSG:   version = 2.7.7<br>STARTUP_MSG:   classpath = /opt/hadoop/etc/hadoop:/opt/hadoop/share/hadoop/common/lib/jaxb-impl-2.2.3-1.jar:/opt/ha<br>……<br>.7.7.jar:/opt/hadoop/contrib/capacity-scheduler/<em>.jar:/opt/hadoop/contrib/capacity-scheduler/</em>.jar<br>STARTUP_MSG:   build = Unknown -r c1aad84bd27cd79c3d1a7dd58202a8c3ee1ed3ac; compiled by ‘stevel’ on 2018-07-18T22:47Z<br>STARTUP_MSG:   java = 1.8.0_77<br><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>****</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>/<br>19/12/03 04:40:00 INFO namenode.NameNode: registered UNIX signal handlers for [TERM, HUP, INT]<br>19/12/03 04:40:00 INFO namenode.NameNode: createNameNode [-format]<br>19/12/03 04:40:01 WARN common.Util: Path /opt/hadoopdata/hadoop/name should be specified as a URI in configuration files. Please update hdfs configuration.<br>19/12/03 04:40:01 WARN common.Util: Path /opt/hadoopdata/hadoop/name should be specified as a URI in configuration files. Please update hdfs configuration.<br>Formatting using clusterid: CID-2527a1f2-15e8-4363-8f5d-829cacd85663<br>19/12/03 04:40:01 INFO namenode.FSNamesystem: No KeyProvider found.<br>19/12/03 04:40:01 INFO namenode.FSNamesystem: fsLock is fair: true<br>19/12/03 04:40:01 INFO namenode.FSNamesystem: Detailed lock hold time metrics enabled: false<br>19/12/03 04:40:01 INFO blockmanagement.DatanodeManager: dfs.block.invalidate.limit=1000<br>19/12/03 04:40:01 INFO blockmanagement.DatanodeManager: dfs.namenode.datanode.registration.ip-hostname-check=true<br>19/12/03 04:40:01 INFO blockmanagement.BlockManager: dfs.namenode.startup.delay.block.deletion.sec is set to 000:00:00:00.000<br>19/12/03 04:40:01 INFO blockmanagement.BlockManager: The block deletion will start around 2019 Dec 03 04:40:01<br>19/12/03 04:40:01 INFO util.GSet: Computing capacity for map BlocksMap<br>19/12/03 04:40:01 INFO util.GSet: VM type       = 64-bit<br>19/12/03 04:40:01 INFO util.GSet: 2.0% max memory 889 MB = 17.8 MB<br>19/12/03 04:40:01 INFO util.GSet: capacity      = 2^21 = 2097152 entries<br>19/12/03 04:40:01 INFO blockmanagement.BlockManager: dfs.block.access.token.enable=false<br>19/12/03 04:40:01 INFO blockmanagement.BlockManager: defaultReplication         = 3<br>19/12/03 04:40:01 INFO blockmanagement.BlockManager: maxReplication             = 512<br>19/12/03 04:40:01 INFO blockmanagement.BlockManager: minReplication             = 1<br>19/12/03 04:40:01 INFO blockmanagement.BlockManager: maxReplicationStreams      = 2<br>19/12/03 04:40:01 INFO blockmanagement.BlockManager: replicationRecheckInterval = 3000<br>19/12/03 04:40:01 INFO blockmanagement.BlockManager: encryptDataTransfer        = false<br>19/12/03 04:40:01 INFO blockmanagement.BlockManager: maxNumBlocksToLog          = 1000<br>19/12/03 04:40:01 INFO namenode.FSNamesystem: fsOwner             = root (auth:SIMPLE)<br>19/12/03 04:40:01 INFO namenode.FSNamesystem: supergroup          = supergroup<br>19/12/03 04:40:01 INFO namenode.FSNamesystem: isPermissionEnabled = false<br>19/12/03 04:40:01 INFO namenode.FSNamesystem: HA Enabled: false<br>19/12/03 04:40:01 INFO namenode.FSNamesystem: Append Enabled: true<br>19/12/03 04:40:02 INFO util.GSet: Computing capacity for map INodeMap<br>19/12/03 04:40:02 INFO util.GSet: VM type       = 64-bit<br>19/12/03 04:40:02 INFO util.GSet: 1.0% max memory 889 MB = 8.9 MB<br>19/12/03 04:40:02 INFO util.GSet: capacity      = 2^20 = 1048576 entries<br>19/12/03 04:40:02 INFO namenode.FSDirectory: ACLs enabled? false<br>19/12/03 04:40:02 INFO namenode.FSDirectory: XAttrs enabled? true<br>19/12/03 04:40:02 INFO namenode.FSDirectory: Maximum size of an xattr: 16384<br>19/12/03 04:40:02 INFO namenode.NameNode: Caching file names occuring more than 10 times<br>19/12/03 04:40:02 INFO util.GSet: Computing capacity for map cachedBlocks<br>19/12/03 04:40:02 INFO util.GSet: VM type       = 64-bit<br>19/12/03 04:40:02 INFO util.GSet: 0.25% max memory 889 MB = 2.2 MB<br>19/12/03 04:40:02 INFO util.GSet: capacity      = 2^18 = 262144 entries<br>19/12/03 04:40:02 INFO namenode.FSNamesystem: dfs.namenode.safemode.threshold-pct = 0.9990000128746033<br>19/12/03 04:40:02 INFO namenode.FSNamesystem: dfs.namenode.safemode.min.datanodes = 0<br>19/12/03 04:40:02 INFO namenode.FSNamesystem: dfs.namenode.safemode.extension     = 30000<br>19/12/03 04:40:02 INFO metrics.TopMetrics: NNTop conf: dfs.namenode.top.window.num.buckets = 10<br>19/12/03 04:40:02 INFO metrics.TopMetrics: NNTop conf: dfs.namenode.top.num.users = 10<br>19/12/03 04:40:02 INFO metrics.TopMetrics: NNTop conf: dfs.namenode.top.windows.minutes = 1,5,25<br>19/12/03 04:40:02 INFO namenode.FSNamesystem: Retry cache on namenode is enabled<br>19/12/03 04:40:02 INFO namenode.FSNamesystem: Retry cache will use 0.03 of total heap and retry cache entry expiry time is 600000 millis<br>19/12/03 04:40:02 INFO util.GSet: Computing capacity for map NameNodeRetryCache<br>19/12/03 04:40:02 INFO util.GSet: VM type       = 64-bit<br>19/12/03 04:40:02 INFO util.GSet: 0.029999999329447746% max memory 889 MB = 273.1 KB<br>19/12/03 04:40:02 INFO util.GSet: capacity      = 2^15 = 32768 entries<br>19/12/03 04:40:02 INFO namenode.FSImage: Allocated new BlockPoolId: BP-1177593203-192.168.1.121-1575319202157<br>19/12/03 04:40:02 INFO common.Storage: Storage directory /opt/hadoopdata/hadoop/name has been successfully formatted.<br>19/12/03 04:40:02 INFO namenode.FSImageFormatProtobuf: Saving image file /opt/hadoopdata/hadoop/name/current/fsimage.ckpt_0000000000000000000 using no compression<br>19/12/03 04:40:02 INFO namenode.FSImageFormatProtobuf: Image file /opt/hadoopdata/hadoop/name/current/fsimage.ckpt_0000000000000000000 of size 321 bytes saved in 0 seconds.<br>19/12/03 04:40:02 INFO namenode.NNStorageRetentionManager: Going to retain 1 images with txid &gt;= 0<br>19/12/03 04:40:02 INFO util.ExitUtil: Exiting with status 0<br>19/12/03 04:40:02 INFO namenode.NameNode: SHUTDOWN_MSG:<br>/<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>****</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><br>SHUTDOWN_MSG: Shutting down NameNode at master/192.168.1.121<br><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>****</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>/</p>
+<p>八．启动</p>
+<ol>
+<li>##在master机上<br>[root@master sbin]# start-all.sh<br>This script is Deprecated. Instead use start-dfs.sh and start-yarn.sh<br>Starting namenodes on [master]<br>master: starting namenode, logging to /opt/hadoop/logs/hadoop-root-namenode-master.out<br>master: starting datanode, logging to /opt/hadoop/logs/hadoop-root-datanode-master.out<br>slaver1: starting datanode, logging to /opt/hadoop/logs/hadoop-root-datanode-slaver1.out<br>slaver2: starting datanode, logging to /opt/hadoop/logs/hadoop-root-datanode-slaver2.out<br>Starting secondary namenodes [slaver1]<br>slaver1: starting secondarynamenode, logging to /opt/hadoop/logs/hadoop-root-secondarynamenode-slaver1.out<br>starting yarn daemons<br>starting resourcemanager, logging to /opt/hadoop/logs/yarn-root-resourcemanager-master.out<br>master: starting nodemanager, logging to /opt/hadoop/logs/yarn-root-nodemanager-master.out<br>slaver2: starting nodemanager, logging to /opt/hadoop/logs/yarn-root-nodemanager-slaver2.out<br>slaver1: starting nodemanager, logging to /opt/hadoop/logs/yarn-root-nodemanager-slaver1.out</li>
+<li>在slaver2机上<h1 id="start-yarn-sh"><a href="#start-yarn-sh" class="headerlink" title="start-yarn.sh"></a>start-yarn.sh</h1>starting yarn daemons<br>starting resourcemanager, logging to /opt/hadoop/logs/yarn-root-resourcemanager-slaver2.out<br>master: nodemanager running as process 3308. Stop it first.<br>slaver1: nodemanager running as process 3215. Stop it first.<br>slaver2: nodemanager running as process 3098. Stop it first.<br>检查<h1 id="jps"><a href="#jps" class="headerlink" title="jps"></a>jps</h1>2965 DataNode<br>2842 NameNode<br>3308 NodeManager<br>3470    </li>
+<li>在slaver1上检查<h1 id="jps-1"><a href="#jps-1" class="headerlink" title="jps"></a>jps</h1>3057 DataNode<br>3125 SecondaryNameNode<br>3356 Jps<br>3215 NodeManager</li>
+</ol>
+
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/12/13/Centos7%E6%90%AD%E5%BB%BAHadoop%E9%9B%86%E7%BE%A4/" data-id="ck43vxsgt0005hyev81x32fz7"
+        class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-Centos7安装zookee" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85zookee/"
+    >我的第一篇博客文章</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85zookee/" class="article-date">
+  <time datetime="2019-12-13T05:56:49.000Z" itemprop="datePublished">2019-12-13</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>Zookeeper的安装<br>（继hadoop安装之后，hadoop的3台机器的HOSTS如下：）<br>192.168.200.101  master<br>192.168.200.102  slaver1<br>192.168.200.103  slaver2</p>
+<p>1.master机上操作<br>（1）上传zookeeper包<br>本次安装上传到 /opt下<br>（2）解压<br>#cd  /opt<br>#tar  -zxvf  zookeeper….</p>
+<p>（3）修改配置文件<br>#cd  /opt/zookeeper-3.4.14<br>#mkdir  data<br>#cd  data<br>#echo  1  &gt;myid<br>#cd  ..<br>#cd  conf<br>#mv  zoo_sample.cfg   zoo.cfg<br>#vi  zoo.cfg<br>修改:<br>….<br>dataDir=/opt/zookeeper-3.4.14/data<br>….<br>最后增加：<br>server.1=192.168.200.101:2888:3888<br>server.2=192.168.200.102:2888:3888<br>server.3=192.168.200.103:2888:3888</p>
+<p>（3）复制到另二台机器</p>
+<h1 id="scp-r-opt-zookeeper-3-4-14-192-168-200-102-opt"><a href="#scp-r-opt-zookeeper-3-4-14-192-168-200-102-opt" class="headerlink" title="scp  -r  /opt/zookeeper-3.4.14/   192.168.200.102:/opt/"></a>scp  -r  /opt/zookeeper-3.4.14/   192.168.200.102:/opt/</h1><h1 id="scp-r-opt-zookeeper-3-4-14-192-168-200-103-opt"><a href="#scp-r-opt-zookeeper-3-4-14-192-168-200-103-opt" class="headerlink" title="scp  -r  /opt/zookeeper-3.4.14/   192.168.200.103:/opt/"></a>scp  -r  /opt/zookeeper-3.4.14/   192.168.200.103:/opt/</h1><ol start="2">
+<li>修改myid<br>(1) ##slaver1<br>#cd  /opt/zookeeper-3.4.14/data<br>#vi  myid<br>把1改为2</li>
+</ol>
+<p>(2) ##slaver2<br>#cd  /opt/zookeeper-3.4.14/data<br>#vi  myid<br>把1改为3</p>
+<ol start="3">
+<li><p>启动zookeeper<br>(1)##master</p>
+<h1 id="cd-opt-zookeeper-3-4-14-bin"><a href="#cd-opt-zookeeper-3-4-14-bin" class="headerlink" title="cd   /opt/zookeeper-3.4.14/bin"></a>cd   /opt/zookeeper-3.4.14/bin</h1><p>#./zkServer.sh   start<br>(2)##slaver1</p>
+<h1 id="cd-opt-zookeeper-3-4-14-bin-1"><a href="#cd-opt-zookeeper-3-4-14-bin-1" class="headerlink" title="cd   /opt/zookeeper-3.4.14/bin"></a>cd   /opt/zookeeper-3.4.14/bin</h1><p>#./zkServer.sh   start<br>(3)##slaver2</p>
+<h1 id="cd-opt-zookeeper-3-4-14-bin-2"><a href="#cd-opt-zookeeper-3-4-14-bin-2" class="headerlink" title="cd   /opt/zookeeper-3.4.14/bin"></a>cd   /opt/zookeeper-3.4.14/bin</h1><p>#./zkServer.sh   start</p>
+</li>
+<li><p>检查<br>（1）##master</p>
+<h1 id="cd-opt-zookeeper-3-4-14-bin-3"><a href="#cd-opt-zookeeper-3-4-14-bin-3" class="headerlink" title="cd   /opt/zookeeper-3.4.14/bin"></a>cd   /opt/zookeeper-3.4.14/bin</h1><p>#./zkServer.sh   status</p>
+</li>
+</ol>
+<p>（2）##slaver1</p>
+<h1 id="cd-opt-zookeeper-3-4-14-bin-4"><a href="#cd-opt-zookeeper-3-4-14-bin-4" class="headerlink" title="cd   /opt/zookeeper-3.4.14/bin"></a>cd   /opt/zookeeper-3.4.14/bin</h1><p>#./zkServer.sh   status</p>
+<p>（3）##slaver2</p>
+<h1 id="cd-opt-zookeeper-3-4-14-bin-5"><a href="#cd-opt-zookeeper-3-4-14-bin-5" class="headerlink" title="cd   /opt/zookeeper-3.4.14/bin"></a>cd   /opt/zookeeper-3.4.14/bin</h1><p>#./zkServer.sh   status</p>
+<p>其中有2台机器为： follower,1台机器为leader,这表示正常</p>
+
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/12/13/Centos7%E5%AE%89%E8%A3%85zookee/" data-id="ck43vxsgk0004hyev515vcvd2"
         class="article-share-link">分享</a>
       
     </footer>
