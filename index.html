@@ -133,6 +133,93 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Centos7安装mysql 5.7" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85mysql%205.7/">Centos7安装mysql 5.7</a>
+    </h1>
+  
+
+        
+        <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85mysql%205.7/" class="archive-article-date">
+  	<time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Centos7    Mysql5.7.28 tar包解压安装</p>
+<p>一、卸载系统自带的Mariadb</p>
+<h1 id="rpm-qa-grep-mariadb"><a href="#rpm-qa-grep-mariadb" class="headerlink" title="rpm -qa|grep mariadb"></a>rpm -qa|grep mariadb</h1><p>mariadb-libs-5.5.60-1.el7_5.x86_64    （如此没有不会显示左边的信息）</p>
+<h1 id="rpm-e-–nodeps-mariadb-libs-5-5-60-1-el7-5-x86-64"><a href="#rpm-e-–nodeps-mariadb-libs-5-5-60-1-el7-5-x86-64" class="headerlink" title="rpm -e –nodeps  mariadb-libs-5.5.60-1.el7_5.x86_64"></a>rpm -e –nodeps  mariadb-libs-5.5.60-1.el7_5.x86_64</h1><pre><code>（如果没有，就可不需要执行上行操作）</code></pre><p>二、删除/etc下my.cnf配置文件（如果存在的话）、检查mysql是否存在</p>
+<h1 id="rm-rf-etc-my-cnf"><a href="#rm-rf-etc-my-cnf" class="headerlink" title="rm -rf /etc/my.cnf"></a>rm -rf /etc/my.cnf</h1><h1 id="rpm-qa-grep-mysql"><a href="#rpm-qa-grep-mysql" class="headerlink" title="rpm -qa | grep mysql"></a>rpm -qa | grep mysql</h1><p>三、创建mysql用户组和用户</p>
+<h1 id="groupadd-mysql"><a href="#groupadd-mysql" class="headerlink" title="groupadd mysql"></a>groupadd mysql</h1><h1 id="useradd-g-mysql-mysql"><a href="#useradd-g-mysql-mysql" class="headerlink" title="useradd -g mysql mysql"></a>useradd -g mysql mysql</h1><p>四、解压mysql-5.7.28-el7-x86_64.tar.gz，移动到/usr/local/mysql5.7下，更改文件归属为mysql<br>上传mysql-5.7.28-el7-x86_64.tar.gz并解压</p>
+<h1 id="tar-zxvf-mysql-5-7-25-el7-x86-64-tar-gz"><a href="#tar-zxvf-mysql-5-7-25-el7-x86-64-tar-gz" class="headerlink" title="tar -zxvf mysql-5.7.25-el7-x86_64.tar.gz"></a>tar -zxvf mysql-5.7.25-el7-x86_64.tar.gz</h1><h1 id="mkdir-p-usr-local-mysql"><a href="#mkdir-p-usr-local-mysql" class="headerlink" title="mkdir -p /usr/local/mysql"></a>mkdir -p /usr/local/mysql</h1><h1 id="mv-usr-local-src-mysql-5-7-28-el7-x86-64-usr-local-mysql"><a href="#mv-usr-local-src-mysql-5-7-28-el7-x86-64-usr-local-mysql" class="headerlink" title="mv /usr/local/src/mysql-5.7.28-el7-x86_64/*  /usr/local/mysql/"></a>mv /usr/local/src/mysql-5.7.28-el7-x86_64/*  /usr/local/mysql/</h1><h1 id="mkdir-usr-local-mysql-data"><a href="#mkdir-usr-local-mysql-data" class="headerlink" title="mkdir /usr/local/mysql/data"></a>mkdir /usr/local/mysql/data</h1><h1 id="mkdir-usr-local-mysql-log"><a href="#mkdir-usr-local-mysql-log" class="headerlink" title="mkdir /usr/local/mysql/log"></a>mkdir /usr/local/mysql/log</h1><h1 id="touch-usr-local-mysql-log-mysqld-log"><a href="#touch-usr-local-mysql-log-mysqld-log" class="headerlink" title="touch /usr/local/mysql/log/mysqld.log"></a>touch /usr/local/mysql/log/mysqld.log</h1><h1 id="chown-R-mysql-usr-local-mysql"><a href="#chown-R-mysql-usr-local-mysql" class="headerlink" title="chown -R mysql /usr/local/mysql/"></a>chown -R mysql /usr/local/mysql/</h1><h1 id="chgrp-R-mysql-usr-local-mysql"><a href="#chgrp-R-mysql-usr-local-mysql" class="headerlink" title="chgrp -R mysql /usr/local/mysql/"></a>chgrp -R mysql /usr/local/mysql/</h1><p>五、安装</p>
+<h1 id="cd-usr-local-mysql"><a href="#cd-usr-local-mysql" class="headerlink" title="cd   /usr/local/mysql"></a>cd   /usr/local/mysql</h1><p>#/usr/local/mysql/bin/mysql_install_db –user=mysql –basedir=/usr/local/mysql/ –datadir=/usr/local/mysql/data/</p>
+<p>六、新建配置文件my.cnf，启动</p>
+<h1 id="vi-etc-my-cnf"><a href="#vi-etc-my-cnf" class="headerlink" title="vi /etc/my.cnf"></a>vi /etc/my.cnf</h1><p>[mysqld]<br>basedir=/usr/local/mysql/<br>datadir=/usr/local/mysql/data<br>socket=/tmp/mysql.sock<br>user=mysql<br>symbolic-links=0<br>lower_case_table_names=1<br>max_connections=200<br>character-set-server=utf8<br>default-storage-engine=INNODB<br>max_allowed_packet=16M</p>
+<p>[client]<br>port=3306</p>
+<p>[mysqld_safe]<br>log-error=/usr/local/mysql/log/mysqld.log</p>
+<h1 id="chown-777-etc-my-cnf"><a href="#chown-777-etc-my-cnf" class="headerlink" title="chown 777 /etc/my.cnf"></a>chown 777 /etc/my.cnf</h1><p>启动</p>
+<h1 id="cp-usr-local-mysql-support-files-mysql-server-etc-init-d-mysqld"><a href="#cp-usr-local-mysql-support-files-mysql-server-etc-init-d-mysqld" class="headerlink" title="cp /usr/local/mysql/support-files/mysql.server   /etc/init.d/mysqld"></a>cp /usr/local/mysql/support-files/mysql.server   /etc/init.d/mysqld</h1><h1 id="chmod-x-etc-init-d-mysqld"><a href="#chmod-x-etc-init-d-mysqld" class="headerlink" title="chmod +x /etc/init.d/mysqld"></a>chmod +x /etc/init.d/mysqld</h1><h1 id="service-mysqld-start"><a href="#service-mysqld-start" class="headerlink" title="service mysqld start"></a>service mysqld start</h1><p>七、添加环境变量</p>
+<h1 id="vi-etc-profile"><a href="#vi-etc-profile" class="headerlink" title="vi /etc/profile"></a>vi /etc/profile</h1><p>export MYSQL_HOME=”/usr/local/mysql/“<br>export PATH=”$PATH:$MYSQL_HOME/bin”</p>
+<p>使环境变量生效<br>#source  /etc/profile</p>
+<p>八、获取初始密码，连接mysql，更改默认密码，允许远程访问<br>从/root/.mysql_secret文件中获取初始密码</p>
+<h1 id="cat-root-mysql-secret"><a href="#cat-root-mysql-secret" class="headerlink" title="cat /root/.mysql_secret"></a>cat /root/.mysql_secret</h1><h1 id="Password-set-for-user-‘root-localhost’-at-2019-03-02-09-09-05"><a href="#Password-set-for-user-‘root-localhost’-at-2019-03-02-09-09-05" class="headerlink" title="Password set for user ‘root@localhost’ at 2019-03-02 09:09:05"></a>Password set for user ‘root@localhost’ at 2019-03-02 09:09:05</h1><p>zffNQ&gt;e(l/U;</p>
+<p>修改密码</p>
+<p>[root@centos7 ~]# mysql -uroot -p<br>Enter password:<br>Welcome to the MySQL monitor.  Commands end with ; or \g.<br>Your MySQL connection id is 2<br>Server version: 5.7.25</p>
+<p>Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.</p>
+<p>Oracle is a registered trademark of Oracle Corporation and/or its<br>affiliates. Other names may be trademarks of their respective<br>owners.</p>
+<p>Type ‘help;’ or ‘\h’ for help. Type ‘\c’ to clear the current input statement.</p>
+<p>mysql&gt; set PASSWORD = PASSWORD(‘123456’);<br>Query OK, 0 rows affected, 1 warning (0.00 sec)</p>
+<p>mysql&gt; flush privileges;<br>Query OK, 0 rows affected (0.00 sec)</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85mysql%205.7/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Centos7安装hive" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -261,19 +348,19 @@ select host,user from user;</code></pre><p>退出数据库<br>进入 master<br>�
 
 
   
-    <article id="post-Centos7安装mysql 5.7" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Centos7安装pig" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85mysql%205.7/">Centos7安装mysql 5.7</a>
+      <a class="article-title" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85pig/">Centos7安装pig</a>
     </h1>
   
 
         
-        <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85mysql%205.7/" class="archive-article-date">
+        <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85pig/" class="archive-article-date">
   	<time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-13</time>
 </a>
         
@@ -281,31 +368,15 @@ select host,user from user;</code></pre><p>退出数据库<br>进入 master<br>�
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Centos7    Mysql5.7.28 tar包解压安装</p>
-<p>一、卸载系统自带的Mariadb</p>
-<h1 id="rpm-qa-grep-mariadb"><a href="#rpm-qa-grep-mariadb" class="headerlink" title="rpm -qa|grep mariadb"></a>rpm -qa|grep mariadb</h1><p>mariadb-libs-5.5.60-1.el7_5.x86_64    （如此没有不会显示左边的信息）</p>
-<h1 id="rpm-e-–nodeps-mariadb-libs-5-5-60-1-el7-5-x86-64"><a href="#rpm-e-–nodeps-mariadb-libs-5-5-60-1-el7-5-x86-64" class="headerlink" title="rpm -e –nodeps  mariadb-libs-5.5.60-1.el7_5.x86_64"></a>rpm -e –nodeps  mariadb-libs-5.5.60-1.el7_5.x86_64</h1><pre><code>（如果没有，就可不需要执行上行操作）</code></pre><p>二、删除/etc下my.cnf配置文件（如果存在的话）、检查mysql是否存在</p>
-<h1 id="rm-rf-etc-my-cnf"><a href="#rm-rf-etc-my-cnf" class="headerlink" title="rm -rf /etc/my.cnf"></a>rm -rf /etc/my.cnf</h1><h1 id="rpm-qa-grep-mysql"><a href="#rpm-qa-grep-mysql" class="headerlink" title="rpm -qa | grep mysql"></a>rpm -qa | grep mysql</h1><p>三、创建mysql用户组和用户</p>
-<h1 id="groupadd-mysql"><a href="#groupadd-mysql" class="headerlink" title="groupadd mysql"></a>groupadd mysql</h1><h1 id="useradd-g-mysql-mysql"><a href="#useradd-g-mysql-mysql" class="headerlink" title="useradd -g mysql mysql"></a>useradd -g mysql mysql</h1><p>四、解压mysql-5.7.28-el7-x86_64.tar.gz，移动到/usr/local/mysql5.7下，更改文件归属为mysql<br>上传mysql-5.7.28-el7-x86_64.tar.gz并解压</p>
-<h1 id="tar-zxvf-mysql-5-7-25-el7-x86-64-tar-gz"><a href="#tar-zxvf-mysql-5-7-25-el7-x86-64-tar-gz" class="headerlink" title="tar -zxvf mysql-5.7.25-el7-x86_64.tar.gz"></a>tar -zxvf mysql-5.7.25-el7-x86_64.tar.gz</h1><h1 id="mkdir-p-usr-local-mysql"><a href="#mkdir-p-usr-local-mysql" class="headerlink" title="mkdir -p /usr/local/mysql"></a>mkdir -p /usr/local/mysql</h1><h1 id="mv-usr-local-src-mysql-5-7-28-el7-x86-64-usr-local-mysql"><a href="#mv-usr-local-src-mysql-5-7-28-el7-x86-64-usr-local-mysql" class="headerlink" title="mv /usr/local/src/mysql-5.7.28-el7-x86_64/*  /usr/local/mysql/"></a>mv /usr/local/src/mysql-5.7.28-el7-x86_64/*  /usr/local/mysql/</h1><h1 id="mkdir-usr-local-mysql-data"><a href="#mkdir-usr-local-mysql-data" class="headerlink" title="mkdir /usr/local/mysql/data"></a>mkdir /usr/local/mysql/data</h1><h1 id="mkdir-usr-local-mysql-log"><a href="#mkdir-usr-local-mysql-log" class="headerlink" title="mkdir /usr/local/mysql/log"></a>mkdir /usr/local/mysql/log</h1><h1 id="touch-usr-local-mysql-log-mysqld-log"><a href="#touch-usr-local-mysql-log-mysqld-log" class="headerlink" title="touch /usr/local/mysql/log/mysqld.log"></a>touch /usr/local/mysql/log/mysqld.log</h1><h1 id="chown-R-mysql-usr-local-mysql"><a href="#chown-R-mysql-usr-local-mysql" class="headerlink" title="chown -R mysql /usr/local/mysql/"></a>chown -R mysql /usr/local/mysql/</h1><h1 id="chgrp-R-mysql-usr-local-mysql"><a href="#chgrp-R-mysql-usr-local-mysql" class="headerlink" title="chgrp -R mysql /usr/local/mysql/"></a>chgrp -R mysql /usr/local/mysql/</h1><p>五、安装</p>
-<h1 id="cd-usr-local-mysql"><a href="#cd-usr-local-mysql" class="headerlink" title="cd   /usr/local/mysql"></a>cd   /usr/local/mysql</h1><p>#/usr/local/mysql/bin/mysql_install_db –user=mysql –basedir=/usr/local/mysql/ –datadir=/usr/local/mysql/data/</p>
-<p>六、新建配置文件my.cnf，启动</p>
-<h1 id="vi-etc-my-cnf"><a href="#vi-etc-my-cnf" class="headerlink" title="vi /etc/my.cnf"></a>vi /etc/my.cnf</h1><p>[mysqld]<br>basedir=/usr/local/mysql/<br>datadir=/usr/local/mysql/data<br>socket=/tmp/mysql.sock<br>user=mysql<br>symbolic-links=0<br>lower_case_table_names=1<br>max_connections=200<br>character-set-server=utf8<br>default-storage-engine=INNODB<br>max_allowed_packet=16M</p>
-<p>[client]<br>port=3306</p>
-<p>[mysqld_safe]<br>log-error=/usr/local/mysql/log/mysqld.log</p>
-<h1 id="chown-777-etc-my-cnf"><a href="#chown-777-etc-my-cnf" class="headerlink" title="chown 777 /etc/my.cnf"></a>chown 777 /etc/my.cnf</h1><p>启动</p>
-<h1 id="cp-usr-local-mysql-support-files-mysql-server-etc-init-d-mysqld"><a href="#cp-usr-local-mysql-support-files-mysql-server-etc-init-d-mysqld" class="headerlink" title="cp /usr/local/mysql/support-files/mysql.server   /etc/init.d/mysqld"></a>cp /usr/local/mysql/support-files/mysql.server   /etc/init.d/mysqld</h1><h1 id="chmod-x-etc-init-d-mysqld"><a href="#chmod-x-etc-init-d-mysqld" class="headerlink" title="chmod +x /etc/init.d/mysqld"></a>chmod +x /etc/init.d/mysqld</h1><h1 id="service-mysqld-start"><a href="#service-mysqld-start" class="headerlink" title="service mysqld start"></a>service mysqld start</h1><p>七、添加环境变量</p>
-<h1 id="vi-etc-profile"><a href="#vi-etc-profile" class="headerlink" title="vi /etc/profile"></a>vi /etc/profile</h1><p>export MYSQL_HOME=”/usr/local/mysql/“<br>export PATH=”$PATH:$MYSQL_HOME/bin”</p>
-<p>使环境变量生效<br>#source  /etc/profile</p>
-<p>八、获取初始密码，连接mysql，更改默认密码，允许远程访问<br>从/root/.mysql_secret文件中获取初始密码</p>
-<h1 id="cat-root-mysql-secret"><a href="#cat-root-mysql-secret" class="headerlink" title="cat /root/.mysql_secret"></a>cat /root/.mysql_secret</h1><h1 id="Password-set-for-user-‘root-localhost’-at-2019-03-02-09-09-05"><a href="#Password-set-for-user-‘root-localhost’-at-2019-03-02-09-09-05" class="headerlink" title="Password set for user ‘root@localhost’ at 2019-03-02 09:09:05"></a>Password set for user ‘root@localhost’ at 2019-03-02 09:09:05</h1><p>zffNQ&gt;e(l/U;</p>
-<p>修改密码</p>
-<p>[root@centos7 ~]# mysql -uroot -p<br>Enter password:<br>Welcome to the MySQL monitor.  Commands end with ; or \g.<br>Your MySQL connection id is 2<br>Server version: 5.7.25</p>
-<p>Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.</p>
-<p>Oracle is a registered trademark of Oracle Corporation and/or its<br>affiliates. Other names may be trademarks of their respective<br>owners.</p>
-<p>Type ‘help;’ or ‘\h’ for help. Type ‘\c’ to clear the current input statement.</p>
-<p>mysql&gt; set PASSWORD = PASSWORD(‘123456’);<br>Query OK, 0 rows affected, 1 warning (0.00 sec)</p>
-<p>mysql&gt; flush privileges;<br>Query OK, 0 rows affected (0.00 sec)</p>
+        <p>pig的部署<br>选一台机器，本部署选master<br>1.上传pig包<br>本次安装上传到 /opt下<br>2. 解压<br>#cd  /opt<br>#tar  -zxvf  pig….</p>
+<ol start="3">
+<li><p>迁移<br>迁移的目的是为了简化目录名<br>#cd  /opt<br>#mkdir  pig<br>#mv   /opt/pig…/*     /opt/pig/</p>
+</li>
+<li><p>配置环境变量<br>#vi  /etc/profile<br>增加<br>export  PIG_HOME=/opt/pig<br>PATH=$PATH:…:$PIG_HOME/bin<br>PIG_CLASSPATH=/opt/hadoop/etc/hadoop<br>#source  /etc/profile    （别忘了）</p>
+</li>
+<li><p>启动pig<br>#pig</p>
+</li>
+</ol>
 
       
 
@@ -318,7 +389,7 @@ select host,user from user;</code></pre><p>退出数据库<br>进入 master<br>�
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85mysql%205.7/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85pig/">展开全文 >></a>
         </p>
       
 
@@ -455,19 +526,19 @@ select host,user from user;</code></pre><p>退出数据库<br>进入 master<br>�
 
 
   
-    <article id="post-Centos7安装pig" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Centos7搭建hadoop集群准备" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85pig/">Centos7安装pig</a>
+      <a class="article-title" href="/2019/12/13/Centos7%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E5%87%86%E5%A4%87/">Centos7搭建hadoop集群前准备</a>
     </h1>
   
 
         
-        <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85pig/" class="archive-article-date">
+        <a href="/2019/12/13/Centos7%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E5%87%86%E5%A4%87/" class="archive-article-date">
   	<time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-13</time>
 </a>
         
@@ -475,15 +546,11 @@ select host,user from user;</code></pre><p>退出数据库<br>进入 master<br>�
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>pig的部署<br>选一台机器，本部署选master<br>1.上传pig包<br>本次安装上传到 /opt下<br>2. 解压<br>#cd  /opt<br>#tar  -zxvf  pig….</p>
-<ol start="3">
-<li><p>迁移<br>迁移的目的是为了简化目录名<br>#cd  /opt<br>#mkdir  pig<br>#mv   /opt/pig…/*     /opt/pig/</p>
-</li>
-<li><p>配置环境变量<br>#vi  /etc/profile<br>增加<br>export  PIG_HOME=/opt/pig<br>PATH=$PATH:…:$PIG_HOME/bin<br>PIG_CLASSPATH=/opt/hadoop/etc/hadoop<br>#source  /etc/profile    （别忘了）</p>
-</li>
-<li><p>启动pig<br>#pig</p>
-</li>
-</ol>
+        <p>安装haodoop集群 需要用到的安装包有<br>        jdk1.8.0_77<br>        hadoop-2.7.7.tar.gz<br>        zookeeper-3.4.14<br>        mysql-5.7.28-el7-x86_64.tar    （装在slaver2）<br>        apache-hive-3.1.2-bin.tar.gz<br>        mysql-connector-java-5.1.48.tar (mysql驱动 装在master)<br>        spark-2.4.4-bin-hadoop2.7.tar.tgz<br>        pig-0.16.0.tar.gz</p>
+<p>安装顺序<br>1: hadoop<br>2: zookeeper<br>3: habse<br>4: spark<br>5: hive<br>6：pig</p>
+<p>文件集合包下载地址：</p>
+<p><a href="http://47.240.47.160:18082/api/raw/test/hadoop%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E9%9B%86%E5%90%88.zip?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJsb2NhbGUiOiJ6aC1jbiIsInZpZXdNb2RlIjoibW9zYWljIiwic2hvd0hpZGRlbiI6ZmFsc2UsInBlcm0iOnsiYWRtaW4iOnRydWUsImV4ZWN1dGUiOnRydWUsImNyZWF0ZSI6dHJ1ZSwicmVuYW1lIjp0cnVlLCJtb2RpZnkiOnRydWUsImRlbGV0ZSI6dHJ1ZSwic2hhcmUiOnRydWUsImRvd25sb2FkIjp0cnVlfSwiY29tbWFuZHMiOltdLCJsb2NrUGFzc3dvcmQiOmZhbHNlLCJvdHAiOmZhbHNlLCJvdHBLZXkiOiJIVFpCRkNIQ1JWWVoyVTY3Q01IWU9EQ1JKQUhLRFVDUSJ9LCJleHAiOjE1NzYyNjEyNjYsImlhdCI6MTU3NjIzNjA2NiwiaXNzIjoiRmlsZSBCcm93c2VyICB2Mi44LjcvMjAxMzk4NThcbkJ1aWx0IEZvciAgIDogbGludXgvYW1kNjRcbkdvIFZlcnNpb24gIDogZ28xLjEzLjRcblJlbGVhc2UgRGF0ZTogMjAxOTExMTEtMDI0NyJ9.IWK5mXjWMtfdMhl_Wx92pk1Q5sAIpQHYZ97CI-mb61M&amp;inline=true" target="_blank" rel="noopener">http://47.240.47.160:18082/api/raw/test/hadoop%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E9%9B%86%E5%90%88.zip?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJsb2NhbGUiOiJ6aC1jbiIsInZpZXdNb2RlIjoibW9zYWljIiwic2hvd0hpZGRlbiI6ZmFsc2UsInBlcm0iOnsiYWRtaW4iOnRydWUsImV4ZWN1dGUiOnRydWUsImNyZWF0ZSI6dHJ1ZSwicmVuYW1lIjp0cnVlLCJtb2RpZnkiOnRydWUsImRlbGV0ZSI6dHJ1ZSwic2hhcmUiOnRydWUsImRvd25sb2FkIjp0cnVlfSwiY29tbWFuZHMiOltdLCJsb2NrUGFzc3dvcmQiOmZhbHNlLCJvdHAiOmZhbHNlLCJvdHBLZXkiOiJIVFpCRkNIQ1JWWVoyVTY3Q01IWU9EQ1JKQUhLRFVDUSJ9LCJleHAiOjE1NzYyNjEyNjYsImlhdCI6MTU3NjIzNjA2NiwiaXNzIjoiRmlsZSBCcm93c2VyICB2Mi44LjcvMjAxMzk4NThcbkJ1aWx0IEZvciAgIDogbGludXgvYW1kNjRcbkdvIFZlcnNpb24gIDogZ28xLjEzLjRcblJlbGVhc2UgRGF0ZTogMjAxOTExMTEtMDI0NyJ9.IWK5mXjWMtfdMhl_Wx92pk1Q5sAIpQHYZ97CI-mb61M&amp;inline=true</a></p>
+<p>整段复制到浏览器打开</p>
 
       
 
@@ -496,7 +563,7 @@ select host,user from user;</code></pre><p>退出数据库<br>进入 master<br>�
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85pig/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/12/13/Centos7%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E5%87%86%E5%A4%87/">展开全文 >></a>
         </p>
       
 
@@ -588,73 +655,6 @@ select host,user from user;</code></pre><p>退出数据库<br>进入 master<br>�
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85spark/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Centos7搭建hadoop集群准备" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/13/Centos7%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E5%87%86%E5%A4%87/">Centos7搭建hadoop集群前准备</a>
-    </h1>
-  
-
-        
-        <a href="/2019/12/13/Centos7%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E5%87%86%E5%A4%87/" class="archive-article-date">
-  	<time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>安装haodoop集群 需要用到的安装包有<br>        jdk1.8.0_77<br>        hadoop-2.7.7.tar.gz<br>        zookeeper-3.4.14<br>        mysql-5.7.28-el7-x86_64.tar    （装在slaver2）<br>        apache-hive-3.1.2-bin.tar.gz<br>        mysql-connector-java-5.1.48.tar (mysql驱动 装在master)<br>        spark-2.4.4-bin-hadoop2.7.tar.tgz<br>        pig-0.16.0.tar.gz</p>
-<p>安装顺序<br>1: hadoop<br>2: zookeeper<br>3: habse<br>4: spark<br>5: hive<br>6：pig</p>
-<p>文件集合包下载地址：</p>
-<p><a href="http://47.240.47.160:18082/api/raw/test/hadoop%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E9%9B%86%E5%90%88.zip?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJsb2NhbGUiOiJ6aC1jbiIsInZpZXdNb2RlIjoibW9zYWljIiwic2hvd0hpZGRlbiI6ZmFsc2UsInBlcm0iOnsiYWRtaW4iOnRydWUsImV4ZWN1dGUiOnRydWUsImNyZWF0ZSI6dHJ1ZSwicmVuYW1lIjp0cnVlLCJtb2RpZnkiOnRydWUsImRlbGV0ZSI6dHJ1ZSwic2hhcmUiOnRydWUsImRvd25sb2FkIjp0cnVlfSwiY29tbWFuZHMiOltdLCJsb2NrUGFzc3dvcmQiOmZhbHNlLCJvdHAiOmZhbHNlLCJvdHBLZXkiOiJIVFpCRkNIQ1JWWVoyVTY3Q01IWU9EQ1JKQUhLRFVDUSJ9LCJleHAiOjE1NzYyNjEyNjYsImlhdCI6MTU3NjIzNjA2NiwiaXNzIjoiRmlsZSBCcm93c2VyICB2Mi44LjcvMjAxMzk4NThcbkJ1aWx0IEZvciAgIDogbGludXgvYW1kNjRcbkdvIFZlcnNpb24gIDogZ28xLjEzLjRcblJlbGVhc2UgRGF0ZTogMjAxOTExMTEtMDI0NyJ9.IWK5mXjWMtfdMhl_Wx92pk1Q5sAIpQHYZ97CI-mb61M&amp;inline=true" target="_blank" rel="noopener">http://47.240.47.160:18082/api/raw/test/hadoop%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E9%9B%86%E5%90%88.zip?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJsb2NhbGUiOiJ6aC1jbiIsInZpZXdNb2RlIjoibW9zYWljIiwic2hvd0hpZGRlbiI6ZmFsc2UsInBlcm0iOnsiYWRtaW4iOnRydWUsImV4ZWN1dGUiOnRydWUsImNyZWF0ZSI6dHJ1ZSwicmVuYW1lIjp0cnVlLCJtb2RpZnkiOnRydWUsImRlbGV0ZSI6dHJ1ZSwic2hhcmUiOnRydWUsImRvd25sb2FkIjp0cnVlfSwiY29tbWFuZHMiOltdLCJsb2NrUGFzc3dvcmQiOmZhbHNlLCJvdHAiOmZhbHNlLCJvdHBLZXkiOiJIVFpCRkNIQ1JWWVoyVTY3Q01IWU9EQ1JKQUhLRFVDUSJ9LCJleHAiOjE1NzYyNjEyNjYsImlhdCI6MTU3NjIzNjA2NiwiaXNzIjoiRmlsZSBCcm93c2VyICB2Mi44LjcvMjAxMzk4NThcbkJ1aWx0IEZvciAgIDogbGludXgvYW1kNjRcbkdvIFZlcnNpb24gIDogZ28xLjEzLjRcblJlbGVhc2UgRGF0ZTogMjAxOTExMTEtMDI0NyJ9.IWK5mXjWMtfdMhl_Wx92pk1Q5sAIpQHYZ97CI-mb61M&amp;inline=true</a></p>
-<p>整段复制到浏览器打开</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/12/13/Centos7%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4%E5%87%86%E5%A4%87/">展开全文 >></a>
         </p>
       
 
