@@ -8,14 +8,14 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Centos7安装mysql 5.7 | 土豆工程师！</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Centos7    Mysql5.7.28 tar包解压安装 一、卸载系统自带的Mariadb rpm -qa|grep mariadbmariadb-libs-5.5.60-1.el7_5.x86_64    （如此没有不会显示左边的信息） rpm -e –nodeps  mariadb-libs-5.5.60-1.el7_5.x86_64（如果没有，就可不需要执行上行操作）二、删除&#x2F;etc下">
+  <meta name="description" content="Centos7    Mysql5.7.28 tar包解压安装 一、卸载系统自带的Mariadb rpm -qa|grep mariadbmariadb-libs-5.5.60-1.el7_5.x86_64    （如此没有不会显示左边的信息） rpm -e –nodeps  mariadb-libs-5.5.60-1.el7_5.x86_64（如果没有，就可不需要执行上行操作）">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Centos7安装mysql 5.7">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;13&#x2F;Centos7%E5%AE%89%E8%A3%85mysql%205.7&#x2F;index.html">
 <meta property="og:site_name" content="土豆工程师！">
-<meta property="og:description" content="Centos7    Mysql5.7.28 tar包解压安装 一、卸载系统自带的Mariadb rpm -qa|grep mariadbmariadb-libs-5.5.60-1.el7_5.x86_64    （如此没有不会显示左边的信息） rpm -e –nodeps  mariadb-libs-5.5.60-1.el7_5.x86_64（如果没有，就可不需要执行上行操作）二、删除&#x2F;etc下">
+<meta property="og:description" content="Centos7    Mysql5.7.28 tar包解压安装 一、卸载系统自带的Mariadb rpm -qa|grep mariadbmariadb-libs-5.5.60-1.el7_5.x86_64    （如此没有不会显示左边的信息） rpm -e –nodeps  mariadb-libs-5.5.60-1.el7_5.x86_64（如果没有，就可不需要执行上行操作）">
 <meta property="article:published_time" content="2019-12-13T07:45:47.000Z">
-<meta property="article:modified_time" content="2019-12-16T06:54:02.939Z">
+<meta property="article:modified_time" content="2019-12-16T09:36:30.671Z">
 <meta property="article:author" content="Xiejunfeng">
 <meta name="twitter:card" content="summary">
   
@@ -158,7 +158,8 @@
         <p>Centos7    Mysql5.7.28 tar包解压安装</p>
 <p>一、卸载系统自带的Mariadb</p>
 <h1 id="rpm-qa-grep-mariadb"><a href="#rpm-qa-grep-mariadb" class="headerlink" title="rpm -qa|grep mariadb"></a>rpm -qa|grep mariadb</h1><p>mariadb-libs-5.5.60-1.el7_5.x86_64    （如此没有不会显示左边的信息）</p>
-<h1 id="rpm-e-–nodeps-mariadb-libs-5-5-60-1-el7-5-x86-64"><a href="#rpm-e-–nodeps-mariadb-libs-5-5-60-1-el7-5-x86-64" class="headerlink" title="rpm -e –nodeps  mariadb-libs-5.5.60-1.el7_5.x86_64"></a>rpm -e –nodeps  mariadb-libs-5.5.60-1.el7_5.x86_64</h1><pre><code>（如果没有，就可不需要执行上行操作）</code></pre><p>二、删除/etc下my.cnf配置文件（如果存在的话）、检查mysql是否存在</p>
+<h1 id="rpm-e-–nodeps-mariadb-libs-5-5-60-1-el7-5-x86-64"><a href="#rpm-e-–nodeps-mariadb-libs-5-5-60-1-el7-5-x86-64" class="headerlink" title="rpm -e –nodeps  mariadb-libs-5.5.60-1.el7_5.x86_64"></a>rpm -e –nodeps  mariadb-libs-5.5.60-1.el7_5.x86_64</h1><pre><code>（如果没有，就可不需要执行上行操作）</code></pre><a id="more"></a>
+<p>二、删除/etc下my.cnf配置文件（如果存在的话）、检查mysql是否存在</p>
 <h1 id="rm-rf-etc-my-cnf"><a href="#rm-rf-etc-my-cnf" class="headerlink" title="rm -rf /etc/my.cnf"></a>rm -rf /etc/my.cnf</h1><h1 id="rpm-qa-grep-mysql"><a href="#rpm-qa-grep-mysql" class="headerlink" title="rpm -qa | grep mysql"></a>rpm -qa | grep mysql</h1><p>三、创建mysql用户组和用户</p>
 <h1 id="groupadd-mysql"><a href="#groupadd-mysql" class="headerlink" title="groupadd mysql"></a>groupadd mysql</h1><h1 id="useradd-g-mysql-mysql"><a href="#useradd-g-mysql-mysql" class="headerlink" title="useradd -g mysql mysql"></a>useradd -g mysql mysql</h1><p>四、解压mysql-5.7.28-el7-x86_64.tar.gz，移动到/usr/local/mysql5.7下，更改文件归属为mysql<br>上传mysql-5.7.28-el7-x86_64.tar.gz并解压</p>
 <h1 id="tar-zxvf-mysql-5-7-25-el7-x86-64-tar-gz"><a href="#tar-zxvf-mysql-5-7-25-el7-x86-64-tar-gz" class="headerlink" title="tar -zxvf mysql-5.7.25-el7-x86_64.tar.gz"></a>tar -zxvf mysql-5.7.25-el7-x86_64.tar.gz</h1><h1 id="mkdir-p-usr-local-mysql"><a href="#mkdir-p-usr-local-mysql" class="headerlink" title="mkdir -p /usr/local/mysql"></a>mkdir -p /usr/local/mysql</h1><h1 id="mv-usr-local-src-mysql-5-7-28-el7-x86-64-usr-local-mysql"><a href="#mv-usr-local-src-mysql-5-7-28-el7-x86-64-usr-local-mysql" class="headerlink" title="mv /usr/local/src/mysql-5.7.28-el7-x86_64/*  /usr/local/mysql/"></a>mv /usr/local/src/mysql-5.7.28-el7-x86_64/*  /usr/local/mysql/</h1><h1 id="mkdir-usr-local-mysql-data"><a href="#mkdir-usr-local-mysql-data" class="headerlink" title="mkdir /usr/local/mysql/data"></a>mkdir /usr/local/mysql/data</h1><h1 id="mkdir-usr-local-mysql-log"><a href="#mkdir-usr-local-mysql-log" class="headerlink" title="mkdir /usr/local/mysql/log"></a>mkdir /usr/local/mysql/log</h1><h1 id="touch-usr-local-mysql-log-mysqld-log"><a href="#touch-usr-local-mysql-log-mysqld-log" class="headerlink" title="touch /usr/local/mysql/log/mysqld.log"></a>touch /usr/local/mysql/log/mysqld.log</h1><h1 id="chown-R-mysql-usr-local-mysql"><a href="#chown-R-mysql-usr-local-mysql" class="headerlink" title="chown -R mysql /usr/local/mysql/"></a>chown -R mysql /usr/local/mysql/</h1><h1 id="chgrp-R-mysql-usr-local-mysql"><a href="#chgrp-R-mysql-usr-local-mysql" class="headerlink" title="chgrp -R mysql /usr/local/mysql/"></a>chgrp -R mysql /usr/local/mysql/</h1><p>五、安装</p>
