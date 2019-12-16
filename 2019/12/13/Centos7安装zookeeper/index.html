@@ -8,14 +8,14 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Centos7安装zookeeper | 土豆工程师！</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Zookeeper的安装（继hadoop安装之后，hadoop的3台机器的HOSTS如下：）192.168.200.101  master192.168.200.102  slaver1192.168.200.103  slaver2 1.master机上操作（1）上传zookeeper包本次安装上传到 &#x2F;opt下">
+  <meta name="description" content="Zookeeper的安装（继hadoop安装之后，hadoop的3台机器的HOSTS如下：）192.168.200.101  master192.168.200.102  slaver1192.168.200.103  slaver2">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Centos7安装zookeeper">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;13&#x2F;Centos7%E5%AE%89%E8%A3%85zookeeper&#x2F;index.html">
 <meta property="og:site_name" content="土豆工程师！">
-<meta property="og:description" content="Zookeeper的安装（继hadoop安装之后，hadoop的3台机器的HOSTS如下：）192.168.200.101  master192.168.200.102  slaver1192.168.200.103  slaver2 1.master机上操作（1）上传zookeeper包本次安装上传到 &#x2F;opt下">
+<meta property="og:description" content="Zookeeper的安装（继hadoop安装之后，hadoop的3台机器的HOSTS如下：）192.168.200.101  master192.168.200.102  slaver1192.168.200.103  slaver2">
 <meta property="article:published_time" content="2019-12-13T05:56:49.000Z">
-<meta property="article:modified_time" content="2019-12-16T09:37:15.777Z">
+<meta property="article:modified_time" content="2019-12-16T09:39:14.519Z">
 <meta property="article:author" content="Xiejunfeng">
 <meta name="twitter:card" content="summary">
   
@@ -156,8 +156,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>Zookeeper的安装<br>（继hadoop安装之后，hadoop的3台机器的HOSTS如下：）<br>192.168.200.101  master<br>192.168.200.102  slaver1<br>192.168.200.103  slaver2</p>
-<p>1.master机上操作<br>（1）上传zookeeper包<br>本次安装上传到 /opt下</p>
 <a id="more"></a>
+<p>1.master机上操作<br>（1）上传zookeeper包<br>本次安装上传到 /opt下</p>
 <p>（2）解压<br>#cd  /opt<br>#tar  -zxvf  zookeeper….</p>
 <p>（3）修改配置文件<br>#cd  /opt/zookeeper-3.4.14</p>
 <p>#mkdir  data<br>#cd  data<br>#echo  1  &gt;myid<br>#cd  ..<br>#cd  conf<br>#mv  zoo_sample.cfg   zoo.cfg<br>#vi  zoo.cfg<br>修改:<br>….<br>dataDir=/opt/zookeeper-3.4.14/data<br>….<br>最后增加：<br>server.1=192.168.200.101:2888:3888<br>server.2=192.168.200.102:2888:3888<br>server.3=192.168.200.103:2888:3888</p>

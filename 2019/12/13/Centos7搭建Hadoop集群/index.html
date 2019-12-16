@@ -8,14 +8,14 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Centos搭建Hadoop集群 | 土豆工程师！</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="创建三台虚拟机编辑主机名为修改主机名 hostnamectl set-hostname  mastermasterslaver1slaver2 一、配置机器  配置master IP">
+  <meta name="description" content="创建三台虚拟机编辑主机名为修改主机名 hostnamectl set-hostname  mastermasterslaver1slaver2">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Centos搭建Hadoop集群">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;13&#x2F;Centos7%E6%90%AD%E5%BB%BAHadoop%E9%9B%86%E7%BE%A4&#x2F;index.html">
 <meta property="og:site_name" content="土豆工程师！">
-<meta property="og:description" content="创建三台虚拟机编辑主机名为修改主机名 hostnamectl set-hostname  mastermasterslaver1slaver2 一、配置机器  配置master IP">
+<meta property="og:description" content="创建三台虚拟机编辑主机名为修改主机名 hostnamectl set-hostname  mastermasterslaver1slaver2">
 <meta property="article:published_time" content="2019-12-13T07:45:47.000Z">
-<meta property="article:modified_time" content="2019-12-16T09:37:08.431Z">
+<meta property="article:modified_time" content="2019-12-16T09:39:22.043Z">
 <meta property="article:author" content="Xiejunfeng">
 <meta name="twitter:card" content="summary">
   
@@ -157,11 +157,12 @@
       
         <p>创建三台虚拟机编辑主机名为<br>修改主机名</p>
 <h1 id="hostnamectl-set-hostname-master"><a href="#hostnamectl-set-hostname-master" class="headerlink" title="hostnamectl set-hostname  master"></a>hostnamectl set-hostname  master</h1><p>master<br>slaver1<br>slaver2</p>
+<a id="more"></a>
 <p>一、配置机器</p>
 <ol>
-<li>配置master IP<a id="more"></a>
-#vi  /etc/sysconfig/network-scripts/ifcfg-eno16777736<br>BOOTPROTO=static<br>…..<br>ONBOOT=yes</li>
+<li>配置master IP</li>
 </ol>
+<p>#vi  /etc/sysconfig/network-scripts/ifcfg-eno16777736<br>BOOTPROTO=static<br>…..<br>ONBOOT=yes</p>
 <p>IPADDR=192.168.200.101<br>GATEWAY=192.168.200.1<br>PREFIX=24</p>
 <p>配置slaver1 IP<br>#vi  /etc/sysconfig/network-scripts/ifcfg-eno16777736<br>BOOTPROTO=static<br>…..<br>ONBOOT=yes<br>IPADDR=192.168.200.102<br>GATEWAY=192.168.200.1<br>PREFIX=24</p>
 <p>配置slaver2 IP<br>#vi  /etc/sysconfig/network-scripts/ifcfg-eno16777736<br>BOOTPROTO=static<br>…..<br>ONBOOT=yes<br>IPADDR=192.168.200.103<br>GATEWAY=192.168.200.1<br>PREFIX=24</p>

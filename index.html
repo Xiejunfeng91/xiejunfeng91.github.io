@@ -154,7 +154,6 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>在hadoop+zookeeper安装之后的安装<br>（继hadoop安装之后，hadoop的3台机器的HOSTS如下：）<br>192.168.200.101  master<br>192.168.200.102  slaver1<br>192.168.200.103  slaver2</p>
-<p>1.上传包文件<br>本次安装上传到/opt</p>
         
           <a class="article-more-a" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85hbase/#more">more >></a>
         
@@ -267,19 +266,19 @@
 
 
   
-    <article id="post-Centos7安装mysql 5.7" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Centos7安装pig" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85mysql%205.7/">Centos7安装mysql 5.7</a>
+      <a class="article-title" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85pig/">Centos7安装pig</a>
     </h1>
   
 
         
-        <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85mysql%205.7/" class="archive-article-date">
+        <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85pig/" class="archive-article-date">
   	<time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-13</time>
 </a>
         
@@ -287,12 +286,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Centos7    Mysql5.7.28 tar包解压安装</p>
-<p>一、卸载系统自带的Mariadb</p>
-<h1 id="rpm-qa-grep-mariadb"><a href="#rpm-qa-grep-mariadb" class="headerlink" title="rpm -qa|grep mariadb"></a>rpm -qa|grep mariadb</h1><p>mariadb-libs-5.5.60-1.el7_5.x86_64    （如此没有不会显示左边的信息）</p>
-<h1 id="rpm-e-–nodeps-mariadb-libs-5-5-60-1-el7-5-x86-64"><a href="#rpm-e-–nodeps-mariadb-libs-5-5-60-1-el7-5-x86-64" class="headerlink" title="rpm -e –nodeps  mariadb-libs-5.5.60-1.el7_5.x86_64"></a>rpm -e –nodeps  mariadb-libs-5.5.60-1.el7_5.x86_64</h1><pre><code>（如果没有，就可不需要执行上行操作）</code></pre>
+        <p>pig的部署<br>选一台机器，本部署选master<br>1.上传pig包<br>本次安装上传到 /opt下<br>2. 解压</p>
         
-          <a class="article-more-a" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85mysql%205.7/#more">more >></a>
+          <a class="article-more-a" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85pig/#more">more >></a>
         
       
 
@@ -305,7 +301,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85mysql%205.7/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85pig/">展开全文 >></a>
         </p>
       
 
@@ -335,19 +331,19 @@
 
 
   
-    <article id="post-Centos7安装pig" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Centos7安装mysql 5.7" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85pig/">Centos7安装pig</a>
+      <a class="article-title" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85mysql%205.7/">Centos7安装mysql 5.7</a>
     </h1>
   
 
         
-        <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85pig/" class="archive-article-date">
+        <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85mysql%205.7/" class="archive-article-date">
   	<time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-13</time>
 </a>
         
@@ -355,9 +351,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>pig的部署<br>选一台机器，本部署选master<br>1.上传pig包<br>本次安装上传到 /opt下<br>2. 解压<br>#cd  /opt<br>#tar  -zxvf  pig….</p>
+        <p>Centos7    Mysql5.7.28 tar包解压安装</p>
+<p>一、卸载系统自带的Mariadb</p>
+<h1 id="rpm-qa-grep-mariadb"><a href="#rpm-qa-grep-mariadb" class="headerlink" title="rpm -qa|grep mariadb"></a>rpm -qa|grep mariadb</h1><p>mariadb-libs-5.5.60-1.el7_5.x86_64    （如此没有不会显示左边的信息）</p>
         
-          <a class="article-more-a" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85pig/#more">more >></a>
+          <a class="article-more-a" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85mysql%205.7/#more">more >></a>
         
       
 
@@ -370,7 +368,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85pig/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85mysql%205.7/">展开全文 >></a>
         </p>
       
 
@@ -421,7 +419,6 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>在hadoop+zookeeper安装之后的安装<br>（继hadoop安装之后，hadoop的3台机器的HOSTS如下：）<br>192.169.200.101  master<br>192.169.200.102  slaver1<br>192.169.200.103  slaver2</p>
-<p>1.上传包文件<br>本次安装上传到/opt<br>2.解压：</p>
         
           <a class="article-more-a" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85spark/#more">more >></a>
         
@@ -554,9 +551,6 @@
       
         <p>创建三台虚拟机编辑主机名为<br>修改主机名</p>
 <h1 id="hostnamectl-set-hostname-master"><a href="#hostnamectl-set-hostname-master" class="headerlink" title="hostnamectl set-hostname  master"></a>hostnamectl set-hostname  master</h1><p>master<br>slaver1<br>slaver2</p>
-<p>一、配置机器</p>
-<ol>
-<li>配置master IP
         
           <a class="article-more-a" href="/2019/12/13/Centos7%E6%90%AD%E5%BB%BAHadoop%E9%9B%86%E7%BE%A4/#more">more >></a>
         
@@ -622,7 +616,6 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>Zookeeper的安装<br>（继hadoop安装之后，hadoop的3台机器的HOSTS如下：）<br>192.168.200.101  master<br>192.168.200.102  slaver1<br>192.168.200.103  slaver2</p>
-<p>1.master机上操作<br>（1）上传zookeeper包<br>本次安装上传到 /opt下</p>
         
           <a class="article-more-a" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85zookeeper/#more">more >></a>
         
