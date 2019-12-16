@@ -133,134 +133,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-Centos7安装hive" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85hive/">Centos7安装hive</a>
-    </h1>
-  
-
-        
-        <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85hive/" class="archive-article-date">
-  	<time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>上传hive文件到/opt目录</p>
-<p>解压文件</p>
-<pre><code>tar -zvxf apache-hive-3.1.2-bin.tar.gz</code></pre><p>创建一个文件夹 方便管理</p>
-<pre><code>mkdir hive</code></pre><p>将内容移动到新文件夹</p>
-<pre><code>mv /opt/apache-hive-3.1.2-bin/* /opt/hive/</code></pre><p> 删除旧文件</p>
-<pre><code>rm -rf apache-hive-3.1.2-bin*</code></pre><p>修改hive配置文件</p>
-<pre><code>cd /opt/hive/conf</code></pre><p>修改临时文件<br>             mv hive-env.sh.template hive-env.sh<br>编辑hive-env.sh<br>            vi hive-env.sh</p>
-<p>修改临时文件<br>            mv hive-default.xml.template hive-site.xml<br>编辑hive-site.xml<br>            vi hive-site.xml </p>
-<property>
-<name>javax.jdo.option.ConnectionURL</name>
-<value>jdbc:mysql://slaver2:3306/hive?createDatabaseIfNotExist=true&amp;useSSL=false</value>
-</property>
-
-<property>
-<name>javax.jdo.option.ConnectionDriverName</name>
-<value>com.mysql.jdbc.Driver</value>
-</property>
-<property>
-<name>javax.jdo.option.ConnectionUserName</name>
-<value>root</value>
-<description>Username to use against metastore database</description>
-</property>
-<property>
-<name>javax.jdo.option.ConnectionPassword</name>
-<value>123456</value>
-<description>password to use against metastore database</description>
-</property>
-
-
-<property>
-<name>Hive.exec.local.scratchdir</name>
-<value>/opt/hive/tmp${user.name}</value>
-<description>Local scratch space for Hive jobs</description>
- </property>
-
-<property>
-<name>hive.downloaded.resources.dir</name>
- <value>/opt/hive/tmp${hive.session.id}_resources</value>
-<description>Temporary local directory for added resources in the remote file system.</description>
-</property>
-
-<property>
- <name>hive.server2.logging.operation.log.location</name>  <value>/opt/hive/tmp${system:user.name}/operation_logs</value>
- <description>Top level directory where operation logs are stored if logging functionality is enabled</description>
- </property>
-
-
-
-
-<p>修改临时文件<br>            mv hive-exec-log4j2.properties.template hive-exec-log4j2.properties<br>             mv hive-log4j2.properties.template hive-log4j2.properties</p>
-<p>将mysql驱动  上传到/opt目录</p>
-<pre><code>cd /opt
-tar -zvxf mysql-connector-java-5.1.48.tar.gz</code></pre><p>移动驱动到hive的lib文件夹<br>             mv mysql-connector-java-5.1.48/* /opt/hive/lib/</p>
-<p>进入hive目录  创建存放临时文件的目录<br>             cd /opt/hive<br>             mkdir tmp</p>
-<p>进入 slaver2</p>
-<pre><code>mysql -uroot -p
-输入密码
-
-use mysql;
-select host,user from user;
-grant all privileges  on *.* to root@&apos;%&apos; identified by &quot;123456&quot;;
-flush privileges;
-select host,user from user;</code></pre><p>退出数据库<br>进入 master<br>初始化hive<br>          cd /opt/hive/bin<br>            ./schematool -initSchema -dbType mysql</p>
-<p>启动hive<br>            ./hive</p>
-<pre><code>启动
-./hive --service hiveserver2</code></pre><p>出现 四个id之后 访问网页<br><a href="http://192.168.200.101:10002/" target="_blank" rel="noopener">http://192.168.200.101:10002/</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85hive/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-Centos7安装hbase" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -411,6 +283,74 @@ select host,user from user;</code></pre><p>退出数据库<br>进入 master<br>�
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85pig/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Centos7安装hive" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85hive/">Centos7安装hive</a>
+    </h1>
+  
+
+        
+        <a href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85hive/" class="archive-article-date">
+  	<time datetime="2019-12-13T07:45:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>上传hive文件到/opt目录</p>
+<p>解压文件</p>
+<pre><code>tar -zvxf apache-hive-3.1.2-bin.tar.gz</code></pre><p>创建一个文件夹 方便管理</p>
+<pre><code>mkdir hive</code></pre><p>将内容移动到新文件夹</p>
+        
+          <a class="article-more-a" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85hive/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/12/13/Centos7%E5%AE%89%E8%A3%85hive/">展开全文 >></a>
         </p>
       
 
